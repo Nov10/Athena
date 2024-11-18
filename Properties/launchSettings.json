@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Renderer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Renderer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
