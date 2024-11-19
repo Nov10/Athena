@@ -1,0 +1,109 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Personal\\Graphics\\Renderer-CS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Renderer.csproj|c:\\personal\\graphics\\renderer-cs\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Renderer.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Renderer.csproj|c:\\personal\\graphics\\renderer-cs\\core\\pbr\\rasterizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Renderer.csproj|solutionrelative:core\\pbr\\rasterizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Renderer.csproj|c:\\personal\\graphics\\renderer-cs\\core\\object.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Renderer.csproj|solutionrelative:core\\object.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Renderer.csproj|c:\\personal\\graphics\\renderer-cs\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Renderer.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Object.cs",
+              "DocumentMoniker": "C:\\Personal\\Graphics\\Renderer-CS\\Core\\Object.cs",
+              "RelativeDocumentMoniker": "Core\\Object.cs",
+              "ToolTip": "C:\\Personal\\Graphics\\Renderer-CS\\Core\\Object.cs",
+              "RelativeToolTip": "Core\\Object.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAD4vzUAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T12:41:20.916Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Personal\\Graphics\\Renderer-CS\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Personal\\Graphics\\Renderer-CS\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-11-19T08:54:57.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Personal\\Graphics\\Renderer-CS\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Personal\\Graphics\\Renderer-CS\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AQIAAEoAAAAAAAAAAAAkwFsAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T08:54:49.681Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "c79dbb78-c12e-47c5-a37b-a1a0aa8be911",
+        "Display": 0,
+        "X": 371,
+        "Y": 99,
+        "Width": 1380,
+        "Height": 789,
+        "WindowState": 2
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Rasterizer.cs",
+              "DocumentMoniker": "C:\\Personal\\Graphics\\Renderer-CS\\Core\\PBR\\Rasterizer.cs",
+              "RelativeDocumentMoniker": "Core\\PBR\\Rasterizer.cs",
+              "ToolTip": "C:\\Personal\\Graphics\\Renderer-CS\\Core\\PBR\\Rasterizer.cs",
+              "RelativeToolTip": "Core\\PBR\\Rasterizer.cs",
+              "ViewState": "AQIAAGIAAAAAAAAAAAAowIwAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T09:34:26.842Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

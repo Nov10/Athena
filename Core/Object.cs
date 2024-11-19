@@ -51,7 +51,7 @@ namespace Renderer.Renderer
         public Color[] Colors;
 
         public CustomShader Shader;
-        public FragmentShader FragmentShader;
+        //public FragmentShader FragmentShader;
 
         public Matrix4x4 CalculateObjectTransformMatrix()
         {

@@ -11573,11 +11573,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CG\\Renderer\\Renderer\\Renderer.csproj",
+      "projectUniqueName": "C:\\Personal\\Graphics\\Renderer-CS\\Renderer.csproj",
       "projectName": "Renderer",
-      "projectPath": "E:\\CG\\Renderer\\Renderer\\Renderer.csproj",
+      "projectPath": "C:\\Personal\\Graphics\\Renderer-CS\\Renderer.csproj",
       "packagesPath": "C:\\Users\\문종욱\\.nuget\\packages\\",
-      "outputPath": "E:\\CG\\Renderer\\Renderer\\obj\\",
+      "outputPath": "C:\\Personal\\Graphics\\Renderer-CS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

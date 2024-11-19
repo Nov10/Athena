@@ -37,26 +37,18 @@ namespace Renderer
     public class Rasterizer
     {
         const int tileSize = 4;
-        const int MaxTCount = 16;
+        const int MaxTCount = 32;
 
-        private static Vector3 ConvertToScreenSpace(Vector3 position, int screenWidth, int screenHeight)
-        {
-            position.x = position.x * (screenWidth / 2.0f) + (screenWidth / 2.0f);
-            position.y = position.y * (screenHeight / 2.0f) + (screenHeight / 2.0f);
-            return position;
-        }
         public static void ConvertVertexToScreenSpace(Vertex[] vertexes, int width, int height)
         {
             Parallel.For(0, vertexes.Length, (idx) =>
             {
-                Vector3 v = vertexes[idx].Position_ScreenVolumeSpace;
-
                 vertexes[idx].Position_ScreenVolumeSpace.x = vertexes[idx].Position_ScreenVolumeSpace.x * (width / 2.0f) + (width / 2.0f);
                 vertexes[idx].Position_ScreenVolumeSpace.y = vertexes[idx].Position_ScreenVolumeSpace.y * (height / 2.0f) + (height / 2.0f);
             });
         }
 
-        private TileCache tileCache;
+        private static TileCache tileCache;
         public Rasterizer(int width, int height)
         {
             int widthInTiles = width / tileSize;
@@ -73,7 +65,7 @@ namespace Renderer
         }
 
 
-        private static Raster SetPixelWithZBuffer(int x, int y, FragmentShader shader, int triangleIndex, Vertex p1, Vertex p2, Vertex p3, float[] ZBuffer, int width)
+        private static void SetPixelWithZBuffer(int x, int y, FragmentShader shader, int triangleIndex, Vertex p1, Vertex p2, Vertex p3, float[] ZBuffer, int width)
         {
             int idx = x + y * width;
             
@@ -84,35 +76,31 @@ namespace Renderer
 
             if(lambda1 > 0 && lambda2 >0 && lambda3 >0)
             {
-                float areaABC = EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace);
+                //float areaABC = EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace);
+                float areaABC = lambda1 + lambda2 + lambda3;
                 float zInterpolated = (lambda1 * p1.Position_ScreenVolumeSpace.z + lambda2 * p2.Position_ScreenVolumeSpace.z + lambda3 * p3.Position_ScreenVolumeSpace.z) / areaABC;
                 if (zInterpolated < ZBuffer[idx])
                 {
                     ZBuffer[idx] = zInterpolated;
                     p.z = zInterpolated;
-                    Vector2 uv = (lambda1 * p1.UV + lambda2 * p2.UV + lambda3 * p3.UV) / (areaABC);
 
-                    return new Raster(x, y, triangleIndex,
-                        lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace,
-                        new Vector3(lambda1, lambda2, lambda3),
-                        p,
-                        uv);
+                    Rasters[idx].x = x;
+                    Rasters[idx].y = y;
+                    Rasters[idx].TriangleIndex = triangleIndex;
+                    Rasters[idx].UV = (lambda1 * p1.UV + lambda2 * p2.UV + lambda3 * p3.UV) / (areaABC);
+                    Rasters[idx].Lambda = new Vector3(lambda1, lambda2, lambda3);
+                    Rasters[idx].Normal_WorldSpace = lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace;
+                    Rasters[idx].Position_ScreenVolumeSpace = p;
                 }
             }
-            return new Raster(x, y, -1, Vector3.zero, Vector3.zero, Vector3.zero, new Vector2(0, 0));
         }
 
         public static void CalculateCache_TrianglesOnPerTile(
-            int[] triangles, Vertex[] vertexes, int[] perTileTriangleArray,
-            int[] perTileTriangleCount,
+            int[] triangles, Vertex[] vertexes,
             int screenWidth,
             int screenHeight)
         {
-            
-            Parallel.For(0, perTileTriangleCount.Length, (idx) =>
-            {
-                perTileTriangleCount[idx] = 0;
-            });
+           
             Parallel.For(0, triangles.Length/3, (idx) =>
             {
                 Vertex p1 = vertexes[3 * idx];
@@ -135,13 +123,13 @@ namespace Renderer
                     for (int tileX = tileStartX; tileX < tileEndX; tileX++)
                     {
                         int tileIndex = tileY * (screenWidth / tileSize) + tileX;
-                        lock (perTileTriangleCount)
+                        lock (tileCache.perTileTriangleCountArray)
                         {
-                            if (perTileTriangleCount[tileIndex] < MaxTCount)
+                            if (tileCache.perTileTriangleCountArray[tileIndex] < MaxTCount)
                             {
-                                int linearIndex = tileIndex * MaxTCount + perTileTriangleCount[tileIndex];
-                                perTileTriangleArray[linearIndex] = idx;
-                                perTileTriangleCount[tileIndex]++;
+                                int linearIndex = tileIndex * MaxTCount + tileCache.perTileTriangleCountArray[tileIndex];
+                                tileCache.perTileTriangleArray[linearIndex] = idx;
+                                tileCache.perTileTriangleCountArray[tileIndex]++;
                             }
                         }
                     }
@@ -152,10 +140,7 @@ namespace Renderer
         public static Raster[] TiledRasterizationKernel(
             FragmentShader shader,
             float[] zBuffer,
-            int[] perTileTriangleArray,
-            int[] perTileTriangleCount,
             Vertex[] vertexes,
-            Raster[] rasters,
             int screenWidth,
             int screenHeight)
         {
@@ -171,7 +156,7 @@ namespace Renderer
                 int tileEndY = Math.Min(tileY + tileSize, screenHeight);
 
                 // 해당 타일에 포함된 삼각형 개수 가져오기
-                int triangleCount = perTileTriangleCount[idx];
+                int triangleCount = tileCache.perTileTriangleCountArray[idx];
 
                 for (int y = tileY; y < tileEndY; y++)
                 {
@@ -179,41 +164,39 @@ namespace Renderer
                     {
                         for (int i = 0; i < triangleCount; i++)
                         {
-                            int record = perTileTriangleArray[idx * MaxTCount + i];
+                            int record = tileCache.perTileTriangleArray[idx * MaxTCount + i];
 
-                            var r = SetPixelWithZBuffer(x, y, shader, record, vertexes[3 * record], vertexes[3 * record + 1], vertexes[3 * record + 2], zBuffer, screenWidth);
-                            if (r.TriangleIndex == -1 && rasters[x + y * screenWidth].TriangleIndex != -1)
-                            {
-                                //유지
-                            }
-                            else
-                                rasters[x + y * screenWidth] = r;
+                            SetPixelWithZBuffer(x, y, shader, record, vertexes[3 * record], vertexes[3 * record + 1], vertexes[3 * record + 2], zBuffer, screenWidth);
                         }
                     }
                 }
             });
-            return rasters;
+            return Rasters;
         }
         readonly static FragmentShader Shader;
-        Raster[] Rasters;
+       static Raster[] Rasters;
         public Raster[] RunTiled(Vertex[] vertices, FragmentShader f, float[] zBuffer, NBitmap target, int[] triangles, int width, int height)
         {
-            var (tileTriangleRecords, tileTriangleCounts) = tileCache.GetCache();
             Parallel.For(0, Rasters.Length, (idx) =>
             {
                 Rasters[idx].TriangleIndex = -1;
             });
+            Parallel.For(0, tileCache.perTileTriangleCountArray.Length, (idx) =>
+            {
+                tileCache.perTileTriangleCountArray[idx] = 0;
+            });
+
             ConvertVertexToScreenSpace(vertices, width, height);
-            CalculateCache_TrianglesOnPerTile(triangles, vertices, tileTriangleRecords, tileTriangleCounts, width, height);
-            Rasters = TiledRasterizationKernel(f, zBuffer, tileTriangleRecords, tileTriangleCounts, vertices, Rasters, width, height);
+            CalculateCache_TrianglesOnPerTile(triangles, vertices, width, height);
+            TiledRasterizationKernel(f, zBuffer, vertices, width, height);
             return Rasters;
         }
         public class TileCache
         {
             public int widthInTiles;
             public int heightInTiles;
-            private int[] perTileTriangleArray; //value : triangleIndex
-            private int[] perTileTriangleCountArray;
+            public int[] perTileTriangleArray; //value : triangleIndex
+            public int[] perTileTriangleCountArray;
 
             public TileCache(int widthInTiles, int heightInTiles)
             {

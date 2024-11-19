@@ -10,31 +10,31 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>b5f2d98b-9f27-4d39-aace-3a8f29e3b597</PackageIdentityName>
     <PackageIdentityPublisher>CN=문종욱</PackageIdentityPublisher>
-    <IntermediateOutputPath>E:\CG\Renderer\Renderer\obj\x64\Debug\net8.0-windows10.0.19041.0\win-x64\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Personal\Graphics\Renderer-CS\obj\x64\Debug\net8.0-windows10.0.19041.0\win-x64\</IntermediateOutputPath>
     <RemoteDeploymentType>CopyToDevice</RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>false</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>E:\CG\Renderer\Renderer\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\AppX</LayoutDir>
+    <LayoutDir>C:\Personal\Graphics\Renderer-CS\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="E:\CG\Renderer\Renderer\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\AppxManifest.xml">
+    <AppXManifest Include="C:\Personal\Graphics\Renderer-CS\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\resources.pri">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\Renderer.runtimeconfig.json">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\Renderer.runtimeconfig.json">
       <PackagePath>Renderer.runtimeconfig.json</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\Renderer.dll">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\Renderer.dll">
       <PackagePath>Renderer.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\obj\x64\Debug\net8.0-windows10.0.19041.0\win-x64\apphost.exe">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\obj\x64\Debug\net8.0-windows10.0.19041.0\win-x64\apphost.exe">
       <PackagePath>Renderer.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\문종욱\.nuget\packages\microsoft.web.webview2\1.0.2651.64\runtimes\win-x64\native\WebView2Loader.dll">
@@ -658,31 +658,31 @@
     <AppxPackagedFile Include="C:\Users\문종욱\.nuget\packages\microsoft.web.webview2\1.0.2651.64\lib_manual\net6.0-windows10.0.17763.0\Microsoft.Web.WebView2.Core.Projection.dll">
       <PackagePath>Microsoft.Web.WebView2.Core.Projection.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\Renderer.deps.json">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\Renderer.deps.json">
       <PackagePath>Renderer.deps.json</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\Assets\Helmet_Stand_Mat_Colour.png">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\Assets\Helmet_Stand_Mat_Colour.png">
       <PackagePath>Assets\Helmet_Stand_Mat_Colour.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="E:\CG\Renderer\Renderer\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Personal\Graphics\Renderer-CS\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

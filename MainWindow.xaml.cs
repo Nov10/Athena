@@ -29,7 +29,7 @@ using Windows.Graphics.Imaging;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace App2
+namespace Renderer
 {
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
@@ -72,7 +72,7 @@ namespace App2
                 return texture;
             }
         }
-        //ImageSourceConverter converter = new ImageSourceConverter();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -80,15 +80,13 @@ namespace App2
             PBR.RenderTarget = new NPhotoshop.Core.Image.NBitmap(width, height);
             PBR.ZBuffer = new float[width, height];
             PBR.ZBuffer2 = new float[width * height];
-            //ose ember.obj
-                MultipleMeshObject TargetMesh = Renderer.MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
-            //TargetMesh.Position = new Vector3((i) * 50, 0, 0);
+            MultipleMeshObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
             var t1 = LoadTexture(@"C:\Mando_Helm_Mat_Colour.png");
             var t2 = LoadTexture(@"C:\Helmet_Stand_Mat_Colour.png");
             var t3 = LoadTexture(@"C:\Glass_Mat_Colour.png");
             for (int i = 0; i < TargetMesh.ObjectCount; i++)
             {
-                TargetMesh.Get(i).FragmentShader = new Renderer.Core.Shader.FragmentShader();
+                //TargetMesh.Get(i).FragmentShader = new Core.Shader.FragmentShader();
                 TargetMesh.Get(i).Shader = new Shader1();
                 if(i == 0)
                     ((Shader1)TargetMesh.Get(i).Shader).texture = t2;
@@ -97,22 +95,13 @@ namespace App2
                 else
                     ((Shader1)TargetMesh.Get(i).Shader).texture = t1;
 
-                PBR.AddObject(TargetMesh);
             }
+            PBR.AddObject(TargetMesh);
 
             ImageRefresher.Interval = TimeSpan.FromTicks(10);
             ImageRefresher.Tick += T_Tick1;
             ImageRefresher.Start();
             RenderTargetImage.Width = width; RenderTargetImage.Height = height;
-
-            //using Context context = Context.Create(builder => builder.AllAccelerators());
-            //System.Diagnostics.Debug.WriteLine("Context: " + context.ToString());
-
-            //Device d = context.GetPreferredDevice(preferCPU: false);
-            //Accelerator a = d.CreateAccelerator(context);
-            //a.PrintInformation();
-            //a.Dispose();
-
         }
         long sum = 0;
         int counter = 0;
