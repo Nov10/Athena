@@ -15,7 +15,7 @@ namespace Renderer.Renderer.PBR
     {
         public NBitmap RenderTarget;
         //public Bitmap RenderTarget;
-        public List<PBRObject> Targets;
+        public List<MultipleMeshObject> Targets;
         public float[,] ZBuffer; // Z-버퍼 추가
         public float[] ZBuffer2; // Z-버퍼 추가
 
@@ -34,15 +34,15 @@ namespace Renderer.Renderer.PBR
                 ZBuffer2[i] = float.MaxValue;
             });
         }
-        public void AddObject(PBRObject obj)
+        public void AddObject(MultipleMeshObject obj)
         {
             Targets.Add(obj);
-            R = new Rasterizer(Targets[0].Vertices2.Length, ZBuffer2.Length, ZBuffer2.Length, Targets[0].Triangles.Length, width, height);
         }
-        public PBRRenderer()
+        public PBRRenderer(int w, int h) : base(w, h)
         {
-            Targets = new List<PBRObject>();
+            Targets = new List<MultipleMeshObject>();
             vShader = new VertexShader();
+            R = new Rasterizer(width, height);
         }
         Rasterizer R;
         VertexShader vShader;
@@ -61,13 +61,15 @@ namespace Renderer.Renderer.PBR
                 Matrix4x4 objectTransform = mesh.CalculateObjectTransformMatrix();
 
                 Matrix4x4 transform = cmaeraTransform * objectTransform;
-
-                Vertex[] transformedVertices = vShader.Run(mesh.Vertices2, objectTransform, cmaeraTransform);
-                transformedVertices = mesh.Shader.Run_VertexShader(transformedVertices, mesh.Position);
-                transformedVertices = vShader.Run2(mesh.Vertices2, objectTransform, cmaeraTransform);
-                var s = R.RunTiled(transformedVertices, mesh.FragmentShader, ZBuffer2, RenderTarget, mesh.Triangles, width, height);
-                var t =  mesh.Shader.Run_FragmentShader(s, RenderTarget.Pixels, width);
-                RenderTarget.SetPixels(t);
+                foreach(var singleMesh in mesh.Objects)
+                {
+                    Vertex[] transformedVertices = vShader.Run(singleMesh.Vertices2, objectTransform, cmaeraTransform);
+                    transformedVertices = singleMesh.Shader.Run_VertexShader(transformedVertices, mesh.Position);
+                    transformedVertices = vShader.Run2(singleMesh.Vertices2, objectTransform, cmaeraTransform);
+                    var s = R.RunTiled(transformedVertices, singleMesh.FragmentShader, ZBuffer2, RenderTarget, singleMesh.Triangles, width, height);
+                    var t = singleMesh.Shader.Run_FragmentShader(s, RenderTarget.Pixels, width);
+                    RenderTarget.SetPixels(t);
+                }
             }
         }
 

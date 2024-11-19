@@ -18,37 +18,21 @@ namespace Renderer.Core.PBR
         protected override Color FragmentShader(int screen_x, int screen_y, Vector3 position_ScreenSpace, Vector3 normal, Vector3 lambda, Vector2 uv)
         {
             float brightness = Vector3.Dot(normal.normalized, -(new Vector3(-1f, -1, 0)).normalized);
-            brightness = 0.5f * brightness + 0.5f;
+            brightness = (0.9f/2f) * brightness + (1.1f/2f);
             byte intensity = (byte)(brightness * 255);
             var color = new NPhotoshop.Core.Image.Color(intensity, intensity, intensity, 255);
             var c2 =  SampleTexture(uv);
+            c2.R = (byte)( c2.R * brightness);
+            c2.G = (byte)(c2.G * brightness);
+            c2.B = (byte)(c2.B * brightness);
             return c2;
         }
-        private void LoadTexture(string path)
-        {
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException($"Texture file not found: {path}");
-            }
 
-            // 이미지 파일 로드
-            using (var stream = File.OpenRead(path))
-            {
-                var decoder = BitmapDecoder.CreateAsync(stream.AsRandomAccessStream()).AsTask().Result;
-               var textureBitmap = new WriteableBitmap((int)decoder.PixelWidth, (int)decoder.PixelHeight);
-
-                var pixelBuffer = decoder.GetPixelDataAsync().AsTask().Result;
-                var  pixelData = pixelBuffer.DetachPixelData();
-                texture = new NBitmap(textureBitmap.PixelWidth, textureBitmap.PixelHeight);
-                texture.ConvertFromBitmap(pixelData, textureBitmap.PixelWidth, textureBitmap.PixelHeight);
-            }
-        }
         public Shader1()
         {
             texture = new NBitmap(10,10);
-            LoadTexture(@"C:\Mando_Helm_Mat_Colour.png");
         }
-        NBitmap texture;
+        public NBitmap texture;
         private Color SampleTexture(Vector2 uv)
         {
             // Wrap UV coordinates

@@ -37,7 +37,7 @@ namespace Renderer
     public class Rasterizer
     {
         const int tileSize = 4;
-        const int MaxTCount = 64;
+        const int MaxTCount = 16;
 
         private static Vector3 ConvertToScreenSpace(Vector3 position, int screenWidth, int screenHeight)
         {
@@ -57,7 +57,7 @@ namespace Renderer
         }
 
         private TileCache tileCache;
-        public Rasterizer(int vertexCount, int zBufferSize, int colorBufferSize, int triangleCount, int width, int height)
+        public Rasterizer(int width, int height)
         {
             int widthInTiles = width / tileSize;
             int heightInTiles = height / tileSize;
@@ -119,12 +119,10 @@ namespace Renderer
                 Vertex p2 = vertexes[3 * idx + 1];
                 Vertex p3 = vertexes[3 * idx + 2];
 
-                float e = EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace);
-                if (e < 0)
+                if (EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace) < 0)
                     return;
 
-                float n_z = Vector3.Cross_Z(p2.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace);
-                if (n_z > 0)
+                if (0 < Vector3.Cross_Z(p2.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace))
                     return;
 
                 int tileStartX = Math.Max((int)Math.Floor(Math.Min(p1.Position_ScreenVolumeSpace.x, Math.Min(p2.Position_ScreenVolumeSpace.x, p3.Position_ScreenVolumeSpace.x)) / tileSize), 0);

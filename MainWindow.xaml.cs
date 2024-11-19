@@ -20,11 +20,16 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Renderer.Core.PBR;
+using Renderer;
+using Renderer.Core;
+using Assimp.Unmanaged;
+using NPhotoshop.Core.Image;
+using Windows.Graphics.Imaging;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace Renderer
+namespace App2
 {
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
@@ -47,23 +52,51 @@ namespace Renderer
         };
         PBRRenderer PBR;
         Timer tTimer;
+        private NBitmap LoadTexture(string path)
+        {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException($"Texture file not found: {path}");
+            }
+
+            // 이미지 파일 로드
+            using (var stream = File.OpenRead(path))
+            {
+                var decoder = BitmapDecoder.CreateAsync(stream.AsRandomAccessStream()).AsTask().Result;
+                var textureBitmap = new WriteableBitmap((int)decoder.PixelWidth, (int)decoder.PixelHeight);
+
+                var pixelBuffer = decoder.GetPixelDataAsync().AsTask().Result;
+                var pixelData = pixelBuffer.DetachPixelData();
+                NBitmap texture = new NBitmap(textureBitmap.PixelWidth, textureBitmap.PixelHeight);
+                texture.ConvertFromBitmap(pixelData, textureBitmap.PixelWidth, textureBitmap.PixelHeight);
+                return texture;
+            }
+        }
         //ImageSourceConverter converter = new ImageSourceConverter();
         public MainWindow()
         {
             InitializeComponent();
-            PBR = new PBRRenderer();
+            PBR = new PBRRenderer(width, height);
             PBR.RenderTarget = new NPhotoshop.Core.Image.NBitmap(width, height);
             PBR.ZBuffer = new float[width, height];
             PBR.ZBuffer2 = new float[width * height];
-            PBR.width = width;
-            PBR.height = height;
             //ose ember.obj
-            for (int i = 0; i < 1; i++)
+                MultipleMeshObject TargetMesh = Renderer.MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
+            //TargetMesh.Position = new Vector3((i) * 50, 0, 0);
+            var t1 = LoadTexture(@"C:\Mando_Helm_Mat_Colour.png");
+            var t2 = LoadTexture(@"C:\Helmet_Stand_Mat_Colour.png");
+            var t3 = LoadTexture(@"C:\Glass_Mat_Colour.png");
+            for (int i = 0; i < TargetMesh.ObjectCount; i++)
             {
-                WireFrameObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_WireFrameObject(@"C:\Mando_Helmet.fbx");
-                TargetMesh.Position = new Vector3((i) * 50, 0, 0);
-                TargetMesh.FragmentShader = new Core.Shader.FragmentShader();
-                TargetMesh.Shader = new Shader1();
+                TargetMesh.Get(i).FragmentShader = new Renderer.Core.Shader.FragmentShader();
+                TargetMesh.Get(i).Shader = new Shader1();
+                if(i == 0)
+                    ((Shader1)TargetMesh.Get(i).Shader).texture = t2;
+                else if (i == 1)
+                    ((Shader1)TargetMesh.Get(i).Shader).texture = t3;
+                else
+                    ((Shader1)TargetMesh.Get(i).Shader).texture = t1;
+
                 PBR.AddObject(TargetMesh);
             }
 
@@ -87,7 +120,7 @@ namespace Renderer
         {
             //sw.Stop();
             //sw.Restart();
-           
+
             Render3DScene(0.1f);
 
             RenderTargetImage.Source = PBR.RenderTarget.ConvertToBitmap();
@@ -104,7 +137,7 @@ namespace Renderer
 
 
             t += dt;
-            for(int i = 0; i < PBR.Targets.Count; i++)
+            for (int i = 0; i < PBR.Targets.Count; i++)
                 //PBR.Targets[i].Rotation = new Vector3(3.14f/2f, 3.14f + t, 0);
                 PBR.Targets[i].Rotation = new Vector3(0, t * 0.5f, 0);
 

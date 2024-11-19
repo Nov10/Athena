@@ -21,6 +21,12 @@ namespace Renderer.Renderer
             AspectRatio = (float)1 / 1
         };
 
+        public BaseRenderer(int w, int h)
+        {
+            width = w;
+            height = h;
+        }
+
         public void Run()
         {
             Camera camera = new Camera
