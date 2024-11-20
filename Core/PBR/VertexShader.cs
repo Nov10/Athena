@@ -22,8 +22,7 @@ namespace Renderer
         // GPU 커널: 행렬 변환과 벡터 변환을 수행
         public static void TransformVerticesKernel(
             Vertex[] vertices,
-            float[] objectTransform,
-            float[] cameraTransform)
+            float[] objectTransform)
         {
             Parallel.For(0, vertices.Length, (idx) =>
             {
@@ -44,13 +43,13 @@ namespace Renderer
                     v.x * objectTransform[8] + v.y * objectTransform[9] + v.z * objectTransform[10] + objectTransform[11])
                  / (v.x * objectTransform[12] + v.y * objectTransform[13] + v.z * objectTransform[14] + objectTransform[15]));
 
-                v = vertex.Position_WorldSpace;
-                // 카메라 변환 적용
-                v = new Vector3(
-                    v.x * cameraTransform[0] + v.y * cameraTransform[1] + v.z * cameraTransform[2] + cameraTransform[3],
-                    v.x * cameraTransform[4] + v.y * cameraTransform[5] + v.z * cameraTransform[6] + cameraTransform[7],
-                    v.x * cameraTransform[8] + v.y * cameraTransform[9] + v.z * cameraTransform[10] + cameraTransform[11])
-                 / (v.x * cameraTransform[12] + v.y * cameraTransform[13] + v.z * cameraTransform[14] + cameraTransform[15]);
+                //v = vertex.Position_WorldSpace;
+                //// 카메라 변환 적용
+                //v = new Vector3(
+                //    v.x * cameraTransform[0] + v.y * cameraTransform[1] + v.z * cameraTransform[2] + cameraTransform[3],
+                //    v.x * cameraTransform[4] + v.y * cameraTransform[5] + v.z * cameraTransform[6] + cameraTransform[7],
+                //    v.x * cameraTransform[8] + v.y * cameraTransform[9] + v.z * cameraTransform[10] + cameraTransform[11])
+                // / (v.x * cameraTransform[12] + v.y * cameraTransform[13] + v.z * cameraTransform[14] + cameraTransform[15]);
 
                 //vertex.Position_ScreenVolumeSpace = new Vector3(
                 //    -(v.x) / v.z,
@@ -62,7 +61,6 @@ namespace Renderer
         }
         public static void TransformVerticesKernel2(
     Vertex[] vertices,
-    float[] objectTransform,
     float[] cameraTransform)
         {
             Parallel.For(0, vertices.Length, (idx) =>
@@ -83,22 +81,20 @@ namespace Renderer
                 vertices[idx] = vertex;
             });
         }
-        public Vertex[] Run(Vertex[] vertices, Matrix4x4 objectTransform, Matrix4x4 cameraTransform)
+        public Vertex[] Run_ObjectTransform(Vertex[] vertices, Matrix4x4 objectTransform)
         {
             // 변환 행렬을 1차원 배열로 변환
             float[] objTransformArray = Matrix4x4ToFloatArray(objectTransform);
-            float[] camTransformArray = Matrix4x4ToFloatArray(cameraTransform);
 
-            TransformVerticesKernel(vertices, objTransformArray, camTransformArray);
+            TransformVerticesKernel(vertices, objTransformArray);
             return vertices;
         }
-        public Vertex[] Run2(Vertex[] vertices, Matrix4x4 objectTransform, Matrix4x4 cameraTransform)
+        public Vertex[] Run_CameraTransform(Vertex[] vertices, Matrix4x4 cameraTransform)
         {
             // 변환 행렬을 1차원 배열로 변환
-            float[] objTransformArray = Matrix4x4ToFloatArray(objectTransform);
             float[] camTransformArray = Matrix4x4ToFloatArray(cameraTransform);
 
-            TransformVerticesKernel2(vertices, objTransformArray, camTransformArray);
+            TransformVerticesKernel2(vertices, camTransformArray);
             return vertices;
         }
         // Matrix4x4를 float 배열로 변환하는 함수

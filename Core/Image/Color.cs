@@ -14,6 +14,18 @@ namespace NPhotoshop.Core.Image
             return $"({R}, {G}, {B}, {A})";
         }
 
+        public static Color operator *(Color left, float right)
+        {
+            return new Color(
+                (byte)(left.R * right),
+                (byte)(left.G * right),
+                (byte)(left.B * right),
+                (byte)(left.A * right));
+        }
+        public static Color operator*(float left, Color right)
+        {
+            return right * left;
+        }
         public static bool operator ==(Color left, Color right)
         {
             if(left.A != right.A) return false;

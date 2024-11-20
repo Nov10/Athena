@@ -27,7 +27,7 @@ namespace Renderer.Core.PBR
             });
             return frameBuffer;
         }
-        protected abstract Color FragmentShader(int screen_x, int screen_y, Vector3 position_ScreenSpace, Vector3 normal, Vector3 lambda, Vector2 uv);
+        protected abstract Color FragmentShader(int screen_x, int screen_y, Vector3 position_ScreenSpace, Vector3 normal_WorldSpace, Vector3 lambda, Vector2 uv);
         protected abstract Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace);
     }
 }

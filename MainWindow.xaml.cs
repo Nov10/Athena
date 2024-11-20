@@ -89,11 +89,11 @@ namespace Renderer
                 //TargetMesh.Get(i).FragmentShader = new Core.Shader.FragmentShader();
                 TargetMesh.Get(i).Shader = new Shader1();
                 if(i == 0)
-                    ((Shader1)TargetMesh.Get(i).Shader).texture = t2;
+                    ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t2;
                 else if (i == 1)
-                    ((Shader1)TargetMesh.Get(i).Shader).texture = t3;
+                    ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t3;
                 else
-                    ((Shader1)TargetMesh.Get(i).Shader).texture = t1;
+                    ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t1;
 
             }
             PBR.AddObject(TargetMesh);

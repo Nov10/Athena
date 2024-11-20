@@ -41,14 +41,14 @@ namespace Renderer.Renderer.PBR
         public PBRRenderer(int w, int h) : base(w, h)
         {
             Targets = new List<MultipleMeshObject>();
-            vShader = new VertexShader();
-            R = new Rasterizer(width, height);
+            VertexShader = new VertexShader();
+            Rasterizer = new Rasterizer(width, height);
         }
-        Rasterizer R;
-        VertexShader vShader;
+        Rasterizer Rasterizer;
+        VertexShader VertexShader;
         public void Render()
         {
-            Matrix4x4 cmaeraTransform = camera.CalculatePerspectiveProjectionMatrix();
+            Matrix4x4 cameraTransform = camera.CalculatePerspectiveProjectionMatrix();
             RenderTarget.ClearBlack();
             ClearZBuffer();
             Vector3 light = new Vector3(1, -1, 1); // 광원 방향 정의
@@ -59,107 +59,25 @@ namespace Renderer.Renderer.PBR
             foreach (var mesh in Targets)
             {
                 Matrix4x4 objectTransform = mesh.CalculateObjectTransformMatrix();
-
-                Matrix4x4 transform = cmaeraTransform * objectTransform;
+                Matrix4x4 transform = cameraTransform * objectTransform;
                 foreach(var singleMesh in mesh.Objects)
                 {
-                    Vertex[] transformedVertices = vShader.Run(singleMesh.Vertices2, objectTransform, cmaeraTransform);
+                    //물체의 위치, 각도 적용
+                    Vertex[] transformedVertices = VertexShader.Run_ObjectTransform(singleMesh.Vertices2, objectTransform);
+                    //물체 개별의 버텍스 셰이더 적용
                     transformedVertices = singleMesh.Shader.Run_VertexShader(transformedVertices, mesh.Position);
-                    transformedVertices = vShader.Run2(singleMesh.Vertices2, objectTransform, cmaeraTransform);
-                    var s = R.RunTiled(transformedVertices, singleMesh.FragmentShader, ZBuffer2, RenderTarget, singleMesh.Triangles, width, height);
-                    var t = singleMesh.Shader.Run_FragmentShader(s, RenderTarget.Pixels, width);
-                    RenderTarget.SetPixels(t);
+                    //변환행렬 적용
+                    transformedVertices = VertexShader.Run_CameraTransform(singleMesh.Vertices2, cameraTransform);
+
+                    //래스터 계산
+                    var rasters = Rasterizer.Run(transformedVertices, ZBuffer2, RenderTarget, singleMesh.Triangles, width, height);
+                    //프래그먼트 셰이더로 색상 계산
+                    var frameBuffer = singleMesh.Shader.Run_FragmentShader(rasters, RenderTarget.Pixels, width);
+                    RenderTarget.SetPixels(frameBuffer);
                 }
             }
         }
 
-
-    public void RasterizeTriangle(Vertex p1, Vertex p2, Vertex p3, NPhotoshop.Core.Image.Color color)
-        {
-            Vector3 pt1 = p1.Position_ScreenVolumeSpace;
-            Vector3 pt2 = p2.Position_ScreenVolumeSpace;
-            Vector3 pt3 = p3.Position_ScreenVolumeSpace;
-            // 삼각형의 꼭짓점 좌표를 정렬 (y축 기준)
-            if (pt2.y < pt1.y) (pt1, pt2) = (pt2, pt1);
-            if (pt3.y < pt1.y) (pt1, pt3) = (pt3, pt1);
-            if (pt3.y < pt2.y) (pt2, pt3) = (pt3, pt2);
-
-            // 삼각형의 꼭짓점 간의 경사율 계산
-            float invslope1 = (pt2.x - pt1.x) / (pt2.y - pt1.y);
-            float invslope2 = (pt3.x - pt1.x) / (pt3.y - pt1.y);
-
-            // 상단 삼각형 부분 스캔
-            for (float y = pt1.y; y <= pt2.y; y++)
-            {
-                float x1 = pt1.x + (y - pt1.y) * invslope1;
-                float x2 = pt1.x + (y - pt1.y) * invslope2;
-                if (x1 > x2) (x1, x2) = (x2, x1);
-                for (float x = x1; x <= x2; x++)
-                {
-                    SetPixelWithZBuffer((int)x, (int)y, p1, p2, p3, color);
-                }
-            }
-
-            // 하단 삼각형 부분 스캔
-            invslope1 = (pt3.x - pt2.x) / (pt3.y - pt2.y);
-            for (float y = pt2.y; y <= pt3.y; y++)
-            {
-                float x1 = pt2.x + (y - pt2.y) * invslope1;
-                float x2 = pt1.x + (y - pt1.y) * invslope2;
-                if (x1 > x2) (x1, x2) = (x2, x1);
-                for (float x = x1; x <= x2; x++)
-                {
-                    SetPixelWithZBuffer((int)x, (int)y, p1, p2, p3, color);
-                }
-            }
-        }
-
-        // Z-버퍼와 함께 픽셀을 그리는 함수
-        private void SetPixelWithZBuffer(int x, int y, Vertex p1, Vertex p2, Vertex p3, NPhotoshop.Core.Image.Color color)
-        {
-            if (x < 0 || x >= ZBuffer.GetLength(0))
-                return;
-            if (y < 0 || y >= ZBuffer.GetLength(1))
-                return;
-            Vector3 pt1 = p1.Position_ScreenVolumeSpace;
-            Vector3 pt2 = p2.Position_ScreenVolumeSpace;
-            Vector3 pt3 = p3.Position_ScreenVolumeSpace;
-
-            // 바리센트릭 좌표 계산을 위한 삼각형 면적 계산
-            float areaABC = EdgeFunction(pt1, pt2, pt3);
-            if (areaABC == 0.0f) return; // 삼각형 면적이 0일 때는 무시
-
-            // 현재 픽셀에서의 바리센트릭 좌표 계산
-            Vector3 p = new Vector3(x, y, 0);
-
-            // 픽셀 P에 대한 각 꼭짓점의 기여도 (바리센트릭 좌표)
-            float lambda1 = EdgeFunction(pt2, pt3, p) / areaABC;
-            float lambda2 = EdgeFunction(pt3, pt1, p) / areaABC;
-            float lambda3 = EdgeFunction(pt1, pt2, p) / areaABC;
-
-            // 깊이 값을 바리센트릭 좌표를 통해 보간
-            float zInterpolated = lambda1 * pt1.z + lambda2 * pt2.z + lambda3 * pt3.z;
-            Vector3 normalInterpolated = lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace;
-
-            // Z-버퍼 비교 및 픽셀 설정
-            if (ZBuffer[x, y] <= zInterpolated)
-            {
-                ZBuffer[x, y] = zInterpolated;
-                float brightness = Vector3.Dot(normalInterpolated.normalized, (new Vector3(-1f, -1, 0)).normalized);
-                //brightness = System.Math.Clamp(brightness, 0.0f, 1.0f); // 음수는 0으로, 1을 넘지 않도록 클램프
-                brightness = 0.5f * brightness + 0.5f;
-                byte intensity = (byte)(brightness * 255);
-                color = new NPhotoshop.Core.Image.Color(intensity, intensity, intensity, 255);
-
-                RenderTarget.SetPixel(x, y, color);
-            }
-        }
-        // 삼각형의 꼭짓점으로 면적(에지 함수)을 계산하는 함수
-        private float EdgeFunction(Vector3 a, Vector3 b, Vector3 c)
-        {
-            // 삼각형의 면적을 구하는 에지 함수
-            return (c.x - a.x) * (b.y - a.y) - (c.y - a.y) * (b.x - a.x);
-        }
         // 클립 코드 상수
         const int INSIDE = 0; // 0000
         const int LEFT = 1;   // 0001
