@@ -15,9 +15,8 @@ namespace Renderer.Renderer.PBR
     {
         public NBitmap RenderTarget;
         //public Bitmap RenderTarget;
-        public List<MultipleMeshObject> Targets;
-        public float[,] ZBuffer; // Z-버퍼 추가
-        public float[] ZBuffer2; // Z-버퍼 추가
+        public List<Core.Renderer> Targets;
+        public float[] ZBuffer; // Z-버퍼 추가
 
         public void ClearZBuffer()
         {
@@ -29,23 +28,26 @@ namespace Renderer.Renderer.PBR
             //    }
             //}
             //for(int i = 0; i < ZBuffer2.Length; i++)
-            Parallel.For(0, ZBuffer2.Length, (i) =>
+            Parallel.For(0, ZBuffer.Length, (i) =>
             {
-                ZBuffer2[i] = float.MaxValue;
+                ZBuffer[i] = float.MaxValue;
             });
         }
-        public void AddObject(MultipleMeshObject obj)
+        public void AddObject(Core.Renderer obj)
         {
             Targets.Add(obj);
         }
+
         public PBRRenderer(int w, int h) : base(w, h)
         {
-            Targets = new List<MultipleMeshObject>();
+            Targets = new List<Core.Renderer>();
             VertexShader = new VertexShader();
             Rasterizer = new Rasterizer(width, height);
         }
         Rasterizer Rasterizer;
         VertexShader VertexShader;
+
+
         public void Render()
         {
             Matrix4x4 cameraTransform = camera.CalculatePerspectiveProjectionMatrix();
@@ -65,12 +67,13 @@ namespace Renderer.Renderer.PBR
                     //물체의 위치, 각도 적용
                     Vertex[] transformedVertices = VertexShader.Run_ObjectTransform(singleMesh.Vertices2, objectTransform);
                     //물체 개별의 버텍스 셰이더 적용
-                    transformedVertices = singleMesh.Shader.Run_VertexShader(transformedVertices, mesh.Position);
+                    transformedVertices = singleMesh.Shader.Run_VertexShader(transformedVertices, mesh.Controller.Position);
                     //변환행렬 적용
                     transformedVertices = VertexShader.Run_CameraTransform(singleMesh.Vertices2, cameraTransform);
 
+                    VertexShader.Calc_T(transformedVertices, singleMesh.Triangles);
                     //래스터 계산
-                    var rasters = Rasterizer.Run(transformedVertices, ZBuffer2, RenderTarget, singleMesh.Triangles, width, height);
+                    var rasters = Rasterizer.Run(transformedVertices, ZBuffer, RenderTarget, singleMesh.Triangles, width, height);
                     //프래그먼트 셰이더로 색상 계산
                     var frameBuffer = singleMesh.Shader.Run_FragmentShader(rasters, RenderTarget.Pixels, width);
                     RenderTarget.SetPixels(frameBuffer);

@@ -1,1 +1,1 @@
-C:\Personal\Graphics\Renderer-CS\Renderer.csproj;x64
+D:\Rendering\App2\App2\Renderer.csproj;x64

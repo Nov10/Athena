@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Renderer.Renderer
 {
-    public class WireFrameObject : PBRObject
+    public class WireFrameObject : RenderObject
     {
 
     //    public List<Vector3> cubeVertices = new List<Vector3>

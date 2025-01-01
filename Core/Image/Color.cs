@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Renderer.Maths;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -9,6 +10,10 @@ namespace NPhotoshop.Core.Image
 {
     public struct Color
     {
+        public Vector3 GetAsVector3()
+        {
+            return new Vector3(R, G, B);
+        }
         public override string ToString()
         {
             return $"({R}, {G}, {B}, {A})";

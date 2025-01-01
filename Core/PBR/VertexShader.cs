@@ -16,6 +16,9 @@ namespace Renderer
         public Vector3 Normal_ObjectSpace;
         public Vector3 Normal_WorldSpace;
         public Vector2 UV;
+
+        public Vector3 Tangent;     // 추가
+        public Vector3 Bitangent;  // 추가
     }
     public class VertexShader
     {
@@ -96,6 +99,53 @@ namespace Renderer
 
             TransformVerticesKernel2(vertices, camTransformArray);
             return vertices;
+        }
+        public void Calc_T(Vertex[] vertices, int[] indices)
+        {
+            Parallel.For(0, indices.Length / 3, (idx) =>
+            {
+                Vertex v1 = vertices[indices[3 * idx]];
+                Vertex v2 = vertices[indices[3 * idx + 1]];
+                Vertex v3 = vertices[indices[3 * idx + 2]];
+
+                // 위치 및 UV 좌표
+                Vector3 p1 = v1.Position_ObjectSpace;
+                Vector3 p2 = v2.Position_ObjectSpace;
+                Vector3 p3 = v3.Position_ObjectSpace;
+
+                Vector2 uv1 = v1.UV;
+                Vector2 uv2 = v2.UV;
+                Vector2 uv3 = v3.UV;
+
+                // 삼각형의 Edge 벡터와 UV 변화량 계산
+                Vector3 edge1 = p2 - p1;
+                Vector3 edge2 = p3 - p1;
+
+                Vector2 deltaUV1 = uv2 - uv1;
+                Vector2 deltaUV2 = uv3 - uv1;
+
+                float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+
+                // Tangent 벡터와 Bitangent 벡터 계산
+                Vector3 tangent = f * (deltaUV2.y * edge1 - deltaUV1.y * edge2);
+                Vector3 bitangent = f * (-deltaUV2.x * edge1 + deltaUV1.x * edge2);
+
+                // 각 버텍스에 Tangent와 Bitangent를 누적
+                v1.Tangent += tangent;
+                v2.Tangent += tangent;
+                v3.Tangent += tangent;
+
+                v1.Bitangent += bitangent;
+                v2.Bitangent += bitangent;
+                v3.Bitangent += bitangent;
+            });
+
+            //// Tangent와 Bitangent를 정규화
+            Parallel.For(0, vertices.Length, (idx) =>
+            {
+                vertices[idx].Tangent = vertices[idx].Tangent.normalized;
+                vertices[idx].Bitangent = vertices[idx].Bitangent.normalized;
+            });
         }
         // Matrix4x4를 float 배열로 변환하는 함수
         private float[] Matrix4x4ToFloatArray(Matrix4x4 matrix)

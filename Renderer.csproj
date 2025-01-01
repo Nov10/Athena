@@ -11,6 +11,7 @@
     <PublishProfile>win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -48,5 +49,9 @@
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <WindowsSdkPackageVersion>10.0.19041.41</WindowsSdkPackageVersion>
   </PropertyGroup>
 </Project>

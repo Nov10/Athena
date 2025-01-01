@@ -50,7 +50,7 @@ namespace Renderer
             FieldOfView = 60f,
             AspectRatio = (float)width / height
         };
-        PBRRenderer PBR;
+        public static PBRRenderer MainRenderer;
         Timer tTimer;
         private NBitmap LoadTexture(string path)
         {
@@ -76,27 +76,53 @@ namespace Renderer
         public MainWindow()
         {
             InitializeComponent();
-            PBR = new PBRRenderer(width, height);
-            PBR.RenderTarget = new NPhotoshop.Core.Image.NBitmap(width, height);
-            PBR.ZBuffer = new float[width, height];
-            PBR.ZBuffer2 = new float[width * height];
-            MultipleMeshObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
-            var t1 = LoadTexture(@"C:\Mando_Helm_Mat_Colour.png");
-            var t2 = LoadTexture(@"C:\Helmet_Stand_Mat_Colour.png");
-            var t3 = LoadTexture(@"C:\Glass_Mat_Colour.png");
-            for (int i = 0; i < TargetMesh.ObjectCount; i++)
-            {
-                //TargetMesh.Get(i).FragmentShader = new Core.Shader.FragmentShader();
-                TargetMesh.Get(i).Shader = new Shader1();
-                if(i == 0)
-                    ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t2;
-                else if (i == 1)
-                    ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t3;
-                else
-                    ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t1;
 
+            WorldObjects = new List<Core.Object>();
+            Core.Object airplane = new Core.Object();
+            MainRenderer = new PBRRenderer(width, height);
+            MainRenderer.RenderTarget = new NPhotoshop.Core.Image.NBitmap(width, height);
+            MainRenderer.ZBuffer = new float[width * height];
+            var renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\ap2.fbx");
+
+
+            for(int i =0; i < renderer.Objects.Count; i++)
+            {
+                renderer.Objects[i].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
             }
-            PBR.AddObject(TargetMesh);
+            airplane.AddComponent(renderer);
+            airplane.Rotation = new Vector3(-90f * 3.141592f / 180f, 0, 0); 
+            WorldObjects.Add(airplane);
+
+
+           // MultipleMeshObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
+            //var t1 = LoadTexture(@"C:\Mando_Helm_Mat_Colour.png");
+            //var t2 = LoadTexture(@"C:\Helmet_Stand_Mat_Colour.png");
+            //var t3 = LoadTexture(@"C:\Glass_Mat_Colour.png");
+            //var normal_texture1 = LoadTexture(@"C:\Mando_Helm_Mat_Normal.png");
+            //var normal_texture2 = LoadTexture(@"C:\Helmet_Stand_Mat_Normal.png");
+            //var normal_texture3 = LoadTexture(@"C:\Glass_Mat_BakeNormal.png");
+            //for (int i = 0; i < TargetMesh.ObjectCount; i++)
+            //{
+            //    //TargetMesh.Get(i).FragmentShader = new Core.Shader.FragmentShader();
+            //    TargetMesh.Get(i).Shader = new Shader1();
+            //    if(i == 0)
+            //    {
+            //        ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t2;
+            //        ((Shader1)TargetMesh.Get(i).Shader).NormalTexture = normal_texture2;
+            //    }
+            //    else if (i == 1)
+            //    {
+            //        ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t3;
+            //        ((Shader1)TargetMesh.Get(i).Shader).NormalTexture = normal_texture3;
+            //    }
+            //    else
+            //    {
+            //        ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t1;
+            //        ((Shader1)TargetMesh.Get(i).Shader).NormalTexture = normal_texture1;
+            //    }
+
+            //}
+            //PBR.AddObject(renderer);
 
             ImageRefresher.Interval = TimeSpan.FromTicks(10);
             ImageRefresher.Tick += T_Tick1;
@@ -105,14 +131,28 @@ namespace Renderer
         }
         long sum = 0;
         int counter = 0;
+        List<Core.Object> WorldObjects;
+        float Time;
         private void T_Tick1(object sender, object e)
         {
             //sw.Stop();
             //sw.Restart();
+            Time += 0.1f;
 
-            Render3DScene(0.1f);
+            MainRenderer.Targets.Clear();
+            WorldObjects[0].Position = new Vector3(MathF.Sin(Time/3f), 0, MathF.Cos(Time/3f)) * 30;
+            Vector3 dir = Vector3.Cross(new Vector3(0, 1, 0), WorldObjects[0].Position);
+            float dot = Vector3.Angle(dir, new Vector3(0, 0, 1));
+            WorldObjects[0].Rotation = new Vector3(-90 * 3.141592f / 180f, dot, 0);
+            for (int i = 0; i<WorldObjects.Count; i++)
+            {
+                WorldObjects[i].Update();
+            }
+            MainRenderer.camera = camera;
+            MainRenderer.Render();
+            //Render3DScene(0.1f);
 
-            RenderTargetImage.Source = PBR.RenderTarget.ConvertToBitmap();
+            RenderTargetImage.Source = MainRenderer.RenderTarget.ConvertToBitmap();
             //sum += sw.ElapsedTicks;
             //counter++;
             //System.Diagnostics.Debug.WriteLine((float)sum / counter);
@@ -126,12 +166,12 @@ namespace Renderer
 
 
             t += dt;
-            for (int i = 0; i < PBR.Targets.Count; i++)
-                //PBR.Targets[i].Rotation = new Vector3(3.14f/2f, 3.14f + t, 0);
-                PBR.Targets[i].Rotation = new Vector3(0, t * 0.5f, 0);
+            //for (int i = 0; i < PBR.Targets.Count; i++)
+            //    //PBR.Targets[i].Rotation = new Vector3(3.14f/2f, 3.14f + t, 0);
+            //    PBR.Targets[i].Rotation = new Vector3(-90 * 3.141592f/180f, t * 0.5f, 0);
 
-            PBR.camera = camera;
-            PBR.Render();
+            MainRenderer.camera = camera;
+            MainRenderer.Render();
         }
 
         private void myButton_Click(object sender, RoutedEventArgs e)

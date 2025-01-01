@@ -16,18 +16,25 @@ namespace Renderer.Core.PBR
     public class Shader1 : CustomShader
     {
         public NBitmap MainTexture;
+        public NBitmap NormalTexture;
         public Shader1()
         {
             MainTexture = new NBitmap(1,1);
+            NormalTexture = new NBitmap(1,1);
         }
 
-        protected override Color FragmentShader(int screen_x, int screen_y, Vector3 position_ScreenSpace, Vector3 normal_WorldSpace, Vector3 lambda, Vector2 uv)
+        protected override Color FragmentShader(Raster raster)
         {
-            float brightness = Vector3.Dot(normal_WorldSpace.normalized, -(new Vector3(-1f, -1, 0)).normalized);
+            var normal = (ShaderHelper.SampleTexture(NormalTexture, raster.UV).GetAsVector3() / 255.0f).normalized;
+            normal = new Vector3(normal.z, normal.y, normal.x);
+            float brightness = Vector3.Dot((normal * 2 - new Vector3(1,1,1)).normalized, -(new Vector3(-1f, -1, -1)).normalized);
             //brightness = 0.5f * brightness + 0.5f;
             //byte intensity = (byte)(brightness * 255);
-            var c2 = ShaderHelper.SampleTexture(MainTexture, uv) * ShaderHelper.CelShading(3, brightness, 0.1f, 1);
-            c2.A = 255;
+            //var c2 = ShaderHelper.SampleTexture(MainTexture, uv) * brightness;
+            
+            //raster.Tangent, raster.BitTangent, raster.Normal_WorldSpace
+            var c2 = new Color(255, 255, 255, 255) * brightness;
+            //c2.A = 255;
             return c2;
         }
 

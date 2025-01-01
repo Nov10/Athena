@@ -66,6 +66,28 @@ namespace Renderer.Maths
             get { return x * x + y * y + z * z; }
         }
 
+        public static float Angle(Vector3 a, Vector3 b)
+        {
+            // 두 벡터를 정규화 (Normalize)
+            a = a.normalized;
+            b = b.normalized;
+
+            // 내적 (Dot Product)을 이용한 각도 계산 (0 ~ π)
+            float angle = MathF.Acos(Vector3.Dot(a, b));
+
+            // 외적 (Cross Product)을 이용하여 방향 결정
+            Vector3 cross = Vector3.Cross(a, b);
+            float sign = Vector3.Dot(cross, new Vector3(0, 1, 0));
+
+            // 방향에 따라 각도를 조정
+            if (sign < 0)
+            {
+                angle = 2 * (float)Math.PI - angle;
+            }
+
+            // 라디안을 도(degree)로 변환
+            return angle;
+        }
         public static float Dot(Vector3 v1, Vector3 v2)
         {
             return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;

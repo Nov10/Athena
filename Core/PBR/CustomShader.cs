@@ -23,11 +23,11 @@ namespace Renderer.Core.PBR
             Parallel.For(0, rasters.Length, (idx) =>
             {
                 if(rasters[idx].TriangleIndex != -1)
-                    frameBuffer[rasters[idx].x + rasters[idx].y * width] = FragmentShader(rasters[idx].x, rasters[idx].y, rasters[idx].Position_ScreenVolumeSpace, rasters[idx].Normal_WorldSpace, rasters[idx].Lambda, rasters[idx].UV);
+                    frameBuffer[rasters[idx].x + rasters[idx].y * width] = FragmentShader(rasters[idx]);
             });
             return frameBuffer;
         }
-        protected abstract Color FragmentShader(int screen_x, int screen_y, Vector3 position_ScreenSpace, Vector3 normal_WorldSpace, Vector3 lambda, Vector2 uv);
+        protected abstract Color FragmentShader(Raster raster);
         protected abstract Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace);
     }
 }

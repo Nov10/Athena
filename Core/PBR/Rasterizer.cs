@@ -15,6 +15,8 @@ namespace Renderer
         public Vector3 Lambda;
         public Vector3 Position_ScreenVolumeSpace;
         public Vector2 UV;
+        public Vector3 Tangent;
+        public Vector3 BitTangent;
 
         public Raster(int x, int y, int triangleIndex, Vector3 normal_WorldSpace, Vector3 lambda, Vector3 position_ScreenVolumeSpace, Vector2  uv)
         {
@@ -71,9 +73,9 @@ namespace Renderer
         {
             Parallel.For(0, triangles.Length/3, (idx) =>
             {
-                Vertex p1 = vertexes[3 * idx];
-                Vertex p2 = vertexes[3 * idx + 1];
-                Vertex p3 = vertexes[3 * idx + 2];
+                Vertex p1 = vertexes[triangles[3 * idx]];
+                Vertex p2 = vertexes[triangles[3 * idx + 1]];
+                Vertex p3 = vertexes[triangles[3 * idx + 2]];
 
                 if (EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace) < 0)
                     return;
@@ -91,6 +93,7 @@ namespace Renderer
                     for (int tileX = tileStartX; tileX < tileEndX; tileX++)
                     {
                         int tileIndex = tileY * (Width / tileSize) + tileX;
+                        
                         lock (TriangleCount_PerTile)
                         {
                             if (TriangleCount_PerTile[tileIndex] < MaxTCount)
@@ -107,7 +110,7 @@ namespace Renderer
         /// <summary>
         /// 각 타일에 캐싱된 삼각형 데이터를 바탕으로 레스터를 갱신/계산
         /// </summary>
-        public void CalculateRasters_PerTile(float[] zBuffer, Vertex[] vertexes)
+        public void CalculateRasters_PerTile(float[] zBuffer, Vertex[] vertexes, int[] triangles)
         {
             int numTiles = Width * Height / (tileSize * tileSize);
             Parallel.For(0, numTiles, (idx) =>
@@ -131,7 +134,7 @@ namespace Renderer
                         {
                             int record = TriangleIndices_PerTile[idx * MaxTCount + i];
 
-                            SetRasterWithZBuffer(x, y, record, vertexes[3 * record], vertexes[3 * record + 1], vertexes[3 * record + 2], zBuffer);
+                            SetRasterWithZBuffer(x, y, record, vertexes[triangles[3 * record]], vertexes[triangles[3 * record + 1]], vertexes[triangles[3 * record + 2]], zBuffer);
                         }
                     }
                 }
@@ -163,6 +166,8 @@ namespace Renderer
                     Rasters[idx].Lambda = new Vector3(lambda1, lambda2, lambda3);
                     Rasters[idx].Normal_WorldSpace = lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace;
                     Rasters[idx].Position_ScreenVolumeSpace = p;
+                    Rasters[idx].Tangent = lambda1 * p1.Tangent + lambda2 * p2.Tangent + lambda3 * p3.Tangent;
+                    Rasters[idx].BitTangent = lambda1 * p1.Bitangent + lambda2 * p2.Bitangent + lambda3 * p3.Bitangent;
                 }
             }
         }
@@ -190,7 +195,7 @@ namespace Renderer
 
             ConvertVertexToScreenSpace(vertices);
             CalculateCache_TrianglesOnPerTile(triangles, vertices);
-            CalculateRasters_PerTile(zBuffer, vertices);
+            CalculateRasters_PerTile(zBuffer, vertices, triangles);
             return Rasters;
         }
     }
