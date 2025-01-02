@@ -30,10 +30,10 @@ namespace Renderer.MeshLoader
             int meshcount = scene.MeshCount;
             System.Diagnostics.Debug.WriteLine($"Mesh Count : {scene.MeshCount}");
 
-            Renderer.RenderObject[] list = new Renderer.RenderObject[meshcount];
+            Renderer.RenderData[] list = new Renderer.RenderData[meshcount];
             for (int s = 0; s < meshcount; s++)
             {
-                var result = list[s] = new Renderer.RenderObject();
+                var result = list[s] = new Renderer.RenderData();
                 var mesh = scene.Meshes[s];
                 vertexCount = mesh.VertexCount;
                 triangleCount = mesh.FaceCount;
@@ -49,7 +49,14 @@ namespace Renderer.MeshLoader
                     var vert = mesh.Vertices[i];
                     //result.Vertices[counter_vert] = new Vector3(vert.X, vert.Y, vert.Z);
                     result.Vertices2[i].Position_ObjectSpace = new Vector3(vert.X, vert.Y, vert.Z);
-                    result.Vertices2[i].UV = new Vector2(mesh.TextureCoordinateChannels[0][i].X, mesh.TextureCoordinateChannels[0][i].Y);
+                    //if(mesh.TextureCoordinateChannels.Length > 0)
+                    try
+                    {
+                        result.Vertices2[i].UV = new Vector2(mesh.TextureCoordinateChannels[0][i].X, mesh.TextureCoordinateChannels[0][i].Y);
+                    }
+                    catch { 
+                        result.Vertices2[i].UV = new Vector2(0, 0);
+                    }
                     result.Vertices2[i].Normal_ObjectSpace = new Vector3(mesh.Normals[i].X, mesh.Normals[i].Y, mesh.Normals[i].Z);
                 }
                 for (int i = 0; i < mesh.FaceCount; i++)
@@ -63,7 +70,7 @@ namespace Renderer.MeshLoader
                 list[s].Rotation = new Vector3();
             }
             Core.Renderer renderComponent = new Core.Renderer();
-            renderComponent.Objects.AddRange(list);
+            renderComponent.RenderDatas.AddRange(list);
             return renderComponent;
             //return new MultipleMeshObject(list);
         }

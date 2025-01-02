@@ -9,8 +9,34 @@ namespace Renderer.Core
 {
     public class Object
     {
-        public Vector3 Position;
-        public Vector3 Rotation;
+        public Object Parent;
+        public List<Object> Children;
+        public Vector3 LocalPosition;
+        public Vector3 LocalRotation;
+
+        public Vector3 WorldPosition
+        {
+            get
+            {
+                if (Parent == null)
+                    return LocalPosition;
+
+                Vector3 worldParentPosition = Parent.WorldPosition;
+                Vector3 worldParentRotation = Parent.WorldRotation;
+
+               return worldParentPosition + TransformMatrixCaculator.Transform(LocalPosition, TransformMatrixCaculator.CreateRotationMatrix(worldParentRotation));
+            }
+        }
+
+        public Vector3 WorldRotation
+        {
+            get
+            {
+                if (Parent == null)
+                    return LocalRotation;
+                return Parent.WorldRotation + LocalRotation;
+            }
+        }
 
         public List<Component> Components;
 
@@ -31,6 +57,8 @@ namespace Renderer.Core
         public Object()
         {
             Components = new List<Component>();
+            Children = new List<Object>();
+            Parent = null;
         }
     }
 }

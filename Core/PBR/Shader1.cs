@@ -23,22 +23,24 @@ namespace Renderer.Core.PBR
             NormalTexture = new NBitmap(1,1);
         }
 
-        protected override Color FragmentShader(Raster raster)
+        public override Color FragmentShader(Raster raster, Vector3 light)
         {
-            var normal = (ShaderHelper.SampleTexture(NormalTexture, raster.UV).GetAsVector3() / 255.0f).normalized;
-            normal = new Vector3(normal.z, normal.y, normal.x);
-            float brightness = Vector3.Dot((normal * 2 - new Vector3(1,1,1)).normalized, -(new Vector3(-1f, -1, -1)).normalized);
+            //var normal = (ShaderHelper.SampleTexture(NormalTexture, raster.UV).GetAsVector3() / 255.0f).normalized;
+            var normal = raster.Normal_WorldSpace;
+            //normal = new Vector3(normal.z, normal.y, normal.x);
+            float brightness = Vector3.Dot((normal).normalized, light);
+            brightness = brightness * 0.5f + 0.5f;
             //brightness = 0.5f * brightness + 0.5f;
             //byte intensity = (byte)(brightness * 255);
-            //var c2 = ShaderHelper.SampleTexture(MainTexture, uv) * brightness;
+            var c2 = ShaderHelper.SampleTexture(MainTexture, raster.UV) * brightness;
             
             //raster.Tangent, raster.BitTangent, raster.Normal_WorldSpace
-            var c2 = new Color(255, 255, 255, 255) * brightness;
-            //c2.A = 255;
+            //var c2 = new Color(255, 255, 255, 255) * brightness;
+            c2.A = 255;
             return c2;
         }
 
-        protected override Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace)
+        public override Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace)
         {
             return vertex_position_WorldSpace;
         }

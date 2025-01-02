@@ -38,7 +38,7 @@ namespace Renderer.Renderer
 
         public Matrix4x4 CalculateProjectionMatrix()
         {
-            float distance = 0.1f;
+            float distance = 1;
             float height = (float)System.Math.Tan(FieldOfView * System.Math.PI / 180 / 2) * distance * 2;
             float width = height * AspectRatio;
             float f = FarPlaneDistance;

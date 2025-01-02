@@ -2,6 +2,7 @@
 using Renderer.Core.Shader;
 using Renderer.Maths;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Renderer
@@ -31,15 +32,15 @@ namespace Renderer
     }
     public class Rasterizer
     {
-        const int tileSize = 4;
-        const int MaxTCount = 32;
+        const int tileSize = 2;
+        const int MaxTCount = 16;
         int[] TriangleIndices_PerTile; //value : triangleIndex
         int[] TriangleCount_PerTile; //value : count of triangles
         int Width;
         int Height;
 
 
-        public Rasterizer(int width, int height)
+    public Rasterizer(int width, int height)
         {
             int widthInTiles = width / tileSize;
             int heightInTiles = height / tileSize;
@@ -146,28 +147,40 @@ namespace Renderer
             
             Vector3 p = new Vector3(x, y, 0);
             float lambda1 = EdgeFunction(p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace, p);
+            if (lambda1 < 0)
+                return;
             float lambda2 = EdgeFunction(p3.Position_ScreenVolumeSpace, p1.Position_ScreenVolumeSpace, p);
+            if (lambda2 < 0)
+                return;
             float lambda3 = EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p);
+            if (lambda3 < 0)
+                return;
 
-            if(lambda1 > 0 && lambda2 >0 && lambda3 >0)
+            //if (lambda1 > 0 && lambda2 >0 && lambda3 >0)
             {
                 //float areaABC = EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace);
                 float areaABC = lambda1 + lambda2 + lambda3;
                 float zInterpolated = (lambda1 * p1.Position_ScreenVolumeSpace.z + lambda2 * p2.Position_ScreenVolumeSpace.z + lambda3 * p3.Position_ScreenVolumeSpace.z) / areaABC;
                 if (zInterpolated < ZBuffer[idx])
                 {
-                    ZBuffer[idx] = zInterpolated;
-                    p.z = zInterpolated;
+                    //System.Diagnostics.Debug.WriteLine(new Vector3(xInterpolated, yInterpolated, zInterpolated));
+                    if( -1 <= zInterpolated && zInterpolated <= 1)
+                    {
+                        ZBuffer[idx] = zInterpolated;
+                        p.z = zInterpolated;
 
-                    Rasters[idx].x = x;
-                    Rasters[idx].y = y;
-                    Rasters[idx].TriangleIndex = triangleIndex;
-                    Rasters[idx].UV = (lambda1 * p1.UV + lambda2 * p2.UV + lambda3 * p3.UV) / (areaABC);
-                    Rasters[idx].Lambda = new Vector3(lambda1, lambda2, lambda3);
-                    Rasters[idx].Normal_WorldSpace = lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace;
-                    Rasters[idx].Position_ScreenVolumeSpace = p;
-                    Rasters[idx].Tangent = lambda1 * p1.Tangent + lambda2 * p2.Tangent + lambda3 * p3.Tangent;
-                    Rasters[idx].BitTangent = lambda1 * p1.Bitangent + lambda2 * p2.Bitangent + lambda3 * p3.Bitangent;
+                        Rasters[idx].x = x;
+                        Rasters[idx].y = y;
+                        Rasters[idx].TriangleIndex = triangleIndex;
+                        Rasters[idx].UV = (lambda1 * p1.UV + lambda2 * p2.UV + lambda3 * p3.UV) / (areaABC);
+                        Rasters[idx].Lambda = new Vector3(lambda1, lambda2, lambda3);
+                        Rasters[idx].Normal_WorldSpace = lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace;
+                        Rasters[idx].Position_ScreenVolumeSpace = p;
+                        Rasters[idx].Tangent = lambda1 * p1.Tangent + lambda2 * p2.Tangent + lambda3 * p3.Tangent;
+                        Rasters[idx].BitTangent = lambda1 * p1.Bitangent + lambda2 * p2.Bitangent + lambda3 * p3.Bitangent;
+
+                    }
+
                 }
             }
         }
@@ -175,6 +188,7 @@ namespace Renderer
         private static float EdgeFunction(Vector3 a, Vector3 b, Vector3 c)
         {
             // 삼각형의 면적을 구하는 에지 함수
+            //return -0.5f * (a.x * b.y + b.x * c.y + c.x * a.y - (b.x * a.y + c.x * b.y + a.x * c.y));
             return (c.x - a.x) * (b.y - a.y) - (c.y - a.y) * (b.x - a.x);
         }
 

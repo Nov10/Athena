@@ -16,10 +16,11 @@ namespace Renderer.Core.PBR
             ThisColor = c;
         }
 
-        protected override Color FragmentShader(Raster raster)
+        public override Color FragmentShader(Raster raster, Vector3 light)
         {
             var normal = raster.Normal_WorldSpace;
-            float brightness = Vector3.Dot((normal).normalized, -(new Vector3(-1f, -1, -1)).normalized);
+            float brightness = Vector3.Dot((normal).normalized, light);
+            brightness = (brightness + 1) * 0.5f;
             //brightness = 0.5f * brightness + 0.5f;
             //byte intensity = (byte)(brightness * 255);
             //var c2 = ShaderHelper.SampleTexture(MainTexture, uv) * brightness;
@@ -30,7 +31,7 @@ namespace Renderer.Core.PBR
             return c2;
         }
 
-        protected override Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace)
+        public override Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace)
         {
             return vertex_position_WorldSpace;
         }

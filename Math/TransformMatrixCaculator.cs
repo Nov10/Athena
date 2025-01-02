@@ -27,12 +27,12 @@ namespace Renderer.Maths
             float cz = (float)System.Math.Cos(rotation.z);
             float sz = (float)System.Math.Sin(rotation.z);
 
-            //            return new Matrix4x4(
-            //    cy * cz, -cy * sz, sy, 0,
-            //    cx * sz + sx * sy * cz, cx * cz - sx * sy * sz, -sx * cy, 0,
-            //    sx * sz - cx * sy * cz, cx * sy * sz + sx * cz, cx * cy, 0,
-            //    0, 0, 0, 1
-            //);
+//            return new Matrix4x4(
+//    cy * cz, -cy * sz, sy, 0,
+//    cx * sz + sx * sy * cz, cx * cz - sx * sy * sz, -sx * cy, 0,
+//    sx * sz - cx * sy * cz, cx * sy * sz + sx * cz, cx * cy, 0,
+//    0, 0, 0, 1
+//);
 
             Matrix4x4 rotationX = new Matrix4x4(
                 1, 0, 0, 0,

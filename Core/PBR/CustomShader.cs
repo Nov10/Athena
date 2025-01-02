@@ -18,16 +18,16 @@ namespace Renderer.Core.PBR
             });
             return vertices;
         }
-        public Color[] Run_FragmentShader(Raster[] rasters, Color[] frameBuffer, int width)
+        public Color[] Run_FragmentShader(Raster[] rasters, Color[] frameBuffer, Vector3 lightDir, int width)
         {
             Parallel.For(0, rasters.Length, (idx) =>
             {
                 if(rasters[idx].TriangleIndex != -1)
-                    frameBuffer[rasters[idx].x + rasters[idx].y * width] = FragmentShader(rasters[idx]);
+                    frameBuffer[rasters[idx].x + rasters[idx].y * width] = FragmentShader(rasters[idx], lightDir);
             });
             return frameBuffer;
         }
-        protected abstract Color FragmentShader(Raster raster);
-        protected abstract Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace);
+        public abstract Color FragmentShader(Raster raster, Vector3 light);
+        public abstract Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace);
     }
 }

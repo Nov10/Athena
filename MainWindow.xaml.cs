@@ -36,8 +36,8 @@ namespace Renderer
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        const int width = 1024;
-        const int height = 1024;
+        const int width = 768;
+        const int height = 768;
 
         DispatcherTimer ImageRefresher = new DispatcherTimer();
         Stopwatch sw = new Stopwatch();
@@ -78,23 +78,55 @@ namespace Renderer
             InitializeComponent();
 
             WorldObjects = new List<Core.Object>();
-            Core.Object airplane = new Core.Object();
+            //Core.Object airplane = new Core.Object();
             MainRenderer = new PBRRenderer(width, height);
             MainRenderer.RenderTarget = new NPhotoshop.Core.Image.NBitmap(width, height);
             MainRenderer.ZBuffer = new float[width * height];
-            var renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\ap2.fbx");
+            MainRenderer.LightDirection = new Vector3(0, -1, 0).normalized * -1;
+            var renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\Aereo.fbx");
+
+            var bodyTex = LoadTexture(@"C:\body.png");
+            Core.Object body = new Core.Object();
+            Core.Renderer bodyRenderer = new Core.Renderer();
+            bodyRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
+            bodyRenderer.RenderDatas[0].Shader = new Shader1();
+            (bodyRenderer.RenderDatas[0].Shader as Shader1).MainTexture = bodyTex;
+            body.AddComponent(bodyRenderer);
+
+            Core.Object blade = new Core.Object();
+            Core.Renderer bladeRenderer = new Core.Renderer();
+            bladeRenderer.RenderDatas.Add(renderer.RenderDatas[1]);
+            bladeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            blade.LocalPosition = new Vector3(0, 0, 2.0f);
+            blade.AddComponent(bladeRenderer);
 
 
-            for(int i =0; i < renderer.Objects.Count; i++)
-            {
-                renderer.Objects[i].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
-            }
-            airplane.AddComponent(renderer);
-            airplane.Rotation = new Vector3(-90f * 3.141592f / 180f, 0, 0); 
-            WorldObjects.Add(airplane);
+            renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\p.stl");
+            Core.Object plane = new Core.Object();
+            Core.Renderer planeRenderer = new Core.Renderer();
+            planeRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
+            planeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            plane.LocalPosition = new Vector3(0, -5, 0);
+            plane.AddComponent(planeRenderer);
+            //var normalTex = LoadTexture(@"C:\Normal.png");
+            //renderer.RenderDatas = new List<RenderData>(new RenderData[] { renderer.RenderDatas[0] });
+            //System.Diagnostics.Debug.WriteLine(renderer.RenderDatas.Count);
+            //for(int i =0; i < renderer.RenderDatas.Count; i++)
+            //{
+            //    renderer.RenderDatas[i].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            //}
+            //renderer.RenderDatas[0].Shader = new Shader1();
+            //(renderer.RenderDatas[0].Shader as Shader1).MainTexture = bodyTex;
+            //(renderer.RenderDatas[0].Shader as Shader1).NormalTexture = normalTex;
+            //airplane.AddComponent(renderer);
+            //airplane.Rotation = new Vector3(-90f * 3.141592f / 180f, 0, 0); 
+            blade.Parent = body;
+            WorldObjects.Add(body);
+            WorldObjects.Add(blade);
+            WorldObjects.Add(plane);
 
 
-           // MultipleMeshObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
+            // MultipleMeshObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
             //var t1 = LoadTexture(@"C:\Mando_Helm_Mat_Colour.png");
             //var t2 = LoadTexture(@"C:\Helmet_Stand_Mat_Colour.png");
             //var t3 = LoadTexture(@"C:\Glass_Mat_Colour.png");
@@ -124,10 +156,11 @@ namespace Renderer
             //}
             //PBR.AddObject(renderer);
 
-            ImageRefresher.Interval = TimeSpan.FromTicks(10);
+            ImageRefresher.Interval = TimeSpan.FromTicks(5);
             ImageRefresher.Tick += T_Tick1;
             ImageRefresher.Start();
-            RenderTargetImage.Width = width; RenderTargetImage.Height = height;
+            
+            RenderTargetImage.Width = 1024; RenderTargetImage.Height = 1024;
         }
         long sum = 0;
         int counter = 0;
@@ -137,13 +170,24 @@ namespace Renderer
         {
             //sw.Stop();
             //sw.Restart();
-            Time += 0.1f;
+            Time += 0.01f;
 
             MainRenderer.Targets.Clear();
-            WorldObjects[0].Position = new Vector3(MathF.Sin(Time/3f), 0, MathF.Cos(Time/3f)) * 30;
-            Vector3 dir = Vector3.Cross(new Vector3(0, 1, 0), WorldObjects[0].Position);
-            float dot = Vector3.Angle(dir, new Vector3(0, 0, 1));
-            WorldObjects[0].Rotation = new Vector3(-90 * 3.141592f / 180f, dot, 0);
+            camera.FarPlaneDistance = 500f;
+            WorldObjects[1].LocalRotation = new Vector3(3.141592f, 0, Time * 5);
+            WorldObjects[1].LocalPosition = new Vector3(0, 0, 2.0f);
+            WorldObjects[2].LocalRotation = new Vector3(3.141592f/2, 0, 0);
+
+            WorldObjects[0].LocalPosition = new Vector3(MathF.Sin(Time*5), 0, MathF.Cos(Time * 5)) * 10;
+            Vector3 dir = Vector3.Cross(new Vector3(0, 1, 0), WorldObjects[0].WorldPosition);
+            dir = dir.normalized;
+
+            // atan2( X성분, Z성분 ) = 현재 기준(앞=+Z)에서 dir 벡터가 얼마나 회전되어있는가
+            float angleRadians = MathF.Atan2(dir.x, dir.z);
+
+            // 오브젝트 회전 설정(° 단위 가정)
+            WorldObjects[0].LocalRotation = new Vector3(0, angleRadians, 0);
+            //(WorldObjects[0].Components[0] as Core.Renderer).RenderDatas[1].Rotation = new Vector3(-90 * 3.141592f / 180f * 0, 0, Time);
             for (int i = 0; i<WorldObjects.Count; i++)
             {
                 WorldObjects[i].Update();

@@ -10,10 +10,10 @@ namespace Renderer.Core
 {
     public class Renderer : Component
     {
-        public List<RenderObject> Objects;
+        public List<RenderData> RenderDatas;
         public override void Start()
         {
-            Objects = new List<RenderObject>();
+            RenderDatas = new List<RenderData>();
         }
 
         public override void Update()
@@ -23,7 +23,11 @@ namespace Renderer.Core
 
         public Matrix4x4 CalculateObjectTransformMatrix()
         {
-            return TransformMatrixCaculator.CreateTranslationMatrix(Controller.Position) * TransformMatrixCaculator.CreateRotationMatrix(Controller.Rotation);
+            return TransformMatrixCaculator.CreateTranslationMatrix(Controller.WorldPosition) * TransformMatrixCaculator.CreateRotationMatrix(Controller.WorldRotation);
+        }
+        public Matrix4x4 CalculateObjectRotationMatrix()
+        {
+            return TransformMatrixCaculator.CreateRotationMatrix(Controller.WorldRotation);
         }
     }
 }
