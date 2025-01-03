@@ -68,6 +68,9 @@ namespace Renderer
         {
             InitializeComponent();
 
+            this.Content.KeyDown += Input.Content_KeyDown;
+            this.Content.KeyUp += Input.Content_KeyUp;
+            Input.Start();
             WorldObjects = new List<Core.Object>();
             //Core.Object airplane = new Core.Object();
 
@@ -192,6 +195,40 @@ namespace Renderer
 
             // 오브젝트 회전 설정
             WorldObjects[0].LocalRotation = Quaternion.FromEulerAngles(0, angle, 0);
+            
+            var moveInput = Input.GetDirectionInput(KeyPreset.WASD);
+            var rotateInput = Input.GetDirectionInput(KeyPreset.Arrow);
+            Input.DebugNowInputKeys();
+            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+
+            if (Input.GetKey(KeyCode.Q))
+                moveInput.y = 1;
+            else if (Input.GetKey(KeyCode.E))
+                moveInput.y = -1;
+
+            if (rotateInput.y > 0.5f)
+                q = Quaternion.CreateRotationQuaternion(new Vector3(1, 0, 0), -5);
+            else if (rotateInput.y < -0.5f)
+                q = Quaternion.CreateRotationQuaternion(new Vector3(1, 0, 0), 5);
+            else if (rotateInput.x > 0.5f)
+                q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), 5);
+            else if (rotateInput.x < -0.5f)
+                q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), -5);
+            else
+                q = new Quaternion(1, 0, 0, 0);
+            WorldObjects[3].WorldRotation = WorldObjects[3].WorldRotation * q;
+
+            Vector3 zAxis = WorldObjects[3].WorldRotation.RotateVector(new Vector3(0, 0, -1));
+            Vector3 xAxis = (Vector3.Cross(new Vector3(0, 1, 0), zAxis)).normalized;
+            Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
+
+            Matrix4x4 rotationMatrix = new Matrix4x4(
+                xAxis.x, yAxis.x, zAxis.x, 0,
+                xAxis.y, yAxis.y, zAxis.y, 0,
+                xAxis.z, yAxis.z, zAxis.z, 0,
+                0, 0, 0, 1);
+
+            WorldObjects[3].WorldPosition += (-zAxis * move.z + xAxis * move.x + new Vector3(0, move.y, 0)) * 5;
 
             for (int i = 0; i<WorldObjects.Count; i++)
             {
@@ -206,6 +243,7 @@ namespace Renderer
             }
 
             RenderTargetImage.Source = Window.ConvertToBitmap();
+            Input.Update();
         }
 
         Quaternion q;
@@ -226,44 +264,8 @@ namespace Renderer
         private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             var k = e.Key;
-            Vector3 v = new Vector3(0, 0, 0);
-            if (k == Windows.System.VirtualKey.W)
-                v = new Vector3(0, 0, -1);
-            else if (k == Windows.System.VirtualKey.S)
-                v = new Vector3(0, 0, 1);
-            if (k == Windows.System.VirtualKey.A)
-                v = new Vector3(1, 0, 0);
-            else if (k == Windows.System.VirtualKey.D)
-                v = new Vector3(-1, 0, 0);
-            if (k == Windows.System.VirtualKey.Q)
-                v = new Vector3(0, 1, 0);
-            else if (k == Windows.System.VirtualKey.E)
-                v = new Vector3(0, -1, 0);
-
-            if (k == Windows.System.VirtualKey.Up)
-                q = Quaternion.CreateRotationQuaternion(new Vector3(1, 0, 0), -5);
-            else if (k == Windows.System.VirtualKey.Down)
-                q = Quaternion.CreateRotationQuaternion(new Vector3(1, 0, 0), 5);
-            else if (k == Windows.System.VirtualKey.Left)
-                q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), 5);
-            else if (k == Windows.System.VirtualKey.Right)
-                q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), -5);
-            else
-                q = new Quaternion(1, 0, 0, 0);
-            //camera.Direction = q.RotateVector(camera.Direction);
-
-            //Vector3 zAxis = camera.Direction.normalized;
-            //Vector3 xAxis = (Vector3.Cross(camera.WorldUp, zAxis)).normalized;
-            //Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
-
-            //Matrix4x4 rotationMatrix = new Matrix4x4(
-            //    xAxis.x, yAxis.x, -zAxis.x, 0,
-            //    xAxis.y, yAxis.y, -zAxis.y, 0,
-            //    xAxis.z, yAxis.z, -zAxis.z, 0,
-            //    0, 0, 0, 1);
-
-            //camera.Position += (-zAxis * v.z + xAxis * v.x + new Vector3(0, v.y, 0)) * 5;
-            //camera.Position += (v) * 1;
+            
+            //WorldObjects[3].WorldPosition += (v) * 1;
         }
     }
 }
