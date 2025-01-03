@@ -44,6 +44,9 @@ namespace Renderer.Renderer.PBR
             Targets = new List<Core.Renderer>();
             VertexShader = new VertexShader();
             Rasterizer = new Rasterizer(width, height);
+
+            RenderTarget = new NPhotoshop.Core.Image.NBitmap(width, height);
+            ZBuffer = new float[width * height];
         }
         Rasterizer Rasterizer;
         VertexShader VertexShader;

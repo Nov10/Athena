@@ -1,4 +1,5 @@
 ﻿using Renderer.Maths;
+using Renderer.Renderer.PBR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace Renderer.Renderer
 {
-    public class Camera
+    public class Camera : Core.Component
     {
-        public Vector3 Position;
         //public Quaternion Rotation;
-        public Vector3 Direction;
+        //public Vector3 Direction;
 
         public float NearPlaneDistance;
         public float FarPlaneDistance;
         public float FieldOfView;
         public float AspectRatio;
         public Vector3 WorldUp = new Vector3(0, 1, 0); // 월드좌표계의 위쪽
+
+        public PBRRenderer MainRenderer;
 
         //public Camera(Vector3 position, Vector3 direction, float nearPlaneDistance, float farPlaneDistance, float fieldOfView, float aspectRatio, Vector3 worldUp)
         //{
@@ -53,7 +55,7 @@ namespace Renderer.Renderer
         }
         public Matrix4x4 CalculateRotationMatrix()
         {
-            Vector3 zAxis = Direction.normalized;
+            Vector3 zAxis = Controller.WorldRotation.RotateVector(new Vector3(0, 0, -1));
             Vector3 xAxis = (Vector3.Cross(WorldUp, zAxis)).normalized;
             Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
 
@@ -66,7 +68,7 @@ namespace Renderer.Renderer
         }
         public Matrix4x4 CalculatePerspectiveMatrix()
         {
-            Vector3 zAxis = Direction.normalized;
+            Vector3 zAxis = Controller.WorldRotation.RotateVector(new Vector3(0, 0, -1));
             Vector3 xAxis = (Vector3.Cross(WorldUp, zAxis)).normalized;
             Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
 
@@ -77,12 +79,35 @@ namespace Renderer.Renderer
                 0, 0, 0, 1);
 
             Matrix4x4 translationMatrix = new Matrix4x4(
-                1, 0, 0, -Position.x,
-                0, 1, 0, -Position.y,
-                0, 0, 1, -Position.z,
+                1, 0, 0, -Controller.WorldPosition.x,
+                0, 1, 0, -Controller.WorldPosition.y,
+                0, 0, 1, -Controller.WorldPosition.z,
                 0, 0, 0, 1);
 
             return rotationMatrix.Inverse() * translationMatrix;
+        }
+
+        public override void Start()
+        {
+        }
+
+        public override void Update()
+        {
+        }
+
+        public void Render(List<Core.Object> objects)
+        {
+            MainRenderer.camera = this;
+            for (int i = 0; i < objects.Count; i++)
+            {
+                if(objects[i].TryGetComponent(out Core.Renderer ren))
+                {
+                    MainRenderer.AddObject(ren);
+                }
+            }
+            MainRenderer.Render();
+
+            MainRenderer.Targets.Clear();
         }
     }
 }

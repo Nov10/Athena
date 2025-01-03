@@ -41,16 +41,7 @@ namespace Renderer
 
         DispatcherTimer ImageRefresher = new DispatcherTimer();
         Stopwatch sw = new Stopwatch();
-        Camera camera = new Camera
-        {
-            Position = new Vector3(0, 00, 100f),
-            Direction = new Vector3(0, 0f, -1),
-            NearPlaneDistance = 3f,
-            FarPlaneDistance = 500.0f,
-            FieldOfView = 60f,
-            AspectRatio = (float)width / height
-        };
-        public static PBRRenderer MainRenderer;
+
         Timer tTimer;
         private NBitmap LoadTexture(string path)
         {
@@ -72,17 +63,14 @@ namespace Renderer
                 return texture;
             }
         }
-
+        NBitmap Window;
         public MainWindow()
         {
             InitializeComponent();
 
             WorldObjects = new List<Core.Object>();
             //Core.Object airplane = new Core.Object();
-            MainRenderer = new PBRRenderer(width, height);
-            MainRenderer.RenderTarget = new NPhotoshop.Core.Image.NBitmap(width, height);
-            MainRenderer.ZBuffer = new float[width * height];
-            MainRenderer.LightDirection = new Vector3(0, -1, 0).normalized * -1;
+
             var renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\Aereo.fbx");
 
             var bodyTex = LoadTexture(@"C:\body.png");
@@ -108,6 +96,26 @@ namespace Renderer
             planeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
             plane.LocalPosition = new Vector3(0, -5, 0);
             plane.AddComponent(planeRenderer);
+
+            Camera cameraComponent = new Camera
+            {
+                NearPlaneDistance = 1f,
+                FarPlaneDistance = 500.0f,
+                FieldOfView = 60f,
+                AspectRatio = (float)width / height
+            };
+            Core.Object camera = new Core.Object();
+            camera.WorldPosition = new Vector3(0, 0, 90);
+            cameraComponent.MainRenderer = new PBRRenderer(width, height);
+            Window = new NBitmap(width, height);
+            cameraComponent.MainRenderer.RenderTarget = Window;
+            cameraComponent.MainRenderer.LightDirection = new Vector3(0, -1, 0).normalized * -1;
+            camera.AddComponent(cameraComponent);
+
+            //camera.Parent = body;
+            //camera.LocalPosition = new Vector3(0, 0, 30);
+            //camera.LocalRotation = Quaternion.FromEulerAngles(0, 180, 0);
+
             //var normalTex = LoadTexture(@"C:\Normal.png");
             //renderer.RenderDatas = new List<RenderData>(new RenderData[] { renderer.RenderDatas[0] });
             //System.Diagnostics.Debug.WriteLine(renderer.RenderDatas.Count);
@@ -124,6 +132,7 @@ namespace Renderer
             WorldObjects.Add(body);
             WorldObjects.Add(blade);
             WorldObjects.Add(plane);
+            WorldObjects.Add(camera);
 
 
             // MultipleMeshObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
@@ -164,16 +173,13 @@ namespace Renderer
         }
         long sum = 0;
         int counter = 0;
-        List<Core.Object> WorldObjects;
+        public static List<Core.Object> WorldObjects;
         float Time;
         private void T_Tick1(object sender, object e)
         {
-            //sw.Stop();
-            //sw.Restart();
             Time += 0.01f;
 
-            MainRenderer.Targets.Clear();
-            WorldObjects[1].LocalRotation = Quaternion.FromEulerAngles(180, 0, Time * 8* 10 * XMath.Rad2Deg);
+            WorldObjects[1].LocalRotation = Quaternion.FromEulerAngles(180, 0, Time * 10 * XMath.Rad2Deg);
             
             WorldObjects[1].LocalPosition = new Vector3(0, 0, 2.0f);
             WorldObjects[2].LocalRotation = Quaternion.FromEulerAngles(90, 0, 0);
@@ -182,20 +188,24 @@ namespace Renderer
             Vector3 dir = Vector3.Cross(new Vector3(0, 1, 0), WorldObjects[0].WorldPosition);
             dir = dir.normalized;
 
-            // atan2( X성분, Z성분 ) = 현재 기준(앞=+Z)에서 dir 벡터가 얼마나 회전되어있는가
             float angle = MathF.Atan2(dir.x, dir.z) * 180 / 3.141592f;
 
             // 오브젝트 회전 설정
             WorldObjects[0].LocalRotation = Quaternion.FromEulerAngles(0, angle, 0);
-            //(WorldObjects[0].Components[0] as Core.Renderer).RenderDatas[1].Rotation = new Vector3(-90 * 3.141592f / 180f * 0, 0, Time);
+
             for (int i = 0; i<WorldObjects.Count; i++)
             {
                 WorldObjects[i].Update();
             }
-            MainRenderer.camera = camera;
-            MainRenderer.Render();
+            for (int i = 0; i < WorldObjects.Count; i++)
+            {
+                if(WorldObjects[i].TryGetComponent(out Camera cam))
+                {
+                    cam.Render(WorldObjects);
+                }
+            }
 
-            RenderTargetImage.Source = MainRenderer.RenderTarget.ConvertToBitmap();
+            RenderTargetImage.Source = Window.ConvertToBitmap();
         }
 
         Quaternion q;
@@ -206,12 +216,6 @@ namespace Renderer
 
 
             t += dt;
-            //for (int i = 0; i < PBR.Targets.Count; i++)
-            //    //PBR.Targets[i].Rotation = new Vector3(3.14f/2f, 3.14f + t, 0);
-            //    PBR.Targets[i].Rotation = new Vector3(-90 * 3.141592f/180f, t * 0.5f, 0);
-
-            MainRenderer.camera = camera;
-            MainRenderer.Render();
         }
 
         private void myButton_Click(object sender, RoutedEventArgs e)
@@ -246,19 +250,19 @@ namespace Renderer
                 q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), -5);
             else
                 q = new Quaternion(1, 0, 0, 0);
-            camera.Direction = q.RotateVector(camera.Direction);
+            //camera.Direction = q.RotateVector(camera.Direction);
 
-            Vector3 zAxis = camera.Direction.normalized;
-            Vector3 xAxis = (Vector3.Cross(camera.WorldUp, zAxis)).normalized;
-            Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
+            //Vector3 zAxis = camera.Direction.normalized;
+            //Vector3 xAxis = (Vector3.Cross(camera.WorldUp, zAxis)).normalized;
+            //Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
 
-            Matrix4x4 rotationMatrix = new Matrix4x4(
-                xAxis.x, yAxis.x, -zAxis.x, 0,
-                xAxis.y, yAxis.y, -zAxis.y, 0,
-                xAxis.z, yAxis.z, -zAxis.z, 0,
-                0, 0, 0, 1);
+            //Matrix4x4 rotationMatrix = new Matrix4x4(
+            //    xAxis.x, yAxis.x, -zAxis.x, 0,
+            //    xAxis.y, yAxis.y, -zAxis.y, 0,
+            //    xAxis.z, yAxis.z, -zAxis.z, 0,
+            //    0, 0, 0, 1);
 
-            camera.Position += (-zAxis * v.z + xAxis * v.x + new Vector3(0, v.y, 0)) * 5;
+            //camera.Position += (-zAxis * v.z + xAxis * v.x + new Vector3(0, v.y, 0)) * 5;
             //camera.Position += (v) * 1;
         }
     }

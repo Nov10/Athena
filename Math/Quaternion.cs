@@ -8,7 +8,7 @@ namespace Renderer.Maths
 {
     public struct Quaternion
     {
-        public float x; public float y; public float z; public float w;
+        public float x; public float y; public float z; public float w = 1;
         public override string ToString()
         {
             return $"{x} {y} {z} {w}";

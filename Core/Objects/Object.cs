@@ -72,6 +72,21 @@ namespace Renderer.Core
             component.Initialize(this);
         }
 
+        public bool TryGetComponent<T>(out T result) where T : Component
+        {
+            for (int i = 0; i < Components.Count; i++)
+            {
+                T v = Components[i] as T;
+                if(v != null)
+                {
+                    result = v;
+                    return true;
+                }
+            }
+            result = null;
+            return false;
+        }
+
         public virtual void Update()
         {
             for(int i = 0; i < Components.Count; i++)

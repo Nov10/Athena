@@ -18,12 +18,13 @@ namespace Renderer.Core
 
         public override void Update()
         {
-                MainWindow.MainRenderer.AddObject(this);
+                //MainWindow.MainRenderer.AddObject(this);
         }
 
         public Matrix4x4 CalculateObjectTransformMatrix()
         {
-            return TransformMatrixCaculator.CreateTranslationMatrix(Controller.WorldPosition) * TransformMatrixCaculator.CreateRotationMatrix(Controller.WorldRotation.ToEulerAngles());
+            return TransformMatrixCaculator.CreateObjectTransformMatrix(Controller.WorldPosition, Controller.WorldRotation);    
+            //return TransformMatrixCaculator.CreateTranslationMatrix(Controller.WorldPosition) * TransformMatrixCaculator.CreateRotationMatrix(Controller.WorldRotation.ToEulerAngles());
         }
         public Matrix4x4 CalculateObjectRotationMatrix()
         {

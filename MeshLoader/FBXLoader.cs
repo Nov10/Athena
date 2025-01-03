@@ -39,7 +39,7 @@ namespace Renderer.MeshLoader
                 triangleCount = mesh.FaceCount;
 
                 result.Vertices2 = new Vertex[vertexCount];
-                result.Vertices = new Vector3[vertexCount];
+                //result.Vertices = new Vector3[vertexCount];
                 result.Triangles = new int[triangleCount * 3];
                 result.Colors = new System.Drawing.Color[triangleCount];
 
@@ -66,8 +66,8 @@ namespace Renderer.MeshLoader
                     result.Triangles[3 * i + 1] = face.Indices[1];
                     result.Triangles[3 * i + 2] = face.Indices[2];
                 }
-                list[s].Position = new Vector3();
-                list[s].Rotation = new Vector3();
+                //list[s].Position = new Vector3();
+                //list[s].Rotation = new Vector3();
             }
             Core.Renderer renderComponent = new Core.Renderer();
             renderComponent.RenderDatas.AddRange(list);
@@ -149,7 +149,7 @@ namespace Renderer.MeshLoader
                 triangleCount += scene.Meshes[i].FaceCount;
             }
             result.Vertices2 = new Vertex[vertexCount];
-            result.Vertices = new Vector3[vertexCount];
+            //result.Vertices = new Vector3[vertexCount];
             result.Triangles = new int[triangleCount * 3];
             result.Colors = new System.Drawing.Color[triangleCount];
             int counter_vert = 0;
@@ -164,7 +164,7 @@ namespace Renderer.MeshLoader
                 for (int i = 0; i < mesh.VertexCount; i++)
                 {
                     var vert = mesh.Vertices[i];
-                    result.Vertices[counter_vert] = new Vector3(vert.X, vert.Y, vert.Z);
+                    //result.Vertices[counter_vert] = new Vector3(vert.X, vert.Y, vert.Z);
                     result.Vertices2[counter_vert].Position_ObjectSpace = new Vector3(vert.X, vert.Y, vert.Z);
                     result.Vertices2[counter_vert].UV = new Vector2(mesh.TextureCoordinateChannels[0][i].X, mesh.TextureCoordinateChannels[0][i].Y);
                     //System.Diagnostics.Debug.WriteLine(result.Vertices2[counter_vert].UV);
@@ -201,8 +201,8 @@ namespace Renderer.MeshLoader
                 }
                 c = counter_vert;
             }
-            result.Position = new Vector3();
-            result.Rotation = new Vector3();
+            //result.Position = new Vector3();
+            //result.Rotation = new Vector3();
             return result;
         }
     }

@@ -13,8 +13,6 @@ namespace Renderer.Renderer
         public int height;
         public Camera camera = new Camera
         {
-            Position = new Vector3(0, 0, 23f),
-            Direction = new Vector3(0, 0f, -1),
             NearPlaneDistance = 3f,
             FarPlaneDistance = 100.0f,
             FieldOfView = 50f,
@@ -31,8 +29,6 @@ namespace Renderer.Renderer
         {
             Camera camera = new Camera
             {
-                Position = new Vector3(0.0f, 0.0f, 4.0f),
-                Direction = new Vector3(0, 0, 1),
                 FieldOfView = 1f,
                 AspectRatio = (float)width / height,
                 NearPlaneDistance = 0.1f,

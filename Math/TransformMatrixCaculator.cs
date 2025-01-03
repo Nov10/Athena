@@ -19,6 +19,23 @@ namespace Renderer.Maths
                 vector.x * matrix.e31 + vector.y * matrix.e32 + vector.z * matrix.e33 + matrix.e34)
              / (vector.x * matrix.e41 + vector.y * matrix.e42 + vector.z * matrix.e43 + matrix.e44);
         }
+        public static Matrix4x4 CreateObjectTransformMatrix(Vector3 position, Quaternion rot)
+        {
+            Vector3 rotation = rot.ToEulerAngles();
+            rotation = rotation * XMath.Deg2Rad;
+            float cx = (float)System.Math.Cos(rotation.x);
+            float sx = (float)System.Math.Sin(rotation.x);
+            float cy = (float)System.Math.Cos(rotation.y);
+            float sy = (float)System.Math.Sin(rotation.y);
+            float cz = (float)System.Math.Cos(rotation.z);
+            float sz = (float)System.Math.Sin(rotation.z);
+            return new Matrix4x4(
+                    cz * cy, -sz * cx + cz * sy * sx, sz * sx + cz * sy * cx, position.x,
+                    sz * cy, cz * cx + sz * sy * sx, -cz * sx + sz * sy * cx, position.y,
+                    -sy, cy * sx, cy * cx, position.z,
+                    0f, 0f, 0f, 1f
+                );
+        }
         public static Matrix4x4 CreateRotationMatrix(Vector3 rotation)
         {
             rotation = rotation * XMath.Deg2Rad;
@@ -28,13 +45,18 @@ namespace Renderer.Maths
             float sy = (float)System.Math.Sin(rotation.y);
             float cz = (float)System.Math.Cos(rotation.z);
             float sz = (float)System.Math.Sin(rotation.z);
-
             return new Matrix4x4(
-    cy * cz, -cy * sz, sy, 0,
-    cx * sz + sx * sy * cz, cx * cz - sx * sy * sz, -sx * cy, 0,
-    sx * sz - cx * sy * cz, cx * sy * sz + sx * cz, cx * cy, 0,
-    0, 0, 0, 1
-);
+                    cz * cy, -sz * cx + cz * sy * sx, sz * sx + cz * sy * cx,  0f,                                    
+                    sz * cy, cz * cx + sz * sy * sx,  -cz * sx + sz * sy * cx, 0f,                                     
+                    -sy,     cy * sx,                 cy * cx,                 0f,                            
+                    0f,       0f,                     0f,                      1f                                   
+                );
+            //            return new Matrix4x4(
+            //    cy * cz, -cy * sz, sy, 0,
+            //    cx * sz + sx * sy * cz, cx * cz - sx * sy * sz, -sx * cy, 0,
+            //    sx * sz - cx * sy * cz, cx * sy * sz + sx * cz, cx * cy, 0,
+            //    0, 0, 0, 1
+            //);
 
             //Matrix4x4 rotationX = new Matrix4x4(
             //    1, 0, 0, 0,
