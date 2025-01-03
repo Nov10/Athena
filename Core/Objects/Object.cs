@@ -12,7 +12,8 @@ namespace Renderer.Core
         public Object Parent;
         public List<Object> Children;
         public Vector3 LocalPosition;
-        public Vector3 LocalRotation;
+        //public Vector3 LocalRotation;
+        public Quaternion LocalRotation;
 
         public Vector3 WorldPosition
         {
@@ -22,19 +23,44 @@ namespace Renderer.Core
                     return LocalPosition;
 
                 Vector3 worldParentPosition = Parent.WorldPosition;
-                Vector3 worldParentRotation = Parent.WorldRotation;
+                Quaternion worldParentRotation = Parent.WorldRotation;
 
-               return worldParentPosition + TransformMatrixCaculator.Transform(LocalPosition, TransformMatrixCaculator.CreateRotationMatrix(worldParentRotation));
+                return worldParentPosition + worldParentRotation.RotateVector(LocalPosition);
+            }
+
+            set
+            {
+                Vector3 point = value;
+                if (Parent == null)
+                {
+                    LocalPosition = point;
+                    return;
+                }
+
+                Vector3 diff = point - Parent.WorldPosition;
+
+                LocalPosition = diff;
             }
         }
 
-        public Vector3 WorldRotation
+        public Quaternion WorldRotation
         {
             get
             {
                 if (Parent == null)
                     return LocalRotation;
-                return Parent.WorldRotation + LocalRotation;
+                return Parent.WorldRotation * LocalRotation;
+            }
+            set
+            {
+                Quaternion q = value;
+                if(Parent == null)
+                {
+                    LocalRotation = q;
+                    return;
+                }
+
+                LocalRotation = Parent.WorldRotation.Conjugate() * q;
             }
         }
 
@@ -59,6 +85,7 @@ namespace Renderer.Core
             Components = new List<Component>();
             Children = new List<Object>();
             Parent = null;
+            LocalRotation = new Quaternion(1, 0, 0, 0);
         }
     }
 }

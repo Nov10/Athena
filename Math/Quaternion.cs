@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace Renderer.Maths
 {
-    public class Quaternion
+    public struct Quaternion
     {
         public float x; public float y; public float z; public float w;
-
+        public override string ToString()
+        {
+            return $"{x} {y} {z} {w}";
+        }
+        public Quaternion()
+        {
+            w = 1;
+            x = y = z = 0;
+        }
         // 벡터를 쿼터니언으로 변환하는 함수
         public static Quaternion FromVectorToQuaternion(Vector3 fromVector, Vector3 toVector)
         {
@@ -82,6 +90,52 @@ namespace Renderer.Maths
             float cosHalfAngle = (float)System.Math.Cos(halfAngle);
 
             return new Quaternion(cosHalfAngle, axis.x * sinHalfAngle, axis.y * sinHalfAngle, axis.z * sinHalfAngle);
+        }
+
+        // 오일러 각 -> 쿼터니언 변환
+        public static Quaternion FromEulerAngles(float roll, float pitch, float yaw)
+        {
+            roll = roll  * XMath.Deg2Rad;
+            pitch = pitch * XMath.Deg2Rad;
+            yaw = yaw * XMath.Deg2Rad;
+            float cy = (float)Math.Cos(yaw * 0.5);
+            float sy = (float)Math.Sin(yaw * 0.5);
+            float cp = (float)Math.Cos(pitch * 0.5);
+            float sp = (float)Math.Sin(pitch * 0.5);
+            float cr = (float)Math.Cos(roll * 0.5);
+            float sr = (float)Math.Sin(roll * 0.5);
+
+            float w = cr * cp * cy + sr * sp * sy;
+            float x = sr * cp * cy - cr * sp * sy;
+            float y = cr * sp * cy + sr * cp * sy;
+            float z = cr * cp * sy - sr * sp * cy;
+
+            return new Quaternion(w, x, y, z);
+        }
+
+        // 쿼터니언 -> 오일러 각 변환
+        public Vector3 ToEulerAngles()
+        {
+            float roll, pitch, yaw;
+
+            // Roll (x-axis rotation)
+            float sinr_cosp = 2 * (w * x + y * z);
+            float cosr_cosp = 1 - 2 * (x * x + y * y);
+            roll = (float)Math.Atan2(sinr_cosp, cosr_cosp);
+
+            // Pitch (y-axis rotation)
+            float sinp = 2 * (w * y - z * x);
+            if (Math.Abs(sinp) >= 1)
+                pitch = (float)Math.CopySign(Math.PI / 2, sinp); // Use 90 degrees if out of range
+            else
+                pitch = (float)Math.Asin(sinp);
+
+            // Yaw (z-axis rotation)
+            float siny_cosp = 2 * (w * z + x * y);
+            float cosy_cosp = 1 - 2 * (y * y + z * z);
+            yaw = (float)Math.Atan2(siny_cosp, cosy_cosp);
+
+            return new Vector3(roll, pitch, yaw) * XMath.Rad2Deg;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Renderer.Maths;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Renderer.Maths
         }
         public static Matrix4x4 CreateRotationMatrix(Vector3 rotation)
         {
+            rotation = rotation * XMath.Deg2Rad;
             float cx = (float)System.Math.Cos(rotation.x);
             float sx = (float)System.Math.Sin(rotation.x);
             float cy = (float)System.Math.Cos(rotation.y);
@@ -27,32 +29,32 @@ namespace Renderer.Maths
             float cz = (float)System.Math.Cos(rotation.z);
             float sz = (float)System.Math.Sin(rotation.z);
 
-//            return new Matrix4x4(
-//    cy * cz, -cy * sz, sy, 0,
-//    cx * sz + sx * sy * cz, cx * cz - sx * sy * sz, -sx * cy, 0,
-//    sx * sz - cx * sy * cz, cx * sy * sz + sx * cz, cx * cy, 0,
-//    0, 0, 0, 1
-//);
+            return new Matrix4x4(
+    cy * cz, -cy * sz, sy, 0,
+    cx * sz + sx * sy * cz, cx * cz - sx * sy * sz, -sx * cy, 0,
+    sx * sz - cx * sy * cz, cx * sy * sz + sx * cz, cx * cy, 0,
+    0, 0, 0, 1
+);
 
-            Matrix4x4 rotationX = new Matrix4x4(
-                1, 0, 0, 0,
-                0, cx, -sx, 0,
-                0, sx, cx, 0,
-                0, 0, 0, 1);
+            //Matrix4x4 rotationX = new Matrix4x4(
+            //    1, 0, 0, 0,
+            //    0, cx, -sx, 0,
+            //    0, sx, cx, 0,
+            //    0, 0, 0, 1);
 
-            Matrix4x4 rotationY = new Matrix4x4(
-                cy, 0, sy, 0,
-                0, 1, 0, 0,
-                -sy, 0, cy, 0,
-                0, 0, 0, 1);
+            //Matrix4x4 rotationY = new Matrix4x4(
+            //    cy, 0, sy, 0,
+            //    0, 1, 0, 0,
+            //    -sy, 0, cy, 0,
+            //    0, 0, 0, 1);
 
-            Matrix4x4 rotationZ = new Matrix4x4(
-                cz, -sz, 0, 0,
-                sz, cz, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
+            //Matrix4x4 rotationZ = new Matrix4x4(
+            //    cz, -sz, 0, 0,
+            //    sz, cz, 0, 0,
+            //    0, 0, 1, 0,
+            //    0, 0, 0, 1);
 
-            return rotationZ * rotationY * rotationX;
+            //return rotationZ * rotationY * rotationX;
         }
 
         public static Matrix4x4 CreateTranslationMatrix(Vector3 translation)

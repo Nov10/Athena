@@ -46,7 +46,7 @@ namespace Renderer
             Position = new Vector3(0, 00, 100f),
             Direction = new Vector3(0, 0f, -1),
             NearPlaneDistance = 3f,
-            FarPlaneDistance = 100.0f,
+            FarPlaneDistance = 500.0f,
             FieldOfView = 60f,
             AspectRatio = (float)width / height
         };
@@ -173,20 +173,20 @@ namespace Renderer
             Time += 0.01f;
 
             MainRenderer.Targets.Clear();
-            camera.FarPlaneDistance = 500f;
-            WorldObjects[1].LocalRotation = new Vector3(3.141592f, 0, Time * 5);
+            WorldObjects[1].LocalRotation = Quaternion.FromEulerAngles(180, 0, Time * 8* 10 * XMath.Rad2Deg);
+            
             WorldObjects[1].LocalPosition = new Vector3(0, 0, 2.0f);
-            WorldObjects[2].LocalRotation = new Vector3(3.141592f/2, 0, 0);
+            WorldObjects[2].LocalRotation = Quaternion.FromEulerAngles(90, 0, 0);
 
-            WorldObjects[0].LocalPosition = new Vector3(MathF.Sin(Time*5), 0, MathF.Cos(Time * 5)) * 10;
+            WorldObjects[0].LocalPosition = new Vector3(MathF.Sin(Time * 10), MathF.Sin(Time * 8) * 0.2f, MathF.Cos(Time * 10)) * 10;
             Vector3 dir = Vector3.Cross(new Vector3(0, 1, 0), WorldObjects[0].WorldPosition);
             dir = dir.normalized;
 
             // atan2( X성분, Z성분 ) = 현재 기준(앞=+Z)에서 dir 벡터가 얼마나 회전되어있는가
-            float angleRadians = MathF.Atan2(dir.x, dir.z);
+            float angle = MathF.Atan2(dir.x, dir.z) * 180 / 3.141592f;
 
-            // 오브젝트 회전 설정(° 단위 가정)
-            WorldObjects[0].LocalRotation = new Vector3(0, angleRadians, 0);
+            // 오브젝트 회전 설정
+            WorldObjects[0].LocalRotation = Quaternion.FromEulerAngles(0, angle, 0);
             //(WorldObjects[0].Components[0] as Core.Renderer).RenderDatas[1].Rotation = new Vector3(-90 * 3.141592f / 180f * 0, 0, Time);
             for (int i = 0; i<WorldObjects.Count; i++)
             {
@@ -194,12 +194,8 @@ namespace Renderer
             }
             MainRenderer.camera = camera;
             MainRenderer.Render();
-            //Render3DScene(0.1f);
 
             RenderTargetImage.Source = MainRenderer.RenderTarget.ConvertToBitmap();
-            //sum += sw.ElapsedTicks;
-            //counter++;
-            //System.Diagnostics.Debug.WriteLine((float)sum / counter);
         }
 
         Quaternion q;
