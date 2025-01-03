@@ -60,67 +60,67 @@ namespace Renderer.Renderer
             float speed = 1;
             float pi2 = (float)(2 * System.Math.PI);
 
-            while (true)
-            {
-                time += 0.01f;
-                time = time % pi2;
+            //while (true)
+            //{
+            //    time += 0.01f;
+            //    time = time % pi2;
 
-                // 카메라 행렬 계산
-                Matrix4x4 viewMatrix = camera.CalculatePerspectiveMatrix();
-                Matrix4x4 perspectiveMatrix = camera.CalculateProjectionMatrix();
-                Matrix4x4 cameraMatrix = perspectiveMatrix * viewMatrix;
+            //    // 카메라 행렬 계산
+            //    Matrix4x4 viewMatrix = camera.CalculateCameraTransformMatrix();
+            //    Matrix4x4 perspectiveMatrix = camera.CalculateProjectionMatrix();
+            //    Matrix4x4 cameraMatrix = perspectiveMatrix * viewMatrix;
 
-                // 물체의 위치와 회전 갱신
-                objectPosition.x = (float)System.Math.Sin(speed * time);
-                objectPosition.y = (float)System.Math.Cos(speed * time);
-                objectPosition.z = (float)System.Math.Sin(speed * time);
-                objectRotation.x = (float)System.Math.Sin(speed * time);
-                objectRotation.y = (float)System.Math.Cos(speed * time);
-                objectRotation.z = (float)System.Math.Sin(speed * time);
+            //    // 물체의 위치와 회전 갱신
+            //    objectPosition.x = (float)System.Math.Sin(speed * time);
+            //    objectPosition.y = (float)System.Math.Cos(speed * time);
+            //    objectPosition.z = (float)System.Math.Sin(speed * time);
+            //    objectRotation.x = (float)System.Math.Sin(speed * time);
+            //    objectRotation.y = (float)System.Math.Cos(speed * time);
+            //    objectRotation.z = (float)System.Math.Sin(speed * time);
 
-                Vector3[] transformedVertices = new Vector3[cubeVertices.Count];
+            //    Vector3[] transformedVertices = new Vector3[cubeVertices.Count];
 
-                // 물체의 점들을 렌더링
-                for (int i = 0; i < cubeVertices.Count; i++)
-                {
-                    Vector3 vertex = cubeVertices[i];
+            //    // 물체의 점들을 렌더링
+            //    for (int i = 0; i < cubeVertices.Count; i++)
+            //    {
+            //        Vector3 vertex = cubeVertices[i];
 
-                    // 물체의 회전 행렬 생성 (Yaw-Pitch-Roll 순서)
-                    Matrix4x4 rotationMatrix = CreateRotationMatrix(objectRotation);
+            //        // 물체의 회전 행렬 생성 (Yaw-Pitch-Roll 순서)
+            //        Matrix4x4 rotationMatrix = CreateRotationMatrix(objectRotation);
 
-                    // 물체의 위치 변환 행렬 생성
-                    Matrix4x4 translationMatrix = CreateTranslationMatrix(objectPosition);
+            //        // 물체의 위치 변환 행렬 생성
+            //        Matrix4x4 translationMatrix = CreateTranslationMatrix(objectPosition);
 
-                    // 물체의 변환 행렬 (회전 후 이동)
-                    Matrix4x4 objectTransform = rotationMatrix * translationMatrix;
+            //        // 물체의 변환 행렬 (회전 후 이동)
+            //        Matrix4x4 objectTransform = rotationMatrix * translationMatrix;
 
-                    // 정점 변환 (정점 -> 물체 변환 -> 카메라 변환)
-                    Vector3 transformedVertex = Transform(vertex, objectTransform);
-                    transformedVertex = Transform(transformedVertex, cameraMatrix);
+            //        // 정점 변환 (정점 -> 물체 변환 -> 카메라 변환)
+            //        Vector3 transformedVertex = Transform(vertex, objectTransform);
+            //        transformedVertex = Transform(transformedVertex, cameraMatrix);
 
-                    // 직각 투영 변환
-                    transformedVertices[i] = new Vector3(
-                        transformedVertex.x / transformedVertex.z * width / 2 + width / 2,
-                        -transformedVertex.y / transformedVertex.z * height / 2 + height / 2,
-                        transformedVertex.z);
+            //        // 직각 투영 변환
+            //        transformedVertices[i] = new Vector3(
+            //            transformedVertex.x / transformedVertex.z * width / 2 + width / 2,
+            //            -transformedVertex.y / transformedVertex.z * height / 2 + height / 2,
+            //            transformedVertex.z);
 
-                    Console.WriteLine($"Vertex [{i}] : {transformedVertices[i]}");
-                }
+            //        Console.WriteLine($"Vertex [{i}] : {transformedVertices[i]}");
+            //    }
 
-                // 물체의 선들을 렌더링
-                foreach (var edge in cubeEdges)
-                {
-                    Vector3 pt1 = transformedVertices[edge.Item1];
-                    Vector3 pt2 = transformedVertices[edge.Item2];
+            //    // 물체의 선들을 렌더링
+            //    foreach (var edge in cubeEdges)
+            //    {
+            //        Vector3 pt1 = transformedVertices[edge.Item1];
+            //        Vector3 pt2 = transformedVertices[edge.Item2];
 
-                    // 두 점을 연결하는 선을 그리는 로직
-                    Console.WriteLine($"Drawing line from {pt1} to {pt2}");
-                }
+            //        // 두 점을 연결하는 선을 그리는 로직
+            //        Console.WriteLine($"Drawing line from {pt1} to {pt2}");
+            //    }
 
-                // 여기서 실제로 이미지를 출력하거나 화면에 그리는 코드를 추가해야 함
+            //    // 여기서 실제로 이미지를 출력하거나 화면에 그리는 코드를 추가해야 함
 
-                // 키 입력 처리 및 카메라 이동/회전 로직 추가 (생략)
-            }
+            //    // 키 입력 처리 및 카메라 이동/회전 로직 추가 (생략)
+            //}
         }
 
         static Matrix4x4 CreateRotationMatrix(Vector3 rotation)

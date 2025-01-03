@@ -27,6 +27,46 @@ namespace Renderer.Maths
             this.e41 = e41; this.e42 = e42; this.e43 = e43; this.e44 = e44;
         }
 
+        public static bool operator ==(Matrix4x4 a, Matrix4x4 b)
+        {
+            if (a.e11 != b.e11)
+                return false;
+            if(a.e12 != b.e12)
+                return false;
+            if (a.e13 != b.e13)
+                return false;
+            if (a.e14 != b.e14)
+                return false;
+            if (a.e21 != b.e21)
+                return false;
+            if (a.e22 != b.e22)
+                return false;
+            if (a.e23 != b.e23)
+                return false;
+            if (a.e24 != b.e24)
+                return false;
+            if (a.e31 != b.e31)
+                return false;
+            if (a.e32 != b.e32)
+                return false;
+            if (a.e33 != b.e33)
+                return false;
+            if (a.e34 != b.e34)
+                return false;
+            if (a.e41 != b.e41)
+                return false;
+            if (a.e42 != b.e42)
+                return false;
+            if (a.e43 != b.e43)
+                return false;
+            if (a.e44 != b.e44)
+                return false;
+            return true;
+        }
+        public static bool operator !=(Matrix4x4 a, Matrix4x4 b)
+        {
+            return !(a == b);
+        }
         // 덧셈 연산자 오버로딩
         public static Matrix4x4 operator +(Matrix4x4 a, Matrix4x4 b)
         {

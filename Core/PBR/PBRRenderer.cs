@@ -197,11 +197,9 @@ namespace Renderer.Renderer.PBR
         }
         public void Render()
         {
-            Matrix4x4 cameraTransform = camera.CalculatePerspectiveProjectionMatrix();
+            Matrix4x4 cameraTransform = camera.CalculateRenderMatrix();
             RenderTarget.ClearBlack();
             ClearZBuffer();
-            Vector3 light = new Vector3(1, -1, 1); // 광원 방향 정의
-            light = light.normalized; // 광원 방향 벡터를 정규화
             //Vector3 lightInCameraSpace = TransformMatrixCaculator.Transform(light.normalized, cmaeraTransform).normalized; // 광원을 카메라 좌표계로 변환
 
 

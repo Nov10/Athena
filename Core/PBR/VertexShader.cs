@@ -29,16 +29,15 @@ namespace Renderer
             {
                 Vertex vertex = vertices[idx];
 
-                Vector3 v = vertex.Position_ObjectSpace;
                 vertex.Position_WorldSpace = TransformMatrixCaculator.Transform(vertex.Position_ObjectSpace, objectTransform);
                 vertex.Position_WorldSpace = shader.VertextShader(vertex.Position_WorldSpace, vertex.Normal_WorldSpace, objectPosition);
                 vertex.Normal_WorldSpace = TransformMatrixCaculator.Transform(vertex.Normal_ObjectSpace, objectRotationTransform);
 
-                vertex.Position_WorldSpace = TransformMatrixCaculator.Transform(vertex.Position_WorldSpace, cameraTransform);
+                vertex.Position_ScreenVolumeSpace = TransformMatrixCaculator.Transform(vertex.Position_WorldSpace, cameraTransform);
                 vertex.Position_ScreenVolumeSpace = new Vector3(
-                -(vertex.Position_WorldSpace.x),
-                -(vertex.Position_WorldSpace.y),
-                 (vertex.Position_WorldSpace.z));
+                -(vertex.Position_ScreenVolumeSpace.x),
+                -(vertex.Position_ScreenVolumeSpace.y),
+                 (vertex.Position_ScreenVolumeSpace.z));
 
                 vertices[idx] = vertex;
             });
