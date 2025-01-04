@@ -109,11 +109,20 @@ namespace Renderer
             };
             Core.Object camera = new Core.Object();
             camera.WorldPosition = new Vector3(0, 0, 90);
+            camera.WorldRotation = Quaternion.FromEulerAngles(0, 180, 0);
             cameraComponent.MainRenderer = new PBRRenderer(width, height);
             Window = new NBitmap(width, height);
             cameraComponent.MainRenderer.RenderTarget = Window;
-            cameraComponent.MainRenderer.LightDirection = new Vector3(0, -1, 0).normalized * -1;
+            cameraComponent.MainRenderer.LightDirection = new Vector3(-0.5f, -1, 0).normalized * -1;
             camera.AddComponent(cameraComponent);
+
+            renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\cam.stl");
+            Core.Object cam = new Core.Object();
+            Core.Renderer camRenderer = new Core.Renderer();
+            camRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
+            camRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            cam.LocalPosition = new Vector3(0, 0, 2.0f);
+            //cam.AddComponent(camRenderer);
 
             //camera.Parent = body;
             //camera.LocalPosition = new Vector3(0, 0, 30);
@@ -134,8 +143,9 @@ namespace Renderer
             blade.Parent = body;
             WorldObjects.Add(body);
             WorldObjects.Add(blade);
-            WorldObjects.Add(plane);
             WorldObjects.Add(camera);
+            //WorldObjects.Add(cam);
+            WorldObjects.Add(plane);
 
 
             // MultipleMeshObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
@@ -168,7 +178,7 @@ namespace Renderer
             //}
             //PBR.AddObject(renderer);
 
-            ImageRefresher.Interval = TimeSpan.FromTicks(5);
+            ImageRefresher.Interval = TimeSpan.FromTicks(10);
             ImageRefresher.Tick += T_Tick1;
             ImageRefresher.Start();
             
@@ -177,17 +187,19 @@ namespace Renderer
         long sum = 0;
         int counter = 0;
         public static List<Core.Object> WorldObjects;
-        float Time;
+
+        //float Time;
         private void T_Tick1(object sender, object e)
         {
-            Time += 0.01f;
+            Core.Time.StartUpdate();
+            //Time += 0.01f;
+            WorldObjects[1].LocalRotation = Quaternion.FromEulerAngles(180, 0, Time.TotalTime * 5 * XMath.Rad2Deg);
 
-            WorldObjects[1].LocalRotation = Quaternion.FromEulerAngles(180, 0, Time * 10 * XMath.Rad2Deg);
-            
             WorldObjects[1].LocalPosition = new Vector3(0, 0, 2.0f);
-            WorldObjects[2].LocalRotation = Quaternion.FromEulerAngles(90, 0, 0);
+            WorldObjects[3].LocalRotation = Quaternion.FromEulerAngles(90, 0, 0);
+            //WorldObjects[2].LocalPosition = new Vector3(0, -40, 0);
 
-            WorldObjects[0].LocalPosition = new Vector3(MathF.Sin(Time * 10), MathF.Sin(Time * 8) * 0.2f, MathF.Cos(Time * 10)) * 10;
+            WorldObjects[0].LocalPosition = new Vector3(MathF.Sin(Time.TotalTime * 3), MathF.Sin(Time.TotalTime * 2) * 0.2f, MathF.Cos(Time.TotalTime * 3)) * 5;
             Vector3 dir = Vector3.Cross(new Vector3(0, 1, 0), WorldObjects[0].WorldPosition);
             dir = dir.normalized;
 
@@ -195,31 +207,32 @@ namespace Renderer
 
             // 오브젝트 회전 설정
             WorldObjects[0].LocalRotation = Quaternion.FromEulerAngles(0, angle, 0);
-            
+
+
             var moveInput = Input.GetDirectionInput(KeyPreset.WASD);
             var rotateInput = Input.GetDirectionInput(KeyPreset.Arrow);
-            Input.DebugNowInputKeys();
+            //Input.DebugNowInputKeys();
             Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
 
             if (Input.GetKey(KeyCode.Q))
-                moveInput.y = 1;
+                move.y = 1;
             else if (Input.GetKey(KeyCode.E))
-                moveInput.y = -1;
-
+                move.y = -1;
+            //System.Diagnostics.Debug.WriteLine(WorldObjects[3].WorldPosition);
             if (rotateInput.y > 0.5f)
                 q = Quaternion.CreateRotationQuaternion(new Vector3(1, 0, 0), -5);
             else if (rotateInput.y < -0.5f)
                 q = Quaternion.CreateRotationQuaternion(new Vector3(1, 0, 0), 5);
             else if (rotateInput.x > 0.5f)
-                q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), 5);
-            else if (rotateInput.x < -0.5f)
                 q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), -5);
+            else if (rotateInput.x < -0.5f)
+                q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), 5);
             else
                 q = new Quaternion(1, 0, 0, 0);
-            WorldObjects[3].WorldRotation = WorldObjects[3].WorldRotation * q;
+            WorldObjects[2].WorldRotation = WorldObjects[2].WorldRotation * q;
 
-            Vector3 zAxis = WorldObjects[3].WorldRotation.RotateVector(new Vector3(0, 0, -1));
-            Vector3 xAxis = (Vector3.Cross(new Vector3(0, 1, 0), zAxis)).normalized;
+            Vector3 zAxis = WorldObjects[2].WorldRotation.RotateVector(new Vector3(0, 0, 1));
+            Vector3 xAxis = (Vector3.Cross(zAxis, new Vector3(0, 1, 0))).normalized;
             Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
 
             Matrix4x4 rotationMatrix = new Matrix4x4(
@@ -228,8 +241,16 @@ namespace Renderer
                 xAxis.z, yAxis.z, zAxis.z, 0,
                 0, 0, 0, 1);
 
-            WorldObjects[3].WorldPosition += (-zAxis * move.z + xAxis * move.x + new Vector3(0, move.y, 0)) * 5;
+            WorldObjects[2].WorldPosition += (zAxis * move.z + xAxis * move.x + new Vector3(0, move.y, 0)) * 5;
+            //Vector3 zAxis2 = WorldObjects[0].WorldRotation.RotateVector(new Vector3(0, 0, 1));
+            //Vector3 xAxis2 = (Vector3.Cross(new Vector3(0, 1, 0), zAxis)).normalized;
+            //Vector3 yAxis2 = Vector3.Cross(zAxis, xAxis).normalized;
 
+            //WorldObjects[3].WorldPosition = Vector3.Lerp(WorldObjects[3].WorldPosition, WorldObjects[0].WorldPosition + -zAxis2 * 15, 0.5f);
+            //WorldObjects[3].WorldRotation = Quaternion.Slerp(WorldObjects[3].WorldRotation, WorldObjects[0].WorldRotation, 0.5f).Normalize();
+
+            //WorldObjects[2].WorldPosition = WorldObjects[3].WorldPosition;
+            //WorldObjects[2].WorldRotation = WorldObjects[3].WorldRotation;
             for (int i = 0; i<WorldObjects.Count; i++)
             {
                 WorldObjects[i].Update();
@@ -244,6 +265,7 @@ namespace Renderer
 
             RenderTargetImage.Source = Window.ConvertToBitmap();
             Input.Update();
+            Core.Time.EndUpdate();
         }
 
         Quaternion q;
