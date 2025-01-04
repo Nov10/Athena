@@ -91,7 +91,86 @@ namespace Renderer.Maths
 
             return new Quaternion(cosHalfAngle, axis.x * sinHalfAngle, axis.y * sinHalfAngle, axis.z * sinHalfAngle);
         }
+        public Quaternion Normalize()
+        {
+            float magnitude = (float)Math.Sqrt(w * w + x * x + y * y + z * z);
+            if (magnitude > 0.0001f)
+            {
+                w /= magnitude;
+                x /= magnitude;
+                y /= magnitude;
+                z /= magnitude;
+            }
+            return this;
+        }
+        public static Quaternion Lerp(Quaternion q1, Quaternion q2, float t)
+        {
+            if (t < 0 || t > 1)
+                throw new ArgumentOutOfRangeException(nameof(t), "t must be in the range [0, 1].");
 
+            // Linear interpolation
+            Quaternion result = new Quaternion(
+                (1 - t) * q1.w + t * q2.w,
+                (1 - t) * q1.x + t * q2.x,
+                (1 - t) * q1.y + t * q2.y,
+                (1 - t) * q1.z + t * q2.z
+            );
+
+            // Normalize the result to ensure it remains a valid quaternion
+            result.Normalize();
+            return result;
+        }
+        public static Quaternion Slerp(Quaternion q1, Quaternion q2, float t)
+        {
+            if (t < 0 || t > 1)
+                throw new ArgumentOutOfRangeException(nameof(t), "t must be in the range [0, 1].");
+
+            // Normalize the quaternions
+            q1.Normalize();
+            q2.Normalize();
+
+            // Compute the cosine of the angle between the two quaternions
+            float dot = q1.w * q2.w + q1.x * q2.x + q1.y * q2.y + q1.z * q2.z;
+
+            // If the dot product is negative, negate one quaternion to take the shorter arc
+            if (dot < 0.0f)
+            {
+                q2 = new Quaternion(-q2.w, -q2.x, -q2.y, -q2.z);
+                dot = -dot;
+            }
+
+            const float DOT_THRESHOLD = 0.9995f;
+            if (dot > DOT_THRESHOLD)
+            {
+                // If the quaternions are very close, use linear interpolation
+                Quaternion result = new Quaternion(
+                    q1.w + t * (q2.w - q1.w),
+                    q1.x + t * (q2.x - q1.x),
+                    q1.y + t * (q2.y - q1.y),
+                    q1.z + t * (q2.z - q1.z)
+                );
+                result.Normalize();
+                return result;
+            }
+
+            // Compute the angle between the quaternions
+            float theta_0 = (float)Math.Acos(dot);
+            float theta = theta_0 * t;
+
+            // Compute the sin values
+            float sin_theta = (float)Math.Sin(theta);
+            float sin_theta_0 = (float)Math.Sin(theta_0);
+
+            float s0 = (float)Math.Cos(theta) - dot * sin_theta / sin_theta_0;
+            float s1 = sin_theta / sin_theta_0;
+
+            return new Quaternion(
+                s0 * q1.w + s1 * q2.w,
+                s0 * q1.x + s1 * q2.x,
+                s0 * q1.y + s1 * q2.y,
+                s0 * q1.z + s1 * q2.z
+            );
+        }
         // 오일러 각 -> 쿼터니언 변환
         public static Quaternion FromEulerAngles(float roll, float pitch, float yaw)
         {

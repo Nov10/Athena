@@ -66,6 +66,11 @@ namespace Renderer.Maths
             get { return x * x + y * y + z * z; }
         }
 
+        public static Vector3 Lerp(Vector3 a, Vector3 b, float t)
+        {
+            return (1 - t) * a + t * b;
+        }
+
         public static float Angle(Vector3 a, Vector3 b)
         {
             // 두 벡터를 정규화 (Normalize)

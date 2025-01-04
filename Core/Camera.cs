@@ -1,10 +1,6 @@
 ﻿using Renderer.Maths;
 using Renderer.Renderer.PBR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Renderer.Renderer
 {
@@ -60,14 +56,23 @@ namespace Renderer.Renderer
         float f2;
         float f3;
         float f4;
+        float f5;
         void CalculatePerspectiveMatrixValues()
         {
             height = (float)System.Math.Tan(FieldOfView * XMath.Deg2Rad_Half) * distance * 2;
             width = height * AspectRatio;
-            f1 = 2 * distance / width;
-            f2 = 2 * distance / height;
+            f1 = NearPlaneDistance / width;
+            f2 = NearPlaneDistance / height;
             f3 = (FarPlaneDistance + NearPlaneDistance) / (FarPlaneDistance - NearPlaneDistance);
             f4 = 2 * FarPlaneDistance * NearPlaneDistance / (FarPlaneDistance - NearPlaneDistance);
+            //f5 = -1;
+            ////f1 = NearPlaneDistance / width;
+            ////f2 = NearPlaneDistance / height;
+            ////f3 = -1;
+            //////f3 = (FarPlaneDistance + NearPlaneDistance) / (FarPlaneDistance - NearPlaneDistance);
+            //////f4 = 2* FarPlaneDistance * NearPlaneDistance / (FarPlaneDistance - NearPlaneDistance);
+            ////f4 = -2 * NearPlaneDistance;
+            ////f5 = -1;
         }
 
         //public Camera(Vector3 position, Vector3 direction, float nearPlaneDistance, float farPlaneDistance, float fieldOfView, float aspectRatio, Vector3 worldUp)
@@ -90,15 +95,17 @@ namespace Renderer.Renderer
 
         public Matrix4x4 CalculateRenderMatrix()
         {
-            Vector3 zAxis = Controller.WorldRotation.RotateVector(new Vector3(0, 0, -1));
+
+            Vector3 zAxis = Controller.WorldRotation.RotateVector(new Vector3(0, 0, 1));
             Vector3 xAxis = (Vector3.Cross(WorldUp, zAxis)).normalized;
             Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
+            Vector3 t = -Controller.WorldPosition;
 
             return new Matrix4x4(
-            f1 * xAxis.x, f1 * xAxis.y, f1 * xAxis.z, -f1 * Vector3.Dot(xAxis, Controller.WorldPosition),
-            f2 * yAxis.x, f2 * yAxis.y, f2 * yAxis.z, -f2 * Vector3.Dot(yAxis, Controller.WorldPosition),
-            f3 * zAxis.x, f3 * zAxis.y, f3 * zAxis.z, -(f3 * Vector3.Dot(zAxis, Controller.WorldPosition) + f4),
-            zAxis.x,      zAxis.y,      zAxis.z,      -Vector3.Dot(zAxis, Controller.WorldPosition));
+            f1 * xAxis.x, f1 * xAxis.y, f1 * xAxis.z, f1 * Vector3.Dot(xAxis, t),
+            f2 * yAxis.x, f2 * yAxis.y, f2 * yAxis.z, f2 * Vector3.Dot(yAxis, t),
+            f3 * zAxis.x, f3 * zAxis.y, f3 * zAxis.z, (f3 * Vector3.Dot(zAxis, t) - f4),
+            zAxis.x, zAxis.y, zAxis.z, Vector3.Dot(zAxis, t));
         }
 
 

@@ -9,7 +9,16 @@ namespace Renderer.Maths
 {
     internal class TransformMatrixCaculator
     {
-
+        public static Vector4 TransformH(Vector3 v, Matrix4x4 matrix)
+        {
+            Vector4 vector = new Vector4(v.x, v.y, v.z, 1);
+            //동차좌표계에서 변환
+            return new Vector4(
+                vector.x * matrix.e11 + vector.y * matrix.e12 + vector.z * matrix.e13 + vector.w * matrix.e14,
+                vector.x * matrix.e21 + vector.y * matrix.e22 + vector.z * matrix.e23 + vector.w * matrix.e24,
+                vector.x * matrix.e31 + vector.y * matrix.e32 + vector.z * matrix.e33 + vector.w * matrix.e34,
+                vector.x * matrix.e41 + vector.y * matrix.e42 + vector.z * matrix.e43 + vector.w * matrix.e44);
+        }
         public static Vector3 Transform(Vector3 vector, Matrix4x4 matrix)
         {
             //동차좌표계에서 변환

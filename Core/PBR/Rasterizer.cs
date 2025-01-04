@@ -62,8 +62,12 @@ namespace Renderer
         {
             Parallel.For(0, vertexes.Length, (idx) =>
             {
-                vertexes[idx].Position_ScreenVolumeSpace.x = vertexes[idx].Position_ScreenVolumeSpace.x * (Width / 2.0f) + (Width / 2.0f);
-                vertexes[idx].Position_ScreenVolumeSpace.y = vertexes[idx].Position_ScreenVolumeSpace.y * (Height / 2.0f) + (Height / 2.0f);
+                //ClipSpace -> NDC
+                vertexes[idx].ClipPoint = vertexes[idx].ClipPoint / vertexes[idx].ClipPoint.w;
+                //NDC -> Screen
+                vertexes[idx].Position_ScreenVolumeSpace.x = -vertexes[idx].ClipPoint.x * (Width / 2.0f) + (Width / 2.0f);
+                vertexes[idx].Position_ScreenVolumeSpace.y = -vertexes[idx].ClipPoint.y * (Height / 2.0f) + (Height / 2.0f);
+                vertexes[idx].Position_ScreenVolumeSpace.z = vertexes[idx].ClipPoint.z;
             });
         }
         /// <summary>
@@ -81,8 +85,8 @@ namespace Renderer
                 if (EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace) < 0)
                     return;
 
-                if (0 < Vector3.Cross_Z(p2.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace))
-                    return;
+                //if (0 < Vector3.Cross_Z(p2.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace))
+                //    return;
 
                 int tileStartX = Math.Max((int)Math.Floor(Math.Min(p1.Position_ScreenVolumeSpace.x, Math.Min(p2.Position_ScreenVolumeSpace.x, p3.Position_ScreenVolumeSpace.x)) / tileSize), 0);
                 int tileStartY = Math.Max((int)Math.Floor(Math.Min(p1.Position_ScreenVolumeSpace.y, Math.Min(p2.Position_ScreenVolumeSpace.y, p3.Position_ScreenVolumeSpace.y)) / tileSize), 0);
@@ -164,7 +168,7 @@ namespace Renderer
                 if (zInterpolated < ZBuffer[idx])
                 {
                     //System.Diagnostics.Debug.WriteLine(new Vector3(xInterpolated, yInterpolated, zInterpolated));
-                    if( -1 <= zInterpolated && zInterpolated <= 1)
+                    if( -1 <= zInterpolated && zInterpolated <= 1f)
                     {
                         ZBuffer[idx] = zInterpolated;
                         p.z = zInterpolated;
@@ -194,7 +198,109 @@ namespace Renderer
 
 
 
+        #region A
+        public (Vertex[], int[]) ClipTriangles(Vertex[] vertices, int[] indices)
+        {
+            List<Vertex> outputVertices = new List<Vertex>();
+            List<int> outputIndices = new List<int>();
 
+            for (int i = 0; i < indices.Length; i += 3)
+            //Parallel.For(0, indices.Length / 3, (i) => { })
+            {
+                Vertex v1 = vertices[indices[i]];
+                Vertex v2 = vertices[indices[i + 1]];
+                Vertex v3 = vertices[indices[i + 2]];
+
+                List<Vertex> clippedVertices = ClipTriangleToFrustum(v1, v2, v3);
+
+                // 삼각형이 클리핑 후 여러 조각으로 나눠질 수 있음
+                if (clippedVertices.Count >= 3)
+                {
+                    int baseIndex = outputVertices.Count;
+                    outputVertices.AddRange(clippedVertices);
+
+                    for (int j = 1; j < clippedVertices.Count - 1; j++)
+                    {
+                        outputIndices.Add(baseIndex);
+                        outputIndices.Add(baseIndex + j);
+                        outputIndices.Add(baseIndex + j + 1);
+                    }
+                }
+            }
+
+            return (outputVertices.ToArray(), outputIndices.ToArray());
+        }
+
+        private List<Vertex> ClipTriangleToFrustum(Vertex v1, Vertex v2, Vertex v3)
+        {
+            List<Vertex> vertices = new List<Vertex> { v1, v2, v3 };
+
+            // 클리핑 평면 처리
+            for (int i = 0; i < 6; i++) // 클리핑 평면은 x, y, z에 대해 +/- 6개
+            {
+                List<Vertex> inputVertices = vertices;
+                vertices = new List<Vertex>();
+
+                Vector4 plane = GetClipPlane(i);
+
+                for (int j = 0; j < inputVertices.Count; j++)
+                {
+                    Vertex current = inputVertices[j];
+                    Vertex next = inputVertices[(j + 1) % inputVertices.Count];
+
+                    bool currentInside = IsInsidePlane(current.ClipPoint, plane);
+                    bool nextInside = IsInsidePlane(next.ClipPoint, plane);
+
+                    if (currentInside)
+                        vertices.Add(current);
+
+                    if (currentInside != nextInside)
+                    {
+                        Vertex intersection = IntersectPlane(plane, current, next);
+                        vertices.Add(intersection);
+                    }
+                }
+            }
+
+            return vertices;
+        }
+
+        private Vector4 GetClipPlane(int index)
+        {
+            // 클리핑 평면 정의 (x, y, z, w 각각 +/- 방향)
+            return index switch
+            {
+                0 => new Vector4(1, 0, 0, 1), // x = w
+                1 => new Vector4(-1, 0, 0, 1), // x = -w
+                2 => new Vector4(0, 1, 0, 1), // y = w
+                3 => new Vector4(0, -1, 0, 1), // y = -w
+                4 => new Vector4(0, 0, 1, 1), // z = w
+                5 => new Vector4(0, 0, -1, 1), // z = -w
+                _ => throw new ArgumentException("Invalid clip plane index")
+            };
+        }
+
+        private bool IsInsidePlane(Vector4 point, Vector4 plane)
+        {
+            return point.x * plane.x + point.y * plane.y + point.z * plane.z + point.w * plane.w >= 0;
+        }
+
+        private Vertex IntersectPlane(Vector4 plane, Vertex v1, Vertex v2)
+        {
+            float t = -(v1.ClipPoint.x * plane.x + v1.ClipPoint.y * plane.y + v1.ClipPoint.z * plane.z + v1.ClipPoint.w * plane.w) /
+                      ((v2.ClipPoint.x - v1.ClipPoint.x) * plane.x +
+                       (v2.ClipPoint.y - v1.ClipPoint.y) * plane.y +
+                       (v2.ClipPoint.z - v1.ClipPoint.z) * plane.z +
+                       (v2.ClipPoint.w - v1.ClipPoint.w) * plane.w);
+
+            Vertex result = v1;
+            result.ClipPoint = v1.ClipPoint + t * (v2.ClipPoint - v1.ClipPoint);
+            result.Position_WorldSpace = v1.Position_WorldSpace + t * (v2.Position_WorldSpace - v1.Position_WorldSpace);
+            result.UV = v1.UV + t * (v2.UV - v1.UV);
+            result.Normal_WorldSpace = v1.Normal_WorldSpace + t * (v2.Normal_WorldSpace - v1.Normal_WorldSpace);
+            return result;
+        }
+        #endregion
         Raster[] Rasters;
         public Raster[] Run(Vertex[] vertices, float[] zBuffer, NBitmap target, int[] triangles, int width, int height)
         {
@@ -206,7 +312,7 @@ namespace Renderer
             {
                 TriangleCount_PerTile[idx] = 0;
             });
-
+            (vertices, triangles) = ClipTriangles(vertices, triangles);
             ConvertVertexToScreenSpace(vertices);
             CalculateCache_TrianglesOnPerTile(triangles, vertices);
             CalculateRasters_PerTile(zBuffer, vertices, triangles);
