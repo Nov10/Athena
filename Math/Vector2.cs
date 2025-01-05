@@ -52,7 +52,10 @@ namespace Renderer.Maths
         {
             return (float)System.Math.Sqrt(x * x + y * y);
         }
-
+        public float sqrMagnitude()
+        {
+            return (x * x + y * y);
+        }
         public Vector2 Normalize()
         {
             float mag = Magnitude();

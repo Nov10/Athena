@@ -58,7 +58,8 @@ namespace Renderer.Core
         MouseLeft,
         MouseRight,
         MouseScroll,
-        MouseMiddle
+        MouseMiddle,
+        None
     }
     public enum KeyPreset
     {
@@ -199,8 +200,9 @@ namespace Renderer.Core
                 case VirtualKey.Down: return KeyCode.ArrowDown;
                 case VirtualKey.Left: return KeyCode.ArrowLeft;
                 case VirtualKey.Right: return KeyCode.ArrowRight;
-                default: throw new ArgumentOutOfRangeException(nameof(key), key, null);
+                //default: throw new ArgumentOutOfRangeException(nameof(key), key, null);
             }
+            return KeyCode.None;
         }
     }
 }

@@ -12,8 +12,20 @@ namespace Renderer.Core
         public Object Parent;
         public List<Object> Children;
         public Vector3 LocalPosition;
-        //public Vector3 LocalRotation;
         public Quaternion LocalRotation;
+
+        public Vector3 Forward
+        {
+            get { return WorldRotation.RotateVector(new Vector3(0, 0, 1)); }
+        }
+        public Vector3 Right
+        {
+            get { return Vector3.Cross(new Vector3(0, 1, 0), Forward).normalized; }
+        }
+        public Vector3 Up
+        {
+            get { return Vector3.Cross(Forward, Right).normalized; }
+        }
 
         public Vector3 WorldPosition
         {
@@ -91,7 +103,7 @@ namespace Renderer.Core
         {
             for(int i = 0; i < Components.Count; i++)
             {
-                Components[i].Update();
+                Components[i].UpdateComponent();
             }
         }
 

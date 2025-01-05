@@ -122,8 +122,12 @@ namespace Renderer.Maths
         }
         public static Quaternion Slerp(Quaternion q1, Quaternion q2, float t)
         {
-            if (t < 0 || t > 1)
-                throw new ArgumentOutOfRangeException(nameof(t), "t must be in the range [0, 1].");
+            if (t < 0)
+                t = 0;
+            else if (t > 1)
+                t = 1;
+            //if (t < 0 || t > 1)
+            //    throw new ArgumentOutOfRangeException(nameof(t), "t must be in the range [0, 1].");
 
             // Normalize the quaternions
             q1.Normalize();

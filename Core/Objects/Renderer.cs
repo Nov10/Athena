@@ -13,7 +13,6 @@ namespace Renderer.Core
         public List<RenderData> RenderDatas;
         public override void Start()
         {
-            RenderDatas = new List<RenderData>();
         }
 
         public override void Update()
@@ -29,6 +28,11 @@ namespace Renderer.Core
         public Matrix4x4 CalculateObjectRotationMatrix()
         {
             return TransformMatrixCaculator.CreateRotationMatrix(Controller.WorldRotation.ToEulerAngles());
+        }
+
+        public override void Awake()
+        {
+            RenderDatas = new List<RenderData>();
         }
     }
 }

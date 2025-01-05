@@ -162,9 +162,19 @@ namespace Renderer
 
             //if (lambda1 > 0 && lambda2 >0 && lambda3 >0)
             {
+                //lambda1 = lambda1 * p1.ClipPoint.w;
+                //lambda2 = lambda2 * p2.ClipPoint.w;
+                //lambda3 = lambda3 * p3.ClipPoint.w;
                 //float areaABC = EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace);
                 float areaABC = lambda1 + lambda2 + lambda3;
-                float zInterpolated = (lambda1 * p1.Position_ScreenVolumeSpace.z + lambda2 * p2.Position_ScreenVolumeSpace.z + lambda3 * p3.Position_ScreenVolumeSpace.z) / areaABC;
+                lambda1 /= areaABC;
+                lambda2 /= areaABC;
+                lambda3 /= areaABC;
+
+                // 깊이 값 보간
+                float zInterpolated = lambda1 * p1.Position_ScreenVolumeSpace.z +
+                                      lambda2 * p2.Position_ScreenVolumeSpace.z +
+                                      lambda3 * p3.Position_ScreenVolumeSpace.z; 
                 if (zInterpolated < ZBuffer[idx])
                 {
                     //System.Diagnostics.Debug.WriteLine(new Vector3(xInterpolated, yInterpolated, zInterpolated));
@@ -173,16 +183,38 @@ namespace Renderer
                         ZBuffer[idx] = zInterpolated;
                         p.z = zInterpolated;
 
+                        // 원근 보정용 1/w 보간
+                        float invW1 = 1f / p1.ClipPoint.w;
+                        float invW2 = 1f / p2.ClipPoint.w;
+                        float invW3 = 1f / p3.ClipPoint.w;
+
+                        float invWInterpolated = lambda1 * invW1 + lambda2 * invW2 + lambda3 * invW3;
+                        float wInterpolated = 1f / invWInterpolated;
+
+                        // UV 좌표 보간 (원근 보정 포함)
+                        Vector2 uv1 = p1.UV * invW1;
+                        Vector2 uv2 = p2.UV * invW2;
+                        Vector2 uv3 = p3.UV * invW3;
+
+                        Vector2 uvInterpolated = lambda1 * uv1 + lambda2 * uv2 + lambda3 * uv3;
+                        Vector2 uvFinal = uvInterpolated / invWInterpolated;
+
+                        // 래스터 데이터 저장
                         Rasters[idx].x = x;
                         Rasters[idx].y = y;
                         Rasters[idx].TriangleIndex = triangleIndex;
-                        Rasters[idx].UV = (lambda1 * p1.UV + lambda2 * p2.UV + lambda3 * p3.UV) / (areaABC);
                         Rasters[idx].Lambda = new Vector3(lambda1, lambda2, lambda3);
-                        Rasters[idx].Normal_WorldSpace = lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace;
+                        Rasters[idx].Normal_WorldSpace = lambda1 * p1.Normal_WorldSpace +
+                                                         lambda2 * p2.Normal_WorldSpace +
+                                                         lambda3 * p3.Normal_WorldSpace;
                         Rasters[idx].Position_ScreenVolumeSpace = p;
-                        Rasters[idx].Tangent = lambda1 * p1.Tangent + lambda2 * p2.Tangent + lambda3 * p3.Tangent;
-                        Rasters[idx].BitTangent = lambda1 * p1.Bitangent + lambda2 * p2.Bitangent + lambda3 * p3.Bitangent;
-
+                        Rasters[idx].Tangent = lambda1 * p1.Tangent +
+                                               lambda2 * p2.Tangent +
+                                               lambda3 * p3.Tangent;
+                        Rasters[idx].BitTangent = lambda1 * p1.Bitangent +
+                                                  lambda2 * p2.Bitangent +
+                                                  lambda3 * p3.Bitangent;
+                        Rasters[idx].UV = uvFinal;
                     }
 
                 }
@@ -296,8 +328,20 @@ namespace Renderer
             Vertex result = v1;
             result.ClipPoint = v1.ClipPoint + t * (v2.ClipPoint - v1.ClipPoint);
             result.Position_WorldSpace = v1.Position_WorldSpace + t * (v2.Position_WorldSpace - v1.Position_WorldSpace);
-            result.UV = v1.UV + t * (v2.UV - v1.UV);
             result.Normal_WorldSpace = v1.Normal_WorldSpace + t * (v2.Normal_WorldSpace - v1.Normal_WorldSpace);
+
+            // 클리핑 시 UV 보간
+            float w1 = 1f / v1.ClipPoint.w;
+            float w2 = 1f / v2.ClipPoint.w;
+
+            Vector2 uv1 = v1.UV;
+            Vector2 uv2 = v2.UV;
+
+            Vector2 uvInterp = uv1 + t * (uv2 - uv1);
+            float wInterp = 1f / (w1 + t * (w2 - w1));
+
+            result.UV = uvInterp;
+
             return result;
         }
         #endregion

@@ -25,6 +25,8 @@ using Renderer.Core;
 using Assimp.Unmanaged;
 using NPhotoshop.Core.Image;
 using Windows.Graphics.Imaging;
+using Renderer.InGame.AirPlane;
+using Renderer.InGame;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -92,11 +94,14 @@ namespace Renderer
             blade.AddComponent(bladeRenderer);
 
 
-            renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\p.stl");
+            renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\Plane.fbx");
+            var planeTex = LoadTexture(@"C:\plane2.png");
             Core.Object plane = new Core.Object();
             Core.Renderer planeRenderer = new Core.Renderer();
             planeRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
-            planeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            //planeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            planeRenderer.RenderDatas[0].Shader = new Shader1();
+            (planeRenderer.RenderDatas[0].Shader as Shader1).MainTexture = planeTex;
             plane.LocalPosition = new Vector3(0, -5, 0);
             plane.AddComponent(planeRenderer);
 
@@ -108,13 +113,16 @@ namespace Renderer
                 AspectRatio = (float)width / height
             };
             Core.Object camera = new Core.Object();
-            camera.WorldPosition = new Vector3(0, 0, 90);
+            camera.WorldPosition = new Vector3(0, 0, 60);
             camera.WorldRotation = Quaternion.FromEulerAngles(0, 180, 0);
             cameraComponent.MainRenderer = new PBRRenderer(width, height);
             Window = new NBitmap(width, height);
             cameraComponent.MainRenderer.RenderTarget = Window;
             cameraComponent.MainRenderer.LightDirection = new Vector3(-0.5f, -1, 0).normalized * -1;
             camera.AddComponent(cameraComponent);
+            CameraController camControl = new CameraController();
+            camControl.Target = body;
+            camera.AddComponent(camControl);
 
             renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\cam.stl");
             Core.Object cam = new Core.Object();
@@ -141,11 +149,18 @@ namespace Renderer
             //airplane.AddComponent(renderer);
             //airplane.Rotation = new Vector3(-90f * 3.141592f / 180f, 0, 0); 
             blade.Parent = body;
+
+            Aircraft aircraft = new Aircraft();            
+            body.AddComponent(aircraft);
+            aircraft.InitializeAircraft(blade, 10, 2);
+
             WorldObjects.Add(body);
             WorldObjects.Add(blade);
             WorldObjects.Add(camera);
             //WorldObjects.Add(cam);
             WorldObjects.Add(plane);
+
+            camera.WorldPosition += new Vector3(0, 20, 0);
 
 
             // MultipleMeshObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
@@ -193,20 +208,8 @@ namespace Renderer
         {
             Core.Time.StartUpdate();
             //Time += 0.01f;
-            WorldObjects[1].LocalRotation = Quaternion.FromEulerAngles(180, 0, Time.TotalTime * 5 * XMath.Rad2Deg);
-
-            WorldObjects[1].LocalPosition = new Vector3(0, 0, 2.0f);
-            WorldObjects[3].LocalRotation = Quaternion.FromEulerAngles(90, 0, 0);
+            WorldObjects[3].LocalRotation = Quaternion.FromEulerAngles(-90, 0, 0);
             //WorldObjects[2].LocalPosition = new Vector3(0, -40, 0);
-
-            WorldObjects[0].LocalPosition = new Vector3(MathF.Sin(Time.TotalTime * 3), MathF.Sin(Time.TotalTime * 2) * 0.2f, MathF.Cos(Time.TotalTime * 3)) * 5;
-            Vector3 dir = Vector3.Cross(new Vector3(0, 1, 0), WorldObjects[0].WorldPosition);
-            dir = dir.normalized;
-
-            float angle = MathF.Atan2(dir.x, dir.z) * 180 / 3.141592f;
-
-            // 오브젝트 회전 설정
-            WorldObjects[0].LocalRotation = Quaternion.FromEulerAngles(0, angle, 0);
 
 
             var moveInput = Input.GetDirectionInput(KeyPreset.WASD);
@@ -241,7 +244,7 @@ namespace Renderer
                 xAxis.z, yAxis.z, zAxis.z, 0,
                 0, 0, 0, 1);
 
-            WorldObjects[2].WorldPosition += (zAxis * move.z + xAxis * move.x + new Vector3(0, move.y, 0)) * 5;
+            //WorldObjects[2].WorldPosition += (zAxis * move.z + xAxis * move.x + new Vector3(0, move.y, 0)) * 5;
             //Vector3 zAxis2 = WorldObjects[0].WorldRotation.RotateVector(new Vector3(0, 0, 1));
             //Vector3 xAxis2 = (Vector3.Cross(new Vector3(0, 1, 0), zAxis)).normalized;
             //Vector3 yAxis2 = Vector3.Cross(zAxis, xAxis).normalized;
@@ -270,24 +273,5 @@ namespace Renderer
 
         Quaternion q;
         float t = 0;
-
-        private void Render3DScene(float dt)
-        {
-
-
-            t += dt;
-        }
-
-        private void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            //myButton.Content = "Clicked";
-        }
-
-        private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            var k = e.Key;
-            
-            //WorldObjects[3].WorldPosition += (v) * 1;
-        }
     }
 }

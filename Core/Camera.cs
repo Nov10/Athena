@@ -175,5 +175,9 @@ namespace Renderer.Renderer
 
             MainRenderer.Targets.Clear();
         }
+
+        public override void Awake()
+        {
+        }
     }
 }
