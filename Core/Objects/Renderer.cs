@@ -22,7 +22,7 @@ namespace Renderer.Core
 
         public Matrix4x4 CalculateObjectTransformMatrix()
         {
-            return TransformMatrixCaculator.CreateObjectTransformMatrix(Controller.WorldPosition, Controller.WorldRotation);    
+            return TransformMatrixCaculator.CreateObjectTransformMatrix(Controller.WorldPosition, Controller.WorldRotation, Controller.WorldScale);    
             //return TransformMatrixCaculator.CreateTranslationMatrix(Controller.WorldPosition) * TransformMatrixCaculator.CreateRotationMatrix(Controller.WorldRotation.ToEulerAngles());
         }
         public Matrix4x4 CalculateObjectRotationMatrix()

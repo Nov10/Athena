@@ -94,14 +94,15 @@ namespace Renderer
             blade.AddComponent(bladeRenderer);
 
 
-            renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\Plane.fbx");
-            var planeTex = LoadTexture(@"C:\plane2.png");
+            renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\p.stl");
+            var planeTex = LoadTexture(@"C:\body.png");
             Core.Object plane = new Core.Object();
             Core.Renderer planeRenderer = new Core.Renderer();
             planeRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
-            //planeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
-            planeRenderer.RenderDatas[0].Shader = new Shader1();
-            (planeRenderer.RenderDatas[0].Shader as Shader1).MainTexture = planeTex;
+            planeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            //planeRenderer.RenderDatas[0].Shader = new Shader1();
+            //(planeRenderer.RenderDatas[0].Shader as Shader1).MainTexture = planeTex;
+            plane.LocalScale = new Vector3(0.1f, 1, 1);
             plane.LocalPosition = new Vector3(0, -5, 0);
             plane.AddComponent(planeRenderer);
 
@@ -124,12 +125,12 @@ namespace Renderer
             camControl.Target = body;
             camera.AddComponent(camControl);
 
-            renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\cam.stl");
-            Core.Object cam = new Core.Object();
-            Core.Renderer camRenderer = new Core.Renderer();
-            camRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
-            camRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
-            cam.LocalPosition = new Vector3(0, 0, 2.0f);
+            //renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\cam.stl");
+            //Core.Object cam = new Core.Object();
+            //Core.Renderer camRenderer = new Core.Renderer();
+            //camRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
+            //camRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            //cam.LocalPosition = new Vector3(0, 0, 2.0f);
             //cam.AddComponent(camRenderer);
 
             //camera.Parent = body;
@@ -208,7 +209,7 @@ namespace Renderer
         {
             Core.Time.StartUpdate();
             //Time += 0.01f;
-            WorldObjects[3].LocalRotation = Quaternion.FromEulerAngles(-90, 0, 0);
+            WorldObjects[3].LocalRotation = Quaternion.FromEulerAngles(-90 * Time.TotalTime, 0, 0);
             //WorldObjects[2].LocalPosition = new Vector3(0, -40, 0);
 
 

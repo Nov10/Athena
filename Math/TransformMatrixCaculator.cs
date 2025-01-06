@@ -28,7 +28,7 @@ namespace Renderer.Maths
                 vector.x * matrix.e31 + vector.y * matrix.e32 + vector.z * matrix.e33 + matrix.e34)
              / (vector.x * matrix.e41 + vector.y * matrix.e42 + vector.z * matrix.e43 + matrix.e44);
         }
-        public static Matrix4x4 CreateObjectTransformMatrix(Vector3 position, Quaternion rot)
+        public static Matrix4x4 CreateObjectTransformMatrix(Vector3 position, Quaternion rot, Vector3 scale)
         {
             Vector3 rotation = rot.ToEulerAngles();
             rotation = rotation * XMath.Deg2Rad;
@@ -39,9 +39,9 @@ namespace Renderer.Maths
             float cz = (float)System.Math.Cos(rotation.z);
             float sz = (float)System.Math.Sin(rotation.z);
             return new Matrix4x4(
-                    cz * cy, -sz * cx + cz * sy * sx, sz * sx + cz * sy * cx, position.x,
-                    sz * cy, cz * cx + sz * sy * sx, -cz * sx + sz * sy * cx, position.y,
-                    -sy, cy * sx, cy * cx, position.z,
+                    scale.x * (cz * cy), -sz * cx + cz * sy * sx, sz * sx + cz * sy * cx, position.x,
+                    sz * cy, scale.y*( cz * cx + sz * sy * sx), -cz * sx + sz * sy * cx, position.y,
+                    -sy, cy * sx, scale.z*( cy * cx), position.z,
                     0f, 0f, 0f, 1f
                 );
         }

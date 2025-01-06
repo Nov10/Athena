@@ -12,6 +12,7 @@ namespace Renderer.Core
         public Object Parent;
         public List<Object> Children;
         public Vector3 LocalPosition;
+        public Vector3 LocalScale;
         public Quaternion LocalRotation;
 
         public Vector3 Forward
@@ -75,6 +76,26 @@ namespace Renderer.Core
                 LocalRotation = Parent.WorldRotation.Conjugate() * q;
             }
         }
+        public Vector3 WorldScale
+        {
+            get
+            {
+                if (Parent == null)
+                    return LocalScale;
+                return Vector3.ElementProduct(LocalScale, Parent.WorldScale);
+            }
+
+            set
+            {
+                Vector3 scale = value;
+                if (Parent == null)
+                {
+                    LocalScale = scale;
+                    return;
+                }
+                LocalScale = Vector3.ElementDivide(scale, Parent.WorldScale);
+            }
+        }
 
         public List<Component> Components;
 
@@ -113,6 +134,7 @@ namespace Renderer.Core
             Children = new List<Object>();
             Parent = null;
             LocalRotation = new Quaternion(1, 0, 0, 0);
+            LocalScale = new Vector3(1, 1, 1);
         }
     }
 }
