@@ -32,12 +32,12 @@ namespace Renderer.Maths
         {
             Vector3 rotation = rot.ToEulerAngles();
             rotation = rotation * XMath.Deg2Rad;
-            float cx = (float)System.Math.Cos(rotation.x);
-            float sx = (float)System.Math.Sin(rotation.x);
-            float cy = (float)System.Math.Cos(rotation.y);
-            float sy = (float)System.Math.Sin(rotation.y);
-            float cz = (float)System.Math.Cos(rotation.z);
-            float sz = (float)System.Math.Sin(rotation.z);
+            float cx = System.MathF.Cos(rotation.x);
+            float sx = System.MathF.Sin(rotation.x);
+            float cy = System.MathF.Cos(rotation.y);
+            float sy = System.MathF.Sin(rotation.y);
+            float cz = System.MathF.Cos(rotation.z);
+            float sz = System.MathF.Sin(rotation.z);
             return new Matrix4x4(
                     scale.x * (cz * cy), scale.y * (-sz * cx + cz * sy * sx), scale.z * (sz * sx + cz * sy * cx),  position.x,
                     scale.x * (sz * cy), scale.y * (cz * cx + sz * sy * sx),  scale.z * (-cz * sx + sz * sy * cx), position.y,
@@ -47,12 +47,12 @@ namespace Renderer.Maths
         public static Matrix4x4 CreateRotationMatrix(Vector3 rotation)
         {
             rotation = rotation * XMath.Deg2Rad;
-            float cx = (float)System.Math.Cos(rotation.x);
-            float sx = (float)System.Math.Sin(rotation.x);
-            float cy = (float)System.Math.Cos(rotation.y);
-            float sy = (float)System.Math.Sin(rotation.y);
-            float cz = (float)System.Math.Cos(rotation.z);
-            float sz = (float)System.Math.Sin(rotation.z);
+            float cx = System.MathF.Cos(rotation.x);
+            float sx = System.MathF.Sin(rotation.x);
+            float cy = System.MathF.Cos(rotation.y);
+            float sy = System.MathF.Sin(rotation.y);
+            float cz = System.MathF.Cos(rotation.z);
+            float sz = System.MathF.Sin(rotation.z);
             return new Matrix4x4(
                     cz * cy, -sz * cx + cz * sy * sx, sz * sx + cz * sy * cx,  0f,                                    
                     sz * cy, cz * cx + sz * sy * sx,  -cz * sx + sz * sy * cx, 0f,                                     
