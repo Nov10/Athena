@@ -39,11 +39,10 @@ namespace Renderer.Maths
             float cz = (float)System.Math.Cos(rotation.z);
             float sz = (float)System.Math.Sin(rotation.z);
             return new Matrix4x4(
-                    scale.x * (cz * cy), -sz * cx + cz * sy * sx, sz * sx + cz * sy * cx, position.x,
-                    sz * cy, scale.y*( cz * cx + sz * sy * sx), -cz * sx + sz * sy * cx, position.y,
-                    -sy, cy * sx, scale.z*( cy * cx), position.z,
-                    0f, 0f, 0f, 1f
-                );
+                    scale.x * (cz * cy), scale.y * (-sz * cx + cz * sy * sx), scale.z * (sz * sx + cz * sy * cx),  position.x,
+                    scale.x * (sz * cy), scale.y * (cz * cx + sz * sy * sx),  scale.z * (-cz * sx + sz * sy * cx), position.y,
+                    scale.x * (-sy),     scale.y * (cy * sx),                 scale.z * (cy * cx),                 position.z,
+                    0f, 0f, 0f, 1f);
         }
         public static Matrix4x4 CreateRotationMatrix(Vector3 rotation)
         {
