@@ -35,7 +35,7 @@ namespace Renderer.InGame
             //    move.y = -1;
             ////System.Diagnostics.Debug.WriteLine(WorldObjects[3].WorldPosition);
 
-            var rotateInput = Input.GetDirectionInput(KeyPreset.Arrow);
+            var rotateInput = Input.GetDirectionInput2D(KeyPreset.Arrow);
             Quaternion q;
             //System.Diagnostics.Debug.WriteLine(WorldObjects[3].WorldPosition);
             if (rotateInput.y > 0.5f)

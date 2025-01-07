@@ -27,15 +27,10 @@ namespace Renderer.Core.PBR
         {
             //var normal = (ShaderHelper.SampleTexture(NormalTexture, raster.UV).GetAsVector3() / 255.0f).normalized;
             var normal = raster.Normal_WorldSpace;
-            //normal = new Vector3(normal.z, normal.y, normal.x);
-            float brightness = Vector3.Dot((normal).normalized, light);
-            brightness = brightness * 0.5f + 0.5f;
-            //brightness = 0.5f * brightness + 0.5f;
-            //byte intensity = (byte)(brightness * 255);
+            float brightness = Vector3.Dot(normal, light) * 0.5f + 0.5f;
             var c2 = ShaderHelper.SampleTexture(MainTexture, raster.UV) * brightness;
             
             //raster.Tangent, raster.BitTangent, raster.Normal_WorldSpace
-            //var c2 = new Color(255, 255, 255, 255) * brightness;
             c2.A = 255;
             return c2;
         }

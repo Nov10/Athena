@@ -64,6 +64,7 @@ namespace Renderer.Core
     public enum KeyPreset
     {
         WASD,
+        WASDQE,
         Arrow
     }
     public static class Input
@@ -122,8 +123,46 @@ namespace Renderer.Core
         {
             return NowInputUpKeys.Contains(code);
         }
+        public static float GetNormlaizedRangeInput(KeyCode from, KeyCode to)
+        {
+            if (Input.GetKey(from) && Input.GetKey(to))
+                return 0;
+            if (Input.GetKey(from))
+                return -1;
+            if (Input.GetKey(to))
+                return 1;
 
-        public static Vector2 GetDirectionInput(KeyPreset preset)
+            return 0;
+        }
+        public static Vector3 GetDirectionInput3D(KeyPreset preset)
+        {
+            Vector3 v = new Vector3(0, 0, 0);
+            switch (preset)
+            {
+                case KeyPreset.WASD:
+                    throw new Exception("WASD Preset is not allowed with Vector3.");
+                case KeyPreset.WASDQE:
+                    if (Input.GetKey(KeyCode.Q))
+                        v.y = 1;
+                    else if (Input.GetKey(KeyCode.E))
+                        v.y = -1;
+
+                    if (Input.GetKey(KeyCode.W))
+                        v.z = 1;
+                    else if (Input.GetKey(KeyCode.S))
+                        v.z = -1;
+
+                    if (Input.GetKey(KeyCode.D))
+                        v.x = 1;
+                    else if (Input.GetKey(KeyCode.A))
+                        v.x = -1;
+                    return v;
+                case KeyPreset.Arrow:
+                    throw new Exception("Arrow Preset is not allowed with Vector3.");
+            }
+            return v;
+        }
+        public static Vector2 GetDirectionInput2D(KeyPreset preset)
         {
             Vector2 v = new Vector2(0, 0);
             switch (preset)
@@ -138,6 +177,8 @@ namespace Renderer.Core
                     else if (Input.GetKey(KeyCode.A))
                         v.x = -1;
                     return v;
+                case KeyPreset.WASDQE:
+                    throw new Exception("WASDQE Preset is not allowed with Vector2.");
                 case KeyPreset.Arrow:
                     if (Input.GetKey(KeyCode.ArrowUp))
                         v.y = 1;

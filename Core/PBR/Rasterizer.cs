@@ -13,21 +13,21 @@ namespace Renderer
         public int y;
         public int TriangleIndex;
         public Vector3 Normal_WorldSpace;
-        public Vector3 Lambda;
-        public Vector3 Position_ScreenVolumeSpace;
+        //public Vector3 Lambda;
+        //public Vector3 Position_ScreenVolumeSpace;
         public Vector2 UV;
         public Vector3 Tangent;
         public Vector3 BitTangent;
 
-        public Raster(int x, int y, int triangleIndex, Vector3 normal_WorldSpace, Vector3 lambda, Vector3 position_ScreenVolumeSpace, Vector2  uv)
+        public Raster(int x, int y, int triangleIndex, Vector3 normal_WorldSpace, Vector2  uv)
         {
             this.x = x;
             this.y = y;
             TriangleIndex = triangleIndex;
             Normal_WorldSpace = normal_WorldSpace;
-            Lambda = lambda;
+            //Lambda = lambda;
             UV = uv;
-            Position_ScreenVolumeSpace = position_ScreenVolumeSpace;
+            //Position_ScreenVolumeSpace = position_ScreenVolumeSpace;
         }
     }
     public class Rasterizer
@@ -82,8 +82,8 @@ namespace Renderer
                 Vertex p2 = vertexes[triangles[3 * idx + 1]];
                 Vertex p3 = vertexes[triangles[3 * idx + 2]];
 
-                if (EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace) < 0)
-                    return;
+                //if (EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace) < 0)
+                //    return;
 
                 if (0 < Vector3.Cross_Z(p2.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace))
                     return;
@@ -93,12 +93,29 @@ namespace Renderer
                 int tileEndX = Math.Min((int)Math.Ceiling(Math.Max(p1.Position_ScreenVolumeSpace.x, Math.Max(p2.Position_ScreenVolumeSpace.x, p3.Position_ScreenVolumeSpace.x)) / tileSize), Width / tileSize);
                 int tileEndY = Math.Min((int)Math.Ceiling(Math.Max(p1.Position_ScreenVolumeSpace.y, Math.Max(p2.Position_ScreenVolumeSpace.y, p3.Position_ScreenVolumeSpace.y)) / tileSize), Height / tileSize);
 
+
                 for (int tileY = tileStartY; tileY < tileEndY; tileY++)
                 {
                     for (int tileX = tileStartX; tileX < tileEndX; tileX++)
                     {
+                        //// 타일 중심점 계산
+                        //float tileCenterX = (tileX + 0.5f) * tileSize;
+                        //float tileCenterY = (tileY + 0.5f) * tileSize;
+                        //Vector3 tileCenter = new Vector3(tileCenterX, tileCenterY, 0);
+
+                        //// 타일 중심점이 삼각형 내부에 있는지 검사
+                        //float w0 = EdgeFunction(p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace, tileCenter);
+                        //if (w0 < 0)
+                        //    continue;
+                        //float w1 = EdgeFunction(p3.Position_ScreenVolumeSpace, p1.Position_ScreenVolumeSpace, tileCenter);
+                        //if (w1 < 0)
+                        //    continue;
+                        //float w2 = EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, tileCenter);
+                        //if (w2 < 0)
+                        //    continue;
+
                         int tileIndex = tileY * (Width / tileSize) + tileX;
-                        
+
                         lock (TriangleCount_PerTile)
                         {
                             if (TriangleCount_PerTile[tileIndex] < MaxTCount)
@@ -160,52 +177,36 @@ namespace Renderer
             if (lambda3 < 0)
                 return;
 
-            //if (lambda1 > 0 && lambda2 >0 && lambda3 >0)
+            float areaABC = 1 / (lambda1 + lambda2 + lambda3);
+            lambda1 = lambda1 * areaABC;
+            lambda2 = lambda2 * areaABC;
+            lambda3 = lambda3 * areaABC;
+            float zInterpolated = (lambda1 * p1.Position_ScreenVolumeSpace.z + lambda2 * p2.Position_ScreenVolumeSpace.z + lambda3 * p3.Position_ScreenVolumeSpace.z);
+            if (zInterpolated < ZBuffer[idx])
             {
-                //lambda1 = lambda1 * p1.ClipPoint.w;
-                //lambda2 = lambda2 * p2.ClipPoint.w;
-                //lambda3 = lambda3 * p3.ClipPoint.w;
-                //float areaABC = EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace);
-                //float areaABC = lambda1 + lambda2 + lambda3;
-                //lambda1 /= areaABC;
-                //lambda2 /= areaABC;
-                //lambda3 /= areaABC;
-
-                // 깊이 값 보간
-                //float zInterpolated = lambda1 * p1.Position_ScreenVolumeSpace.z +
-                                      //lambda2 * p2.Position_ScreenVolumeSpace.z +
-                                      //lambda3 * p3.Position_ScreenVolumeSpace.z;
-                float areaABC = lambda1 + lambda2 + lambda3;
-                float zInterpolated = (lambda1 * p1.Position_ScreenVolumeSpace.z + lambda2 * p2.Position_ScreenVolumeSpace.z + lambda3 * p3.Position_ScreenVolumeSpace.z) / areaABC;
-                if (zInterpolated < ZBuffer[idx])
+                //System.Diagnostics.Debug.WriteLine(new Vector3(xInterpolated, yInterpolated, zInterpolated));
+                if (-1 <= zInterpolated && zInterpolated <= 1f)
                 {
-                    //System.Diagnostics.Debug.WriteLine(new Vector3(xInterpolated, yInterpolated, zInterpolated));
-                    if (-1 <= zInterpolated && zInterpolated <= 1f)
-                    {
-                        ZBuffer[idx] = zInterpolated;
-                        p.z = zInterpolated;
+                    ZBuffer[idx] = zInterpolated;
+                    p.z = zInterpolated;
 
-                        Rasters[idx].x = x;
-                        Rasters[idx].y = y;
-                        Rasters[idx].TriangleIndex = triangleIndex;
-                        Rasters[idx].Lambda = new Vector3(lambda1, lambda2, lambda3);
-                        Rasters[idx].Normal_WorldSpace = (lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace) / areaABC;
-                        Rasters[idx].Position_ScreenVolumeSpace = p;
-                        Rasters[idx].Tangent = lambda1 * p1.Tangent + lambda2 * p2.Tangent + lambda3 * p3.Tangent;
-                        Rasters[idx].BitTangent = lambda1 * p1.Bitangent + lambda2 * p2.Bitangent + lambda3 * p3.Bitangent;
+                    Rasters[idx].x = x;
+                    Rasters[idx].y = y;
+                    Rasters[idx].TriangleIndex = triangleIndex;
+                    Rasters[idx].Normal_WorldSpace = (lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace);
+                    //Rasters[idx].Tangent = lambda1 * p1.Tangent + lambda2 * p2.Tangent + lambda3 * p3.Tangent;
+                    //Rasters[idx].BitTangent = lambda1 * p1.Bitangent + lambda2 * p2.Bitangent + lambda3 * p3.Bitangent;
 
-                        //UV 보정
-                        float z = 1.0f / zInterpolated;
-                        float invW1 = 1 / p1.ClipPoint.w;
-                        float invW2 = 1 / p2.ClipPoint.w;
-                        float invW3 = 1 / p3.ClipPoint.w;
-                        lambda1 = lambda1 * invW1 * z;
-                        lambda2 = lambda2 * invW2 * z;
-                        lambda3 = lambda3 * invW3 * z;
-                        areaABC = lambda1 + lambda2 + lambda3;
-                        Rasters[idx].UV = (lambda1 * p1.UV + lambda2 * p2.UV + lambda3 * p3.UV) / (areaABC);
-                    }
-
+                    //UV 보정
+                    float z = 1.0f / zInterpolated;
+                    float invW1 = 1 / p1.ClipPoint.w;
+                    float invW2 = 1 / p2.ClipPoint.w;
+                    float invW3 = 1 / p3.ClipPoint.w;
+                    lambda1 = lambda1 * invW1 * z;
+                    lambda2 = lambda2 * invW2 * z;
+                    lambda3 = lambda3 * invW3 * z;
+                    areaABC = lambda1 + lambda2 + lambda3;
+                    Rasters[idx].UV = (lambda1 * p1.UV + lambda2 * p2.UV + lambda3 * p3.UV) / areaABC;
                 }
             }
         }

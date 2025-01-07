@@ -38,8 +38,8 @@ namespace Renderer
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        const int width = 768;
-        const int height = 768;
+        const int width = 960;
+        const int height = 540;
 
         DispatcherTimer ImageRefresher = new DispatcherTimer();
         Stopwatch sw = new Stopwatch();
@@ -152,7 +152,7 @@ namespace Renderer
             ImageRefresher.Tick += T_Tick1;
             ImageRefresher.Start();
             
-            RenderTargetImage.Width = 1024; RenderTargetImage.Height = 1024;
+            RenderTargetImage.Width = 1920; RenderTargetImage.Height = 1080;
         }
         long sum = 0;
         int counter = 0;
