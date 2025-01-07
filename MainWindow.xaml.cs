@@ -74,10 +74,8 @@ namespace Renderer
             this.Content.KeyUp += Input.Content_KeyUp;
             Input.Start();
             WorldObjects = new List<Core.Object>();
-            //Core.Object airplane = new Core.Object();
 
             var renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\Aereo.fbx");
-
             var bodyTex = LoadTexture(@"C:\body.png");
             Core.Object body = new Core.Object();
             Core.Renderer bodyRenderer = new Core.Renderer();
@@ -101,8 +99,8 @@ namespace Renderer
             planeRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
             //planeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
             planeRenderer.RenderDatas[0].Shader = new Shader1();
-            (planeRenderer.RenderDatas[0].Shader as Shader1).MainTexture = bodyTex;
-            plane.LocalScale = new Vector3(65, 5, 65);
+            (planeRenderer.RenderDatas[0].Shader as Shader1).MainTexture = planeTex;
+            plane.LocalScale = new Vector3(45, 2, 45);
             plane.LocalPosition = new Vector3(0, -5, 0);
             plane.AddComponent(planeRenderer);
 
@@ -124,6 +122,8 @@ namespace Renderer
             CameraController camControl = new CameraController();
             camControl.Target = body;
             camera.AddComponent(camControl);
+            camControl.RotateSpeed = 2;
+            camControl.MoveSpeed = 3;
 
             //renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\cam.stl");
             //Core.Object cam = new Core.Object();
@@ -133,27 +133,12 @@ namespace Renderer
             //cam.LocalPosition = new Vector3(0, 0, 2.0f);
             //cam.AddComponent(camRenderer);
 
-            //camera.Parent = body;
-            //camera.LocalPosition = new Vector3(0, 0, 30);
-            //camera.LocalRotation = Quaternion.FromEulerAngles(0, 180, 0);
-
-            //var normalTex = LoadTexture(@"C:\Normal.png");
-            //renderer.RenderDatas = new List<RenderData>(new RenderData[] { renderer.RenderDatas[0] });
-            //System.Diagnostics.Debug.WriteLine(renderer.RenderDatas.Count);
-            //for(int i =0; i < renderer.RenderDatas.Count; i++)
-            //{
-            //    renderer.RenderDatas[i].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
-            //}
-            //renderer.RenderDatas[0].Shader = new Shader1();
-            //(renderer.RenderDatas[0].Shader as Shader1).MainTexture = bodyTex;
-            //(renderer.RenderDatas[0].Shader as Shader1).NormalTexture = normalTex;
-            //airplane.AddComponent(renderer);
-            //airplane.Rotation = new Vector3(-90f * 3.141592f / 180f, 0, 0); 
             blade.Parent = body;
+            plane.LocalRotation = Quaternion.FromEulerAngles(180, 0, 0);
 
             Aircraft aircraft = new Aircraft();            
             body.AddComponent(aircraft);
-            aircraft.InitializeAircraft(blade, 10, 2);
+            aircraft.InitializeAircraft(blade, 3, 4);
 
             WorldObjects.Add(body);
             WorldObjects.Add(blade);
@@ -162,37 +147,6 @@ namespace Renderer
             WorldObjects.Add(plane);
 
             camera.WorldPosition += new Vector3(0, 20, 0);
-
-
-            // MultipleMeshObject TargetMesh = MeshLoader.FBXLoader.LoadFBX_Seperated(@"C:\Mando_Helmet.fbx");
-            //var t1 = LoadTexture(@"C:\Mando_Helm_Mat_Colour.png");
-            //var t2 = LoadTexture(@"C:\Helmet_Stand_Mat_Colour.png");
-            //var t3 = LoadTexture(@"C:\Glass_Mat_Colour.png");
-            //var normal_texture1 = LoadTexture(@"C:\Mando_Helm_Mat_Normal.png");
-            //var normal_texture2 = LoadTexture(@"C:\Helmet_Stand_Mat_Normal.png");
-            //var normal_texture3 = LoadTexture(@"C:\Glass_Mat_BakeNormal.png");
-            //for (int i = 0; i < TargetMesh.ObjectCount; i++)
-            //{
-            //    //TargetMesh.Get(i).FragmentShader = new Core.Shader.FragmentShader();
-            //    TargetMesh.Get(i).Shader = new Shader1();
-            //    if(i == 0)
-            //    {
-            //        ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t2;
-            //        ((Shader1)TargetMesh.Get(i).Shader).NormalTexture = normal_texture2;
-            //    }
-            //    else if (i == 1)
-            //    {
-            //        ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t3;
-            //        ((Shader1)TargetMesh.Get(i).Shader).NormalTexture = normal_texture3;
-            //    }
-            //    else
-            //    {
-            //        ((Shader1)TargetMesh.Get(i).Shader).MainTexture = t1;
-            //        ((Shader1)TargetMesh.Get(i).Shader).NormalTexture = normal_texture1;
-            //    }
-
-            //}
-            //PBR.AddObject(renderer);
 
             ImageRefresher.Interval = TimeSpan.FromTicks(10);
             ImageRefresher.Tick += T_Tick1;
@@ -208,53 +162,7 @@ namespace Renderer
         private void T_Tick1(object sender, object e)
         {
             Core.Time.StartUpdate();
-            //Time += 0.01f;
-            WorldObjects[3].LocalRotation = Quaternion.FromEulerAngles(0, -90 * Time.TotalTime, 0);
-            //WorldObjects[2].LocalPosition = new Vector3(0, -40, 0);
 
-
-            var moveInput = Input.GetDirectionInput(KeyPreset.WASD);
-            var rotateInput = Input.GetDirectionInput(KeyPreset.Arrow);
-            //Input.DebugNowInputKeys();
-            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-
-            if (Input.GetKey(KeyCode.Q))
-                move.y = 1;
-            else if (Input.GetKey(KeyCode.E))
-                move.y = -1;
-            //System.Diagnostics.Debug.WriteLine(WorldObjects[3].WorldPosition);
-            if (rotateInput.y > 0.5f)
-                q = Quaternion.CreateRotationQuaternion(new Vector3(1, 0, 0), -5);
-            else if (rotateInput.y < -0.5f)
-                q = Quaternion.CreateRotationQuaternion(new Vector3(1, 0, 0), 5);
-            else if (rotateInput.x > 0.5f)
-                q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), -5);
-            else if (rotateInput.x < -0.5f)
-                q = Quaternion.CreateRotationQuaternion(new Vector3(0, 1, 0), 5);
-            else
-                q = new Quaternion(1, 0, 0, 0);
-            WorldObjects[2].WorldRotation = WorldObjects[2].WorldRotation * q;
-
-            Vector3 zAxis = WorldObjects[2].WorldRotation.RotateVector(new Vector3(0, 0, 1));
-            Vector3 xAxis = (Vector3.Cross(zAxis, new Vector3(0, 1, 0))).normalized;
-            Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
-
-            Matrix4x4 rotationMatrix = new Matrix4x4(
-                xAxis.x, yAxis.x, zAxis.x, 0,
-                xAxis.y, yAxis.y, zAxis.y, 0,
-                xAxis.z, yAxis.z, zAxis.z, 0,
-                0, 0, 0, 1);
-
-            //WorldObjects[2].WorldPosition += (zAxis * move.z + xAxis * move.x + new Vector3(0, move.y, 0)) * 5;
-            //Vector3 zAxis2 = WorldObjects[0].WorldRotation.RotateVector(new Vector3(0, 0, 1));
-            //Vector3 xAxis2 = (Vector3.Cross(new Vector3(0, 1, 0), zAxis)).normalized;
-            //Vector3 yAxis2 = Vector3.Cross(zAxis, xAxis).normalized;
-
-            //WorldObjects[3].WorldPosition = Vector3.Lerp(WorldObjects[3].WorldPosition, WorldObjects[0].WorldPosition + -zAxis2 * 15, 0.5f);
-            //WorldObjects[3].WorldRotation = Quaternion.Slerp(WorldObjects[3].WorldRotation, WorldObjects[0].WorldRotation, 0.5f).Normalize();
-
-            //WorldObjects[2].WorldPosition = WorldObjects[3].WorldPosition;
-            //WorldObjects[2].WorldRotation = WorldObjects[3].WorldRotation;
             for (int i = 0; i<WorldObjects.Count; i++)
             {
                 WorldObjects[i].Update();
@@ -271,8 +179,5 @@ namespace Renderer
             Input.Update();
             Core.Time.EndUpdate();
         }
-
-        Quaternion q;
-        float t = 0;
     }
 }

@@ -68,6 +68,8 @@ namespace Renderer.Maths
 
         public static Vector3 Lerp(Vector3 a, Vector3 b, float t)
         {
+            if (t > 1) return b;
+            if (t < 0) return a;
             return (1 - t) * a + t * b;
         }
 

@@ -12,7 +12,7 @@ namespace Renderer.Core
         static Stopwatch Timer = new Stopwatch();
         static long Tick;
         static long DeltaTick;
-        public static float ElapsedDeltaTime
+        public static float DeltaTime
         {
             get { return (float)TimeSpan.FromTicks(DeltaTick).TotalSeconds; }
         }

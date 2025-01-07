@@ -46,13 +46,13 @@ namespace Renderer.InGame.AirPlane
             {
                 Vector3 dir = Controller.WorldRotation.RotateVector(new Vector3(-moveInput.x, 0, moveInput.y));
                 float angle = MathF.Atan2(dir.x, dir.z) * XMath.Rad2Deg;
-                Controller.WorldRotation = Quaternion.Slerp(Controller.WorldRotation, Quaternion.FromEulerAngles(0, angle, 0), Time.ElapsedDeltaTime * AircraftSpeed);
+                Controller.WorldRotation = Quaternion.Slerp(Controller.WorldRotation, Quaternion.FromEulerAngles(0, angle, 0), Time.DeltaTime * AircraftSpeed);
                 
                 Vector3 zAxis = Controller.WorldRotation.RotateVector(new Vector3(0, 0, 1));
                 Vector3 xAxis = (Vector3.Cross(zAxis, new Vector3(0, 1, 0))).normalized;
                 Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
 
-                Controller.WorldPosition = Vector3.Lerp(Controller.WorldPosition, Controller.WorldPosition + (zAxis * moveInput.y + xAxis * moveInput.x).normalized, Time.ElapsedDeltaTime * AircraftSpeed);
+                Controller.WorldPosition = Vector3.Lerp(Controller.WorldPosition, Controller.WorldPosition + (zAxis * moveInput.y + xAxis * moveInput.x).normalized * AircraftSpeed, Time.DeltaTime * AircraftSpeed);
             }
             FrontBlade.LocalRotation = Quaternion.FromEulerAngles(180, 0, Time.TotalTime * BladeRotateSpeed * XMath.Rad2Deg);
         }
