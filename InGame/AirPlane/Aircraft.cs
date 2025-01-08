@@ -34,77 +34,50 @@ namespace Renderer.InGame.AirPlane
 
 
         Quaternion TargetRotation;
-
-        Vector3 RotateInputHolder;
+        Vector3 NowMoveInput;
 
         Quaternion CalculateTargetRotation(Vector3 moveInput)
         {
-            if (-0.3f >= moveInput.x)
-                moveInput.x = -0.3f;
-            if (moveInput.x >= 0.3f)
-                moveInput.x = 0.3f;
             float inputX = -moveInput.x;
             float inputY = -moveInput.y;
             float inputZ = moveInput.z;
             Vector3 dir = Controller.WorldRotation.RotateVector(new Vector3(inputX, 0, inputZ));
-            float angle = MathF.Atan2(dir.x, dir.z) * XMath.Rad2Deg;
+            float angleY = MathF.Atan2(dir.x, dir.z) * XMath.Rad2Deg;
             float angleX = MathF.Atan2(inputY, 1) * XMath.Rad2Deg;
-            float a = MathF.Atan2(-inputX, 1) * XMath.Rad2Deg_Half;
-            return Quaternion.FromEulerAngles(angleX, angle, 0) * Quaternion.FromEulerAngles(0, 0, a);
+            float angleZ = MathF.Atan2(-inputX, 1) * XMath.Rad2Deg_Half;
+            return Quaternion.FromEulerAngles(angleX, angleY, 0) * Quaternion.FromEulerAngles(0, 0, angleZ);
+        }
+        Vector3 CalculateTargetDirection(Vector3 moveInput)
+        {
+            //+ Controller.Right * moveInput.x
+            return (Controller.Forward * moveInput.z ).normalized;
         }
 
         public override void Update()
         {
-            //Controller.LocalPosition = new Vector3(MathF.Sin(Time.TotalTime * AircraftSpeed), MathF.Sin(Time.TotalTime * AircraftSpeed) * 0.2f, MathF.Cos(Time.TotalTime * AircraftSpeed)) * 5;
-            //Vector3 dir = Vector3.Cross(new Vector3(0, 1, 0), Controller.WorldPosition).normalized;           
-            //float angle = MathF.Atan2(dir.x, dir.z) * XMath.Rad2Deg;
-            //Controller.LocalRotation = Quaternion.FromEulerAngles(0, angle, 0);
-
-
-            Vector3 moveInput = Input.GetDirectionInput3D(KeyPreset.WASDQE);
-            Vector2 moveInput2 = Input.GetDirectionInput2D(KeyPreset.WASD);
+            Vector3 moveInput = Input.GetDirectionInput3DXZY(KeyPreset.WASDQE);
+            moveInput.z = 1;
             moveInput.x *= 0.5f;
-            if (moveInput.sqrMagnitude > 0.5f)
-            {
-                RotateInputHolder = moveInput;
-            }
+
+            //입력
             if(moveInput.sqrMagnitude > 0.01f)
             {
                 moveInput = moveInput.normalized;
             }
-            if (moveInput.sqrMagnitude < 0.01f)
-            {
-                RotateInputHolder.x = moveInput.x;
-            }
-            else
-                RotateInputHolder = moveInput;
 
-            TargetRotation = CalculateTargetRotation(RotateInputHolder);
+            NowMoveInput = Vector3.Lerp(NowMoveInput, moveInput, 5 * Time.DeltaTime);
+
+            if (-0.15f >= NowMoveInput.x)
+                NowMoveInput.x = -0.15f;
+            if (NowMoveInput.x >= 0.15f)
+                NowMoveInput.x = 0.15f;
+
+            TargetRotation = CalculateTargetRotation(NowMoveInput);
             Controller.WorldRotation = Quaternion.Slerp(Controller.WorldRotation, TargetRotation, Time.DeltaTime * AircraftSpeed);
 
-            if (moveInput.sqrMagnitude > 0.1f)
-            {
-                //float inputX = -moveInput.x;
-                //float inputY = moveInput.y;
-                //float inputZ = moveInput.z;
-                //Vector3 dir = Controller.WorldRotation.RotateVector(new Vector3(inputX, 0, inputZ));
-                //System.Diagnostics.Debug.WriteLine(dir);
-                //float angle = MathF.Atan2(dir.x, dir.z) * XMath.Rad2Deg;
-                //float angleX = MathF.Atan2(inputY, 1) * XMath.Rad2Deg;
-                //float a = MathF.Atan2(-inputX, 1) * XMath.Rad2Deg_Half;
-                //Quaternion q = Quaternion.FromEulerAngles(angleX, angle, 0) * Quaternion.FromEulerAngles(0, 0, a);
-                //Controller.WorldRotation = Quaternion.Slerp(Controller.WorldRotation, q, Time.DeltaTime * AircraftSpeed);
+            Vector3 dir = CalculateTargetDirection(NowMoveInput);
+            Controller.WorldPosition += dir * AircraftSpeed * Time.DeltaTime;
 
-                Vector3 zAxis = Controller.WorldRotation.RotateVector(new Vector3(0, 0, 1));
-                Vector3 xAxis = (Vector3.Cross(zAxis, new Vector3(0, 1, 0))).normalized;
-                Vector3 yAxis = Vector3.Cross(zAxis, xAxis).normalized;
-
-                Controller.WorldPosition = Vector3.Lerp(Controller.WorldPosition, Controller.WorldPosition + (zAxis * moveInput.z + xAxis * moveInput.x).normalized * AircraftSpeed, Time.DeltaTime * AircraftSpeed);
-            }
-            else
-            {
-
-            }
             FrontBlade.LocalRotation = Quaternion.FromEulerAngles(180, 0, Time.TotalTime * BladeRotateSpeed * XMath.Rad2Deg);
         }
     }

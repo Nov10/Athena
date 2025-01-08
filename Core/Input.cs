@@ -162,6 +162,34 @@ namespace Renderer.Core
             }
             return v;
         }
+        public static Vector3 GetDirectionInput3DXZY(KeyPreset preset)
+        {
+            Vector3 v = new Vector3(0, 0, 0);
+            switch (preset)
+            {
+                case KeyPreset.WASD:
+                    throw new Exception("WASD Preset is not allowed with Vector3.");
+                case KeyPreset.WASDQE:
+                    if (Input.GetKey(KeyCode.W))
+                        v.y = 1;
+                    else if (Input.GetKey(KeyCode.S))
+                        v.y = -1;
+
+                    if (Input.GetKey(KeyCode.Q))
+                        v.z = 1;
+                    else if (Input.GetKey(KeyCode.E))
+                        v.z = -1;
+
+                    if (Input.GetKey(KeyCode.D))
+                        v.x = 1;
+                    else if (Input.GetKey(KeyCode.A))
+                        v.x = -1;
+                    return v;
+                case KeyPreset.Arrow:
+                    throw new Exception("Arrow Preset is not allowed with Vector3.");
+            }
+            return v;
+        }
         public static Vector2 GetDirectionInput2D(KeyPreset preset)
         {
             Vector2 v = new Vector2(0, 0);

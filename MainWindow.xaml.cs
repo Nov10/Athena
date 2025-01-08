@@ -138,7 +138,7 @@ namespace Renderer
 
             Aircraft aircraft = new Aircraft();            
             body.AddComponent(aircraft);
-            aircraft.InitializeAircraft(blade, 3, 4);
+            aircraft.InitializeAircraft(blade, 3, 10);
 
             WorldObjects.Add(body);
             WorldObjects.Add(blade);
