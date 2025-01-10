@@ -8,6 +8,9 @@ using Renderer;
 using System.Drawing;
 using Microsoft.UI.Xaml.Media.Imaging;
 using NPhotoshop.Core.Image;
+using ILGPU;
+using ILGPU.Runtime.Cuda;
+using ILGPU.Runtime;
 
 namespace Renderer.Renderer.PBR
 {
@@ -16,8 +19,8 @@ namespace Renderer.Renderer.PBR
         public NBitmap RenderTarget;
         //public Bitmap RenderTarget;
         public List<Core.Renderer> Targets;
-        public float[] ZBuffer; // Z-버퍼 추가
         public Vector3 LightDirection;
+        GPURasterizer rasterizer;
 
         public void ClearZBuffer()
         {
@@ -29,26 +32,27 @@ namespace Renderer.Renderer.PBR
             //    }
             //}
             //for(int i = 0; i < ZBuffer2.Length; i++)
-            Parallel.For(0, ZBuffer.Length, (i) =>
-            {
-                ZBuffer[i] = float.MaxValue;
-            });
+
         }
         public void AddObject(Core.Renderer obj)
         {
             Targets.Add(obj);
         }
-
+        Context context = Context.Create(builder => builder.Math(MathMode.Fast).Cuda());
+        Accelerator accelerator;
         public PBRRenderer(int w, int h) : base(w, h)
         {
             Targets = new List<Core.Renderer>();
             VertexShader = new VertexShader();
-            Rasterizer = new Rasterizer(width, height);
+            //Rasterizer = new Rasterizer(width, height);
 
             RenderTarget = new NPhotoshop.Core.Image.NBitmap(width, height);
-            ZBuffer = new float[width * height];
+
+            accelerator = context.CreateCudaAccelerator(0);
+
+            rasterizer = new GPURasterizer(width, height);
         }
-        Rasterizer Rasterizer;
+        //Rasterizer Rasterizer;
         VertexShader VertexShader;
 
         public void Render()
@@ -57,8 +61,7 @@ namespace Renderer.Renderer.PBR
             RenderTarget.ClearBlack();
             ClearZBuffer();
             //Vector3 lightInCameraSpace = TransformMatrixCaculator.Transform(light.normalized, cmaeraTransform).normalized; // 광원을 카메라 좌표계로 변환
-
-
+            rasterizer.Start();
             foreach (var mesh in Targets)
             {
                 Matrix4x4 objectTransform = mesh.CalculateObjectTransformMatrix();
@@ -70,13 +73,12 @@ namespace Renderer.Renderer.PBR
                     //물체의 위치, 각도 적용
                     Vertex[] transformedVertices = VertexShader.Run(singleMesh.Vertices2, mesh.Controller.LocalPosition, singleMesh.Shader, objectTransform, cameraTransform, objectRotationTransform);
                     //VertexShader.Calc_T(transformedVertices, singleMesh.Triangles);
-                    //for (int i = 0; i < transformedVertices.Length; i++)
-                    //{
-                    //    System.Diagnostics.Debug.WriteLine(transformedVertices[i].Position_ScreenVolumeSpace);
-                    //}
                     //래스터 계산
-                    var rasters = Rasterizer.Run(transformedVertices, ZBuffer, RenderTarget, singleMesh.Triangles, width, height);
+                    var rasters = rasterizer.Run(transformedVertices, RenderTarget, singleMesh.Triangles, width, height);
+
                     //프래그먼트 셰이더로 색상 계산
+                    if (rasters == null)
+                        continue;
                     var frameBuffer = singleMesh.Shader.Run_FragmentShader(rasters, RenderTarget.Pixels, LightDirection, width);
                     RenderTarget.SetPixels(frameBuffer);
                 }

@@ -54,7 +54,7 @@ namespace Renderer.Maths
         {
             if (scalar == 0)
             {
-                throw new ArgumentException("Division by zero.");
+                return new Vector4(0, 0, 0, 0);
             }
             return new Vector4(v.x / scalar, v.y / scalar, v.z / scalar, v.w / scalar);
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Renderer.Maths
 {
-    public class Vector2
+    public struct Vector2
     {
         public float x;
         public float y;
@@ -42,7 +42,8 @@ namespace Renderer.Maths
         {
             if (scalar == 0)
             {
-                throw new DivideByZeroException("Division by zero");
+                return new Vector2(0, 0);
+                //throw new DivideByZeroException("Division by zero");
             }
 
             return new Vector2(a.x / scalar, a.y / scalar);
@@ -61,7 +62,8 @@ namespace Renderer.Maths
             float mag = Magnitude();
             if (mag == 0)
             {
-                throw new DivideByZeroException("Vector has zero magnitude");
+                return new Vector2(0, 0);
+                //throw new DivideByZeroException("Vector has zero magnitude");
             }
 
             return new Vector2(x / mag, y / mag);

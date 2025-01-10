@@ -1,4 +1,6 @@
-﻿using Renderer.Core.PBR;
+﻿using ILGPU.Runtime;
+using ILGPU;
+using Renderer.Core.PBR;
 using Renderer.Maths;
 using System;
 using System.Collections.Generic;
@@ -6,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ILGPU.Runtime.Cuda;
 
 namespace Renderer
 {
@@ -36,21 +39,7 @@ namespace Renderer
                 vertex.Normal_WorldSpace = TransformMatrixCaculator.Transform(vertex.Normal_ObjectSpace, objectRotationTransform);
 
                 vertex.ClipPoint = TransformMatrixCaculator.TransformH(vertex.Position_WorldSpace, cameraTransform);
-                //vertex.ClipPoint.x = MathF.Max(MathF.Min(vertex.ClipPoint.x, vertex.ClipPoint.w), -vertex.ClipPoint.w);
-                //vertex.ClipPoint.y = MathF.Max(MathF.Min(vertex.ClipPoint.y, vertex.ClipPoint.w), -vertex.ClipPoint.w);
-                //vertex.ClipPoint.z = MathF.Max(MathF.Min(vertex.ClipPoint.z, vertex.ClipPoint.w), -vertex.ClipPoint.w);
-                //vertex.ClipPoint = vertex.ClipPoint / vertex.ClipPoint.w;
-
-                //vertex.Position_ScreenVolumeSpace.x = vertex.ClipPoint.x;
-                //vertex.Position_ScreenVolumeSpace.y = vertex.ClipPoint.y;
-
-                ////vertex.Position_ScreenVolumeSpace = TransformMatrixCaculator.Transform(vertex.Position_WorldSpace, cameraTransform);
-                //vertex.Position_ScreenVolumeSpace = new Vector3(
-                //-(vertex.Position_ScreenVolumeSpace.x),
-                //-(vertex.Position_ScreenVolumeSpace.y),
-                // (vertex.Position_ScreenVolumeSpace.z));
-                ;//* (vertex.Position_WorldSpace.x * cameraTransform.e41 + vertex.Position_WorldSpace.y * cameraTransform.e42 + vertex.Position_WorldSpace.z * cameraTransform.e43 + cameraTransform.e44);
-
+                
                 vertices[idx] = vertex;
             });
             return vertices;

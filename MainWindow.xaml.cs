@@ -99,7 +99,7 @@ namespace Renderer
             planeRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
             //planeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
             planeRenderer.RenderDatas[0].Shader = new Shader1();
-            (planeRenderer.RenderDatas[0].Shader as Shader1).MainTexture = planeTex;
+            (planeRenderer.RenderDatas[0].Shader as Shader1).MainTexture = bodyTex;
             plane.LocalScale = new Vector3(45, 2, 45);
             plane.LocalPosition = new Vector3(0, -5, 0);
             plane.AddComponent(planeRenderer);
