@@ -22,6 +22,33 @@ namespace Renderer.Renderer
         public CustomShader Shader;
         public FragmentShader FragmentShader;
 
+        public void CalculateNormals()
+        {
+            for(int i = 0; i < Vertices2.Length; i++)
+            {
+                Vertices2[i].Normal_ObjectSpace = new Vector3();
+            }
+            for(int i = 0; i < Triangles.Length/3; i++)
+            {
+                var p1 = Vertices2[Triangles[3 * i]];
+                var p2 = Vertices2[Triangles[3 * i+1]];
+                var p3 = Vertices2[Triangles[3 * i+2]];
+
+                Vector3 normal = Vector3.Cross(p2.Position_ObjectSpace - p1.Position_ObjectSpace, p3.Position_ObjectSpace - p1.Position_ObjectSpace);
+                p1.Normal_ObjectSpace += normal;
+                p2.Normal_ObjectSpace += normal;
+                p3.Normal_ObjectSpace += normal;
+
+                Vertices2[Triangles[3 * i]] = p1;
+                Vertices2[Triangles[3 * i + 1]] = p2;
+                Vertices2[Triangles[3 * i + 2]]  = p3;
+            }
+            for (int i = 0; i < Vertices2.Length; i++)
+            {
+                Vertices2[i].Normal_ObjectSpace = Vertices2[i].Normal_ObjectSpace.normalized;
+            }
+        }
+
 
         public RenderData(RenderData data)
         {

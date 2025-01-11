@@ -31,6 +31,13 @@ namespace Renderer.Maths
             this.z = z;
         }
 
+        public float Get(int i)
+        {
+            if (i == 0) return x;
+            if (i == 1) return y;
+            return z;
+        }
+
         public static Vector3 operator /(Vector3 left, float right)
         {
             return new Vector3(left.x / right, left.y / right, left.z / right);

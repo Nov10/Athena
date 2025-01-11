@@ -161,11 +161,11 @@ public class GPURasterizerInternal
                 // 타일에 속한 삼각형들
                 for (int i = 0; i < triangleCount; i++)
                 {
-                    //if (idx * MaxTCount + i >= triangleIndicesPerTile.Length || idx < 0 || idx >= triangleCountPerTile.Length)
-                    //    return;
+                    if (idx * MaxTCount + i >= triangleIndicesPerTile.Length || idx < 0 || idx >= triangleCountPerTile.Length)
+                        return;
                     int record = triangleIndicesPerTile[idx * MaxTCount + i];
-                    //if (record < 0 || record * 3 + 2 >= triangles.Length)
-                    //    return;
+                    if (record < 0 || record * 3 + 2 >= triangles.Length)
+                        return;
                     SetRasterWithZBuffer(
                         x, y,
                         record,  // triangleIndex

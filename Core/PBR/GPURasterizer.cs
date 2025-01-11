@@ -17,7 +17,7 @@ public class GPURasterizer : IDisposable
 {
     // 기존 상수
     const int tileSize = 2;
-    const int MaxTCount = 16;
+    const int MaxTCount = 64;
 
     // ILGPU 관련 필드
     private Context context;

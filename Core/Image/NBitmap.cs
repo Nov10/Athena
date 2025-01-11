@@ -73,6 +73,13 @@ namespace NPhotoshop.Core.Image
                 SetPixel(x, y, new Color(0, 0, 0, 0));
             });
         }
+        public void Clear(Color color)
+        {
+            LoopForPixel((x, y) =>
+            {
+                SetPixel(x, y, color);
+            });
+        }
         public void ClearBlack()
         {
             LoopForPixel((x, y) =>

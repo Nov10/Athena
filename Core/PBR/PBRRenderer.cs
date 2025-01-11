@@ -58,7 +58,7 @@ namespace Renderer.Renderer.PBR
         public void Render()
         {
             Matrix4x4 cameraTransform = camera.CalculateRenderMatrix();
-            RenderTarget.ClearBlack();
+            RenderTarget.Clear(new NPhotoshop.Core.Image.Color(0, 255, 255, 255));
             ClearZBuffer();
             //Vector3 lightInCameraSpace = TransformMatrixCaculator.Transform(light.normalized, cmaeraTransform).normalized; // 광원을 카메라 좌표계로 변환
             rasterizer.Start();
@@ -69,6 +69,8 @@ namespace Renderer.Renderer.PBR
                 Matrix4x4 transform = cameraTransform * objectTransform;
                 foreach(var m in mesh.RenderDatas)
                 {
+                    if (m.Vertices2 == null || m.Vertices2.Length == 0)
+                        continue;
                     var singleMesh = new RenderData(m);
                     //물체의 위치, 각도 적용
                     Vertex[] transformedVertices = VertexShader.Run(singleMesh.Vertices2, mesh.Controller.LocalPosition, singleMesh.Shader, objectTransform, cameraTransform, objectRotationTransform);

@@ -27,6 +27,7 @@ using NPhotoshop.Core.Image;
 using Windows.Graphics.Imaging;
 using Renderer.InGame.AirPlane;
 using Renderer.InGame;
+using Renderer.Terrain;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -140,14 +141,63 @@ namespace Renderer
             body.AddComponent(aircraft);
             aircraft.InitializeAircraft(blade, 3, 10);
 
-            WorldObjects.Add(body);
-            WorldObjects.Add(blade);
-            WorldObjects.Add(camera);
-            //WorldObjects.Add(cam);
-            WorldObjects.Add(plane);
+            //WorldObjects.Add(body);
+            //WorldObjects.Add(blade);
+            //WorldObjects.Add(camera);
+            ////WorldObjects.Add(cam);
+            //WorldObjects.Add(plane);
 
-            camera.WorldPosition += new Vector3(0, 20, 0);
+            camera.WorldPosition += new Vector3(0, 50, 0);
 
+
+            Core.Object map = new Core.Object();
+            Core.Renderer mapRenderer = new Core.Renderer();
+            mapRenderer.RenderDatas = new List<RenderData>();
+            mapRenderer.RenderDatas.Add(new RenderData());
+            MapDisplay display = new MapDisplay();
+            display.RenderComponenet = mapRenderer;
+
+            MapGenerator generator = new MapGenerator();
+            generator.EditorPreviewLevlOfDetail = 0;
+            generator.DrawMode = MapGenerator.eDrawaMode.DrawMesh;
+            generator.NormalizeMode = Noise.eNormalizeMode.Global;
+            generator.NoiseScale = 25;
+            generator.Octaves = 5;
+            generator.Persistance = 0.618f;
+            generator.Lacunarity = 2;
+            generator.MeshHeightMultiplier = 15;
+            generator.Seed = 0;
+            generator.offset = new Vector2(0, 0);
+            //generator.AutoUpdate = true;
+
+            List<TerrainType> types = new List<TerrainType>();
+            TerrainType waterDeep = new TerrainType("Water Deep", 0.0f, new Color(0, 90, 255, 255));
+            TerrainType grass1 = new TerrainType("Grass1", 0.10f, new Color(56, 255, 0, 255));
+            TerrainType grass2 = new TerrainType("Grass2", 0.45f, new Color(41, 152, 68, 255));
+            TerrainType snow = new TerrainType("Snow", 0.85f, new Color(255, 255, 255, 255));
+            types.Add(waterDeep);
+            types.Add(grass1);
+            types.Add(grass2);
+            types.Add(snow);
+
+            generator.Regions = types.ToArray();
+
+            EndlessTerrain terrain = new EndlessTerrain();
+            terrain.Initialize(generator);
+            terrain.Viewer = body;
+
+            EndlessTerrain.LODInfo info0 = new EndlessTerrain.LODInfo(0, 200);
+            EndlessTerrain.LODInfo info1 = new EndlessTerrain.LODInfo(4, 300); 
+            EndlessTerrain.LODInfo info2 = new EndlessTerrain.LODInfo(8, 600);
+            terrain.DetailLevels = new EndlessTerrain.LODInfo[] { info0, info1 };
+
+            map.AddComponent(mapRenderer);
+            map.AddComponent(display);
+            map.AddComponent(generator);
+            map.AddComponent(terrain);
+
+
+            //generator.DrawMapInEditor();
             ImageRefresher.Interval = TimeSpan.FromTicks(10);
             ImageRefresher.Tick += T_Tick1;
             ImageRefresher.Start();
@@ -165,7 +215,8 @@ namespace Renderer
 
             for (int i = 0; i<WorldObjects.Count; i++)
             {
-                WorldObjects[i].Update();
+                if(WorldObjects[i].IsWorldActive == true)
+                    WorldObjects[i].Update();
             }
             for (int i = 0; i < WorldObjects.Count; i++)
             {

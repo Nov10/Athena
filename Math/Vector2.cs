@@ -10,6 +10,11 @@ namespace Renderer.Maths
     {
         public float x;
         public float y;
+
+        public static Vector2 zero
+        {
+            get { return new Vector2(0, 0); }
+        }
         public static float Dot(Vector2 a,  Vector2 b)
         {
             return (float)(a.x * b.x + a.y * b.y);
@@ -49,17 +54,17 @@ namespace Renderer.Maths
             return new Vector2(a.x / scalar, a.y / scalar);
         }
 
-        public float Magnitude()
+        public float magnitude
         {
-            return (float)System.Math.Sqrt(x * x + y * y);
+            get { return (float)System.Math.Sqrt(x * x + y * y); }
         }
-        public float sqrMagnitude()
+        public float sqrMagnitude
         {
-            return (x * x + y * y);
+            get { return x * x + y * y; }
         }
         public Vector2 Normalize()
         {
-            float mag = Magnitude();
+            float mag = magnitude;
             if (mag == 0)
             {
                 return new Vector2(0, 0);

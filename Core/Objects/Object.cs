@@ -9,11 +9,13 @@ namespace Renderer.Core
 {
     public class Object
     {
+        public bool Active;
         public Object Parent;
         public List<Object> Children;
         public Vector3 LocalPosition;
         public Vector3 LocalScale;
         public Quaternion LocalRotation;
+        public string Name;
 
         public Vector3 Forward
         {
@@ -119,7 +121,21 @@ namespace Renderer.Core
             result = null;
             return false;
         }
+        public bool IsWorldActive
+        {
+            get
+            {
+                if (Active == false) return false;
+                if (Parent == null) return Active;
 
+                if (Parent.Active == false)
+                    return false;
+                if (Active == false)
+                    return false;
+
+                return true;
+            }
+        }
         public virtual void Update()
         {
             for(int i = 0; i < Components.Count; i++)
@@ -127,14 +143,26 @@ namespace Renderer.Core
                 Components[i].UpdateComponent();
             }
         }
-
-        public Object()
+        public Object(string name)
         {
+            Name = name;
+            Active = true;
             Components = new List<Component>();
             Children = new List<Object>();
             Parent = null;
             LocalRotation = new Quaternion(1, 0, 0, 0);
             LocalScale = new Vector3(1, 1, 1);
+            MainWindow.WorldObjects.Add(this);
+        }
+        public Object()
+        {
+            Active = true;
+            Components = new List<Component>();
+            Children = new List<Object>();
+            Parent = null;
+            LocalRotation = new Quaternion(1, 0, 0, 0);
+            LocalScale = new Vector3(1, 1, 1);
+            MainWindow.WorldObjects.Add(this);
         }
     }
 }

@@ -24,16 +24,17 @@ namespace Renderer.InGame
 
         public override void Update()
         {
-            //var moveInput = Input.GetDirectionInput(KeyPreset.WASD);
-            //var rotateInput = Input.GetDirectionInput(KeyPreset.Arrow);
-            ////Input.DebugNowInputKeys();
-            //Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+            var moveInput = Input.GetDirectionInput2D(KeyPreset.WASD);
+            //Input.DebugNowInputKeys();
+            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
 
-            //if (Input.GetKey(KeyCode.Q))
-            //    move.y = 1;
-            //else if (Input.GetKey(KeyCode.E))
-            //    move.y = -1;
+            if (Input.GetKey(KeyCode.Q))
+                move.y = 1;
+            else if (Input.GetKey(KeyCode.E))
+                move.y = -1;
             ////System.Diagnostics.Debug.WriteLine(WorldObjects[3].WorldPosition);
+            ///
+            //Controller.WorldPosition += move;
 
             var rotateInput = Input.GetDirectionInput2D(KeyPreset.Arrow);
             Quaternion q;
