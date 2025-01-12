@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Rendering\\App2\\App2\\Renderer.csproj": {}
+    "C:\\Personal\\Graphics\\Renderer-CS\\Renderer.csproj": {}
   },
   "projects": {
-    "D:\\Rendering\\App2\\App2\\Renderer.csproj": {
+    "C:\\Personal\\Graphics\\Renderer-CS\\Renderer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Rendering\\App2\\App2\\Renderer.csproj",
+        "projectUniqueName": "C:\\Personal\\Graphics\\Renderer-CS\\Renderer.csproj",
         "projectName": "Renderer",
-        "projectPath": "D:\\Rendering\\App2\\App2\\Renderer.csproj",
-        "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
-        "outputPath": "D:\\Rendering\\App2\\App2\\obj\\",
+        "projectPath": "C:\\Personal\\Graphics\\Renderer-CS\\Renderer.csproj",
+        "packagesPath": "C:\\Users\\문종욱\\.nuget\\packages\\",
+        "outputPath": "C:\\Personal\\Graphics\\Renderer-CS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\micha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\문종욱\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,6 +38,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -52,6 +56,14 @@
             "AssimpNet": {
               "target": "Package",
               "version": "[4.1.0, )"
+            },
+            "ILGPU": {
+              "target": "Package",
+              "version": "[1.5.1, )"
+            },
+            "ILGPU.Algorithms": {
+              "target": "Package",
+              "version": "[1.5.1, )"
             },
             "Microsoft.Windows.SDK.BuildTools": {
               "target": "Package",
@@ -76,27 +88,27 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.11, 8.0.11]"
             },
             {
               "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.11, 8.0.11]"
             },
             {
               "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.11, 8.0.11]"
             },
             {
               "name": "Microsoft.NETCore.App.Runtime.win-arm64",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.11, 8.0.11]"
             },
             {
               "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.11, 8.0.11]"
             },
             {
               "name": "Microsoft.NETCore.App.Runtime.win-x86",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.11, 8.0.11]"
             },
             {
               "name": "Microsoft.Windows.SDK.NET.Ref",
@@ -104,15 +116,15 @@
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.11, 8.0.11]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.11, 8.0.11]"
             },
             {
               "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-              "version": "[8.0.1, 8.0.1]"
+              "version": "[8.0.11, 8.0.11]"
             }
           ],
           "frameworkReferences": {
@@ -123,7 +135,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

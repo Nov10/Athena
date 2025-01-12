@@ -1,11 +1,11 @@
-﻿using Renderer.Maths;
+﻿using Athena.Maths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renderer.Maths
+namespace Athena.Maths
 {
     internal class TransformMatrixCaculator
     {

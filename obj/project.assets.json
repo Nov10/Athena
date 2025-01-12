@@ -48,6 +48,35 @@
           }
         }
       },
+      "ILGPU/1.5.1": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/ILGPU.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/ILGPU.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ILGPU.Algorithms/1.5.1": {
+        "type": "package",
+        "dependencies": {
+          "ILGPU": "1.5.1"
+        },
+        "compile": {
+          "lib/net7.0/ILGPU.Algorithms.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/ILGPU.Algorithms.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
         "compile": {
@@ -1506,6 +1535,35 @@
         },
         "build": {
           "build/AssimpNet.targets": {}
+        }
+      },
+      "ILGPU/1.5.1": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/ILGPU.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/ILGPU.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ILGPU.Algorithms/1.5.1": {
+        "type": "package",
+        "dependencies": {
+          "ILGPU": "1.5.1"
+        },
+        "compile": {
+          "lib/net7.0/ILGPU.Algorithms.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/ILGPU.Algorithms.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {
@@ -3235,6 +3293,35 @@
           "build/AssimpNet.targets": {}
         }
       },
+      "ILGPU/1.5.1": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/ILGPU.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/ILGPU.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ILGPU.Algorithms/1.5.1": {
+        "type": "package",
+        "dependencies": {
+          "ILGPU": "1.5.1"
+        },
+        "compile": {
+          "lib/net7.0/ILGPU.Algorithms.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/ILGPU.Algorithms.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
         "compile": {
@@ -4960,6 +5047,35 @@
         },
         "build": {
           "build/AssimpNet.targets": {}
+        }
+      },
+      "ILGPU/1.5.1": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/ILGPU.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/ILGPU.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "ILGPU.Algorithms/1.5.1": {
+        "type": "package",
+        "dependencies": {
+          "ILGPU": "1.5.1"
+        },
+        "compile": {
+          "lib/net7.0/ILGPU.Algorithms.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/ILGPU.Algorithms.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {
@@ -6759,6 +6875,54 @@
         "runtimes/osx-x64/native/libassimp.dylib",
         "runtimes/win-x64/native/assimp.dll",
         "runtimes/win-x86/native/assimp.dll"
+      ]
+    },
+    "ILGPU/1.5.1": {
+      "sha512": "Q4URSxEqH+u0XE3XCtYZ2h3FZgLp9VOOeelvKCmniiTlKft0JNCs13EOqayWVjwvPUbD4w/XaFlP3CdmaRdj8w==",
+      "type": "package",
+      "path": "ilgpu/1.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE-3RD-PARTY.txt",
+        "LICENSE.txt",
+        "ilgpu.1.5.1.nupkg.sha512",
+        "ilgpu.nuspec",
+        "lib/net471/ILGPU.dll",
+        "lib/net471/ILGPU.pdb",
+        "lib/net471/ILGPU.xml",
+        "lib/net5.0/ILGPU.dll",
+        "lib/net5.0/ILGPU.xml",
+        "lib/net6.0/ILGPU.dll",
+        "lib/net6.0/ILGPU.xml",
+        "lib/net7.0/ILGPU.dll",
+        "lib/net7.0/ILGPU.xml",
+        "lib/netstandard2.1/ILGPU.dll",
+        "lib/netstandard2.1/ILGPU.xml"
+      ]
+    },
+    "ILGPU.Algorithms/1.5.1": {
+      "sha512": "PCoyiLrku1GXWJFU7XNQiTLYmwm5igHpzW6dv+5pBQcm8Ufav0V1jXtnWme/WuE8mlC1fkpHWspEUJdltgrYSg==",
+      "type": "package",
+      "path": "ilgpu.algorithms/1.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE-3RD-PARTY.txt",
+        "LICENSE.txt",
+        "ilgpu.algorithms.1.5.1.nupkg.sha512",
+        "ilgpu.algorithms.nuspec",
+        "lib/net471/ILGPU.Algorithms.dll",
+        "lib/net471/ILGPU.Algorithms.pdb",
+        "lib/net471/ILGPU.Algorithms.xml",
+        "lib/net5.0/ILGPU.Algorithms.dll",
+        "lib/net5.0/ILGPU.Algorithms.xml",
+        "lib/net6.0/ILGPU.Algorithms.dll",
+        "lib/net6.0/ILGPU.Algorithms.xml",
+        "lib/net7.0/ILGPU.Algorithms.dll",
+        "lib/net7.0/ILGPU.Algorithms.xml",
+        "lib/netstandard2.1/ILGPU.Algorithms.dll",
+        "lib/netstandard2.1/ILGPU.Algorithms.xml"
       ]
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
@@ -11562,28 +11726,30 @@
     "net8.0-windows10.0.19041": [
       "Assimp >= 3.0.0",
       "AssimpNet >= 4.1.0",
+      "ILGPU >= 1.5.1",
+      "ILGPU.Algorithms >= 1.5.1",
       "Microsoft.Windows.SDK.BuildTools >= 10.0.22621.756",
       "Microsoft.WindowsAppSDK >= 1.6.240923002"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\micha\\.nuget\\packages\\": {},
+    "C:\\Users\\문종욱\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Rendering\\App2\\App2\\Renderer.csproj",
-      "projectName": "Renderer",
-      "projectPath": "D:\\Rendering\\App2\\App2\\Renderer.csproj",
-      "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
-      "outputPath": "D:\\Rendering\\App2\\App2\\obj\\",
+      "projectUniqueName": "C:\\Personal\\Graphics\\Renderer-CS\\Athena.csproj",
+      "projectName": "Athena",
+      "projectPath": "C:\\Personal\\Graphics\\Renderer-CS\\Athena.csproj",
+      "packagesPath": "C:\\Users\\문종욱\\.nuget\\packages\\",
+      "outputPath": "C:\\Personal\\Graphics\\Renderer-CS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\micha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\문종욱\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -11592,7 +11758,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11605,6 +11770,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -11618,6 +11788,14 @@
           "AssimpNet": {
             "target": "Package",
             "version": "[4.1.0, )"
+          },
+          "ILGPU": {
+            "target": "Package",
+            "version": "[1.5.1, )"
+          },
+          "ILGPU.Algorithms": {
+            "target": "Package",
+            "version": "[1.5.1, )"
           },
           "Microsoft.Windows.SDK.BuildTools": {
             "target": "Package",
@@ -11642,27 +11820,27 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-arm64",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x86",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           },
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
@@ -11670,15 +11848,15 @@
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-            "version": "[8.0.1, 8.0.1]"
+            "version": "[8.0.11, 8.0.11]"
           }
         ],
         "frameworkReferences": {
@@ -11689,7 +11867,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

@@ -1,16 +1,16 @@
-﻿using Renderer.Core;
-using Renderer.Maths;
+﻿using Athena.Maths;
+using Athena.Engine.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renderer.InGame.AirPlane
+namespace Athena.InGame.AirPlane
 {
     public class Aircraft : Component
     {
-        Core.Object FrontBlade;
+        GameObject FrontBlade;
         float BladeRotateSpeed;
         float AircraftSpeed;
 
@@ -19,7 +19,7 @@ namespace Renderer.InGame.AirPlane
 
         }
 
-        public void InitializeAircraft(Core.Object blade, float bladeSpeed, float aircraftSpeed)
+        public void InitializeAircraft(GameObject blade, float bladeSpeed, float aircraftSpeed)
         {
             FrontBlade = blade;
             FrontBlade.Parent = Controller;

@@ -10,22 +10,22 @@
 using System.Diagnostics.CodeAnalysis;
 
 
-namespace Renderer
+namespace Athena
 {
     public partial class App : global::Microsoft.UI.Xaml.Markup.IXamlMetadataProvider
     {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.UI.Xaml.Markup.Compiler"," 3.0.0.2409")]
-        private global::Renderer.Renderer_XamlTypeInfo.XamlMetaDataProvider __appProvider;
+        private global::Renderer.Athena_XamlTypeInfo.XamlMetaDataProvider __appProvider;
 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.UI.Xaml.Markup.Compiler"," 3.0.0.2409")]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private global::Renderer.Renderer_XamlTypeInfo.XamlMetaDataProvider _AppProvider
+        private global::Renderer.Athena_XamlTypeInfo.XamlMetaDataProvider _AppProvider
         {
             get
             {
                 if (__appProvider == null)
                 {
-                    __appProvider = new global::Renderer.Renderer_XamlTypeInfo.XamlMetaDataProvider();
+                    __appProvider = new global::Renderer.Athena_XamlTypeInfo.XamlMetaDataProvider();
                 }
                 return __appProvider;
             }
@@ -63,7 +63,7 @@ namespace Renderer
     }
 }
 
-namespace Renderer.Renderer_XamlTypeInfo
+namespace Renderer.Athena_XamlTypeInfo
 {
     /// <summary>
     /// Main class for providing metadata for the app or library
@@ -72,15 +72,15 @@ namespace Renderer.Renderer_XamlTypeInfo
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     public sealed partial class XamlMetaDataProvider : global::Microsoft.UI.Xaml.Markup.IXamlMetadataProvider
     {
-        private global::Renderer.Renderer_XamlTypeInfo.XamlTypeInfoProvider _provider = null;
+        private global::Renderer.Athena_XamlTypeInfo.XamlTypeInfoProvider _provider = null;
 
-        private global::Renderer.Renderer_XamlTypeInfo.XamlTypeInfoProvider Provider
+        private global::Renderer.Athena_XamlTypeInfo.XamlTypeInfoProvider Provider
         {
             get
             {
                 if (_provider == null)
                 {
-                    _provider = new global::Renderer.Renderer_XamlTypeInfo.XamlTypeInfoProvider();
+                    _provider = new global::Renderer.Athena_XamlTypeInfo.XamlTypeInfoProvider();
                 }
                 return _provider;
             }
@@ -130,7 +130,7 @@ namespace Renderer.Renderer_XamlTypeInfo
                 {
                     xamlType = CreateXamlType(typeIndex);
                 }
-                var userXamlType = xamlType as global::Renderer.Renderer_XamlTypeInfo.XamlUserType;
+                var userXamlType = xamlType as global::Renderer.Athena_XamlTypeInfo.XamlUserType;
                 if(xamlType == null || (userXamlType != null && userXamlType.IsReturnTypeStub && !userXamlType.IsLocalType))
                 {
                     global::Microsoft.UI.Xaml.Markup.IXamlType libXamlType = CheckOtherMetadataProvidersForType(type);
@@ -169,7 +169,7 @@ namespace Renderer.Renderer_XamlTypeInfo
                 {
                     xamlType = CreateXamlType(typeIndex);
                 }
-                var userXamlType = xamlType as global::Renderer.Renderer_XamlTypeInfo.XamlUserType;
+                var userXamlType = xamlType as global::Renderer.Athena_XamlTypeInfo.XamlUserType;
                 if(xamlType == null || (userXamlType != null && userXamlType.IsReturnTypeStub && !userXamlType.IsLocalType))
                 {
                     global::Microsoft.UI.Xaml.Markup.IXamlType libXamlType = CheckOtherMetadataProvidersForName(typeName);
@@ -231,7 +231,7 @@ namespace Renderer.Renderer_XamlTypeInfo
             _typeNameTable[1] = "Microsoft.UI.Xaml.ResourceDictionary";
             _typeNameTable[2] = "Object";
             _typeNameTable[3] = "Boolean";
-            _typeNameTable[4] = "Renderer.MainWindow";
+            _typeNameTable[4] = "Athena.MainWindow";
             _typeNameTable[5] = "Microsoft.UI.Xaml.Window";
             _typeNameTable[6] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
             _typeNameTable[7] = "Microsoft.UI.Xaml.DependencyObject";
@@ -243,7 +243,7 @@ namespace Renderer.Renderer_XamlTypeInfo
             _typeTable[1] = typeof(global::Microsoft.UI.Xaml.ResourceDictionary);
             _typeTable[2] = typeof(global::System.Object);
             _typeTable[3] = typeof(global::System.Boolean);
-            _typeTable[4] = typeof(global::Renderer.MainWindow);
+            _typeTable[4] = typeof(global::Athena.MainWindow);
             _typeTable[5] = typeof(global::Microsoft.UI.Xaml.Window);
             _typeTable[6] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
             _typeTable[7] = typeof(global::Microsoft.UI.Xaml.DependencyObject);
@@ -284,10 +284,10 @@ namespace Renderer.Renderer_XamlTypeInfo
         }
 
         private object Activate_0_XamlControlsResources() { return new global::Microsoft.UI.Xaml.Controls.XamlControlsResources(); }
-        private object Activate_4_MainWindow() { return new global::Renderer.MainWindow(); }
+        private object Activate_4_MainWindow() { return new global::Athena.MainWindow(); }
         private object Activate_6_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
         private void StaticInitializer_0_XamlControlsResources() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources).TypeHandle);
-        private void StaticInitializer_4_MainWindow() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Renderer.MainWindow).TypeHandle);
+        private void StaticInitializer_4_MainWindow() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Athena.MainWindow).TypeHandle);
         private void StaticInitializer_6_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
         private void StaticInitializer_8_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
         private void MapAdd_0_XamlControlsResources(object instance, object key, object item)
@@ -306,8 +306,8 @@ namespace Renderer.Renderer_XamlTypeInfo
 
         private global::Microsoft.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
-            global::Renderer.Renderer_XamlTypeInfo.XamlSystemBaseType xamlType = null;
-            global::Renderer.Renderer_XamlTypeInfo.XamlUserType userType;
+            global::Renderer.Athena_XamlTypeInfo.XamlSystemBaseType xamlType = null;
+            global::Renderer.Athena_XamlTypeInfo.XamlUserType userType;
             string typeName = _typeNameTable[typeIndex];
             global::System.Type type = _typeTable[typeIndex];
 
@@ -315,7 +315,7 @@ namespace Renderer.Renderer_XamlTypeInfo
             {
 
             case 0:   //  Microsoft.UI.Xaml.Controls.XamlControlsResources
-                userType = new global::Renderer.Renderer_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.ResourceDictionary"));
+                userType = new global::Renderer.Athena_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.ResourceDictionary"));
                 userType.Activator = Activate_0_XamlControlsResources;
                 userType.StaticInitializer = StaticInitializer_0_XamlControlsResources;
                 userType.DictionaryAdd = MapAdd_0_XamlControlsResources;
@@ -324,19 +324,19 @@ namespace Renderer.Renderer_XamlTypeInfo
                 break;
 
             case 1:   //  Microsoft.UI.Xaml.ResourceDictionary
-                xamlType = new global::Renderer.Renderer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::Renderer.Athena_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
             case 2:   //  Object
-                xamlType = new global::Renderer.Renderer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::Renderer.Athena_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
             case 3:   //  Boolean
-                xamlType = new global::Renderer.Renderer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::Renderer.Athena_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 4:   //  Renderer.MainWindow
-                userType = new global::Renderer.Renderer_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Window"));
+            case 4:   //  Athena.MainWindow
+                userType = new global::Renderer.Athena_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Window"));
                 userType.Activator = Activate_4_MainWindow;
                 userType.StaticInitializer = StaticInitializer_4_MainWindow;
                 userType.SetIsLocalType();
@@ -344,11 +344,11 @@ namespace Renderer.Renderer_XamlTypeInfo
                 break;
 
             case 5:   //  Microsoft.UI.Xaml.Window
-                xamlType = new global::Renderer.Renderer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::Renderer.Athena_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
             case 6:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
-                userType = new global::Renderer.Renderer_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
+                userType = new global::Renderer.Athena_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
                 userType.Activator = Activate_6_TreeViewNode;
                 userType.StaticInitializer = StaticInitializer_6_TreeViewNode;
                 userType.AddMemberName("Children");
@@ -363,11 +363,11 @@ namespace Renderer.Renderer_XamlTypeInfo
                 break;
 
             case 7:   //  Microsoft.UI.Xaml.DependencyObject
-                xamlType = new global::Renderer.Renderer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::Renderer.Athena_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
             case 8:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
-                userType = new global::Renderer.Renderer_XamlTypeInfo.XamlUserType(this, typeName, type, null);
+                userType = new global::Renderer.Athena_XamlTypeInfo.XamlUserType(this, typeName, type, null);
                 userType.StaticInitializer = StaticInitializer_8_IList;
                 userType.CollectionAdd = VectorAdd_8_IList;
                 userType.SetIsReturnTypeStub();
@@ -375,7 +375,7 @@ namespace Renderer.Renderer_XamlTypeInfo
                 break;
 
             case 9:   //  Int32
-                xamlType = new global::Renderer.Renderer_XamlTypeInfo.XamlSystemBaseType(typeName, type);
+                xamlType = new global::Renderer.Athena_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
             }
             return xamlType;
@@ -499,61 +499,61 @@ namespace Renderer.Renderer_XamlTypeInfo
 
         private global::Microsoft.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
         {
-            global::Renderer.Renderer_XamlTypeInfo.XamlMember xamlMember = null;
-            global::Renderer.Renderer_XamlTypeInfo.XamlUserType userType;
+            global::Renderer.Athena_XamlTypeInfo.XamlMember xamlMember = null;
+            global::Renderer.Athena_XamlTypeInfo.XamlUserType userType;
 
             switch (longMemberName)
             {
             case "Microsoft.UI.Xaml.Controls.XamlControlsResources.UseCompactResources":
-                userType = (global::Renderer.Renderer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.XamlControlsResources");
-                xamlMember = new global::Renderer.Renderer_XamlTypeInfo.XamlMember(this, "UseCompactResources", "Boolean");
+                userType = (global::Renderer.Athena_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.XamlControlsResources");
+                xamlMember = new global::Renderer.Athena_XamlTypeInfo.XamlMember(this, "UseCompactResources", "Boolean");
                 xamlMember.SetIsDependencyProperty();
                 xamlMember.Getter = get_0_XamlControlsResources_UseCompactResources;
                 xamlMember.Setter = set_0_XamlControlsResources_UseCompactResources;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Children":
-                userType = (global::Renderer.Renderer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember = new global::Renderer.Renderer_XamlTypeInfo.XamlMember(this, "Children", "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>");
+                userType = (global::Renderer.Athena_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
+                xamlMember = new global::Renderer.Athena_XamlTypeInfo.XamlMember(this, "Children", "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>");
                 xamlMember.Getter = get_1_TreeViewNode_Children;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Content":
-                userType = (global::Renderer.Renderer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember = new global::Renderer.Renderer_XamlTypeInfo.XamlMember(this, "Content", "Object");
+                userType = (global::Renderer.Athena_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
+                xamlMember = new global::Renderer.Athena_XamlTypeInfo.XamlMember(this, "Content", "Object");
                 xamlMember.SetIsDependencyProperty();
                 xamlMember.Getter = get_2_TreeViewNode_Content;
                 xamlMember.Setter = set_2_TreeViewNode_Content;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Depth":
-                userType = (global::Renderer.Renderer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember = new global::Renderer.Renderer_XamlTypeInfo.XamlMember(this, "Depth", "Int32");
+                userType = (global::Renderer.Athena_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
+                xamlMember = new global::Renderer.Athena_XamlTypeInfo.XamlMember(this, "Depth", "Int32");
                 xamlMember.SetIsDependencyProperty();
                 xamlMember.Getter = get_3_TreeViewNode_Depth;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasChildren":
-                userType = (global::Renderer.Renderer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember = new global::Renderer.Renderer_XamlTypeInfo.XamlMember(this, "HasChildren", "Boolean");
+                userType = (global::Renderer.Athena_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
+                xamlMember = new global::Renderer.Athena_XamlTypeInfo.XamlMember(this, "HasChildren", "Boolean");
                 xamlMember.SetIsDependencyProperty();
                 xamlMember.Getter = get_4_TreeViewNode_HasChildren;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasUnrealizedChildren":
-                userType = (global::Renderer.Renderer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember = new global::Renderer.Renderer_XamlTypeInfo.XamlMember(this, "HasUnrealizedChildren", "Boolean");
+                userType = (global::Renderer.Athena_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
+                xamlMember = new global::Renderer.Athena_XamlTypeInfo.XamlMember(this, "HasUnrealizedChildren", "Boolean");
                 xamlMember.Getter = get_5_TreeViewNode_HasUnrealizedChildren;
                 xamlMember.Setter = set_5_TreeViewNode_HasUnrealizedChildren;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.IsExpanded":
-                userType = (global::Renderer.Renderer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember = new global::Renderer.Renderer_XamlTypeInfo.XamlMember(this, "IsExpanded", "Boolean");
+                userType = (global::Renderer.Athena_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
+                xamlMember = new global::Renderer.Athena_XamlTypeInfo.XamlMember(this, "IsExpanded", "Boolean");
                 xamlMember.SetIsDependencyProperty();
                 xamlMember.Getter = get_6_TreeViewNode_IsExpanded;
                 xamlMember.Setter = set_6_TreeViewNode_IsExpanded;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Parent":
-                userType = (global::Renderer.Renderer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember = new global::Renderer.Renderer_XamlTypeInfo.XamlMember(this, "Parent", "Microsoft.UI.Xaml.Controls.TreeViewNode");
+                userType = (global::Renderer.Athena_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
+                xamlMember = new global::Renderer.Athena_XamlTypeInfo.XamlMember(this, "Parent", "Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember.Getter = get_7_TreeViewNode_Parent;
                 xamlMember.SetIsReadOnly();
                 break;
@@ -616,10 +616,10 @@ namespace Renderer.Renderer_XamlTypeInfo
 
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.UI.Xaml.Markup.Compiler"," 3.0.0.2409")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-    internal partial class XamlUserType : global::Renderer.Renderer_XamlTypeInfo.XamlSystemBaseType
+    internal partial class XamlUserType : global::Renderer.Athena_XamlTypeInfo.XamlSystemBaseType
         , global::Microsoft.UI.Xaml.Markup.IXamlType
     {
-        global::Renderer.Renderer_XamlTypeInfo.XamlTypeInfoProvider _provider;
+        global::Renderer.Athena_XamlTypeInfo.XamlTypeInfoProvider _provider;
         global::Microsoft.UI.Xaml.Markup.IXamlType _baseType;
         global::Microsoft.UI.Xaml.Markup.IXamlType _boxedType;
         bool _isArray;
@@ -634,7 +634,7 @@ namespace Renderer.Renderer_XamlTypeInfo
         global::System.Collections.Generic.Dictionary<string, string> _memberNames;
         global::System.Collections.Generic.Dictionary<string, object> _enumValues;
 
-        public XamlUserType(global::Renderer.Renderer_XamlTypeInfo.XamlTypeInfoProvider provider, string fullName, 
+        public XamlUserType(global::Renderer.Athena_XamlTypeInfo.XamlTypeInfoProvider provider, string fullName, 
             global::System.Type fullType, global::Microsoft.UI.Xaml.Markup.IXamlType baseType)
             :base(fullName, fullType)
         {
@@ -851,7 +851,7 @@ namespace Renderer.Renderer_XamlTypeInfo
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     internal partial class XamlMember : global::Microsoft.UI.Xaml.Markup.IXamlMember
     {
-        global::Renderer.Renderer_XamlTypeInfo.XamlTypeInfoProvider _provider;
+        global::Renderer.Athena_XamlTypeInfo.XamlTypeInfoProvider _provider;
         string _name;
         bool _isAttachable;
         bool _isDependencyProperty;
@@ -860,7 +860,7 @@ namespace Renderer.Renderer_XamlTypeInfo
         string _typeName;
         string _targetTypeName;
 
-        public XamlMember(global::Renderer.Renderer_XamlTypeInfo.XamlTypeInfoProvider provider, string name, string typeName)
+        public XamlMember(global::Renderer.Athena_XamlTypeInfo.XamlTypeInfoProvider provider, string name, string typeName)
         {
             _name = name;
             _typeName = typeName;

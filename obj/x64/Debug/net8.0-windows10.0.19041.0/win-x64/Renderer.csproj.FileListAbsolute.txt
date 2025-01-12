@@ -759,3 +759,5 @@ D:\Rendering\App2\App2\obj\x64\Debug\net8.0-windows10.0.19041.0\win-x64\qualifie
 D:\Rendering\App2\App2\obj\x64\Debug\net8.0-windows10.0.19041.0\win-x64\qualifiers.txt.intermediate
 D:\Rendering\App2\App2\obj\x64\Debug\net8.0-windows10.0.19041.0\win-x64\MultipleQualifiersPerDimensionFound.txt
 D:\Rendering\App2\App2\obj\x64\Debug\net8.0-windows10.0.19041.0\win-x64\ProjectArchitectures.txt
+C:\Personal\Graphics\Renderer-CS\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\ILGPU.dll
+C:\Personal\Graphics\Renderer-CS\bin\x64\Debug\net8.0-windows10.0.19041.0\win-x64\ILGPU.Algorithms.dll

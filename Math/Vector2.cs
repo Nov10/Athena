@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renderer.Maths
+namespace Athena.Maths
 {
     public struct Vector2
     {

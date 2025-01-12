@@ -1,17 +1,17 @@
-﻿using Renderer.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Renderer.Maths;
+using Athena.Maths;
 using Windows.Devices.Pwm;
+using Athena.Engine.Core;
 
-namespace Renderer.InGame
+namespace Athena.InGame
 {
     public class CameraController : Component
     {
-        public Core.Object Target;
+        public GameObject Target;
         public override void Awake()
         {
         }

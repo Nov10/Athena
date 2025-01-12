@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Renderer.Maths
+namespace Athena.Maths
 {
     public struct Vector3
     {
@@ -14,9 +10,9 @@ namespace Renderer.Maths
         {
             get { return new Vector3(0, 0, 0); }
         }
-        public Vector3 normalized
+        public static Vector3 one
         {
-            get { return this / magnitude; }
+            get { return new Vector3(1, 1, 1); }
         }
         public Vector3()
         {
@@ -31,76 +27,103 @@ namespace Renderer.Maths
             this.z = z;
         }
 
-        public float Get(int i)
+        public readonly float magnitude
+        {
+            get { return System.MathF.Sqrt(sqrMagnitude); }
+        }
+
+        public readonly float sqrMagnitude
+        {
+            get { return x * x + y * y + z * z; }
+        }
+
+        public readonly Vector3 normalized
+        {
+            get { return this / magnitude; }
+        }
+
+        /// <summary>
+        /// 벡터의 원소를 가져옵니다.
+        /// i == 0 : x,
+        /// i == 1 : y,
+        /// i == 2 : z
+        /// </summary>
+        public readonly float Get(int i)
         {
             if (i == 0) return x;
             if (i == 1) return y;
             return z;
         }
 
-        public static Vector3 operator /(Vector3 left, float right)
+        #region Operator
+
+        public static Vector3 operator +(Vector3 left, Vector3 right)
         {
-            return new Vector3(left.x / right, left.y / right, left.z / right);
+            return new Vector3(left.x + right.x, left.y + right.y, left.z + right.z);
         }
         public static Vector3 operator *(Vector3 left, float right)
         {
             return new Vector3(left.x * right, left.y * right, left.z * right);
         }
-        public static Vector3 operator *(float left, Vector3 right)
+        public static Vector3 operator -(Vector3 v)
         {
-            return right * left;
-        }
-        public static Vector3 operator +(Vector3 left, Vector3 right)
-        {
-            return new Vector3(left.x + right.x, left.y + right.y, left.z + right.z);
+            return new Vector3(-v.x, -v.y, -v.z);
         }
         public static Vector3 operator -(Vector3 left, Vector3 right)
         {
             return new Vector3(left.x - right.x, left.y - right.y, left.z - right.z);
         }
-        public static Vector3 operator -(Vector3 v)
+        public static Vector3 operator /(Vector3 left, float right)
         {
-            return v * -1;
+            return left * (1.0f / right);
+        }
+        public static Vector3 operator *(float left, Vector3 right)
+        {
+            return right * left;
+        }
+        public static bool operator ==(Vector3 left, Vector3 right)
+        {
+            if (left.x != right.x)
+                return false;
+            if (left.y != right.y)
+                return false;
+            if (left.z != right.z)
+                return false;
+            return true;
+        }
+        public static bool operator !=(Vector3 left, Vector3 right)
+        {
+            return !(left == right);
         }
 
-        public float magnitude
-        {
-            get { return (float)System.Math.Sqrt(sqrMagnitude); }
-        }
+        #endregion
 
-        public float sqrMagnitude
-        {
-            get { return x * x + y * y + z * z; }
-        }
-
-        public static Vector3 Lerp(Vector3 a, Vector3 b, float t)
-        {
-            if (t > 1) return b;
-            if (t < 0) return a;
-            return (1 - t) * a + t * b;
-        }
-
+        #region Math Functions
         public static float Angle(Vector3 a, Vector3 b)
         {
-            // 두 벡터를 정규화 (Normalize)
             a = a.normalized;
             b = b.normalized;
 
             // 내적 (Dot Product)을 이용한 각도 계산 (0 ~ π)
-            float angle = MathF.Acos(Vector3.Dot(a, b));
+            float angle = System.MathF.Acos(Vector3.Dot(a, b));
 
-            // 외적 (Cross Product)을 이용하여 방향 결정
+            //방향 계산
             Vector3 cross = Vector3.Cross(a, b);
             float sign = Vector3.Dot(cross, new Vector3(0, 1, 0));
 
             // 방향에 따라 각도를 조정
             if (sign < 0)
             {
-                angle = 2 * (float)Math.PI - angle;
+                angle = 2 * (float)System.MathF.PI - angle;
             }
 
-            // 라디안을 도(degree)로 변환
-            return angle;
+            return angle * XMath.Rad2Deg;
+        }
+        public static Vector3 Lerp(Vector3 a, Vector3 b, float t)
+        {
+            if (t > 1) return b;
+            if (t < 0) return a;
+            return (1 - t) * a + t * b;
         }
         public static Vector3 ElementDivide(Vector3 v1, Vector3 v2)
         {
@@ -122,14 +145,42 @@ namespace Renderer.Maths
                 v1.x * v2.y - v1.y * v2.x
                 );
         }
+        /// <summary>
+        /// (0, 1, 0)과의 외적을 계산합니다. 순서는  Cross(new Vector3(0, 1, 0), v)와 동일함.
+        /// </summary>
+        public static Vector3 Cross_withYAxis(Vector3 v)
+        {
+            return new Vector3(
+                v.z,
+                0,
+                - v.x
+                );
+        }
+        /// <summary>
+        /// 두 벡터의 외적의 Z축 성분을 계산합니다.  v1.x * v2.y - v1.y * v2.x와 동일함.
+        /// </summary>
         public static float Cross_Z(Vector3 v1, Vector3 v2)
         {
             return v1.x * v2.y - v1.y * v2.x;
         }
 
+        #endregion
+
+        #region Overridings
+
         public override string ToString()
         {
             return $"({x}, {y}, {z})";
         }
+        public override bool Equals([NotNullWhen(true)] object obj)
+        {
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        #endregion
     }
 }

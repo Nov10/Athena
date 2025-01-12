@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Renderer.Maths
+namespace Athena.Maths
 {
     public struct Matrix4x4
     {

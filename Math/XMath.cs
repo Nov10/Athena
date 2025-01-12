@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renderer.Maths
+namespace Athena.Maths
 {
     public class XMath
     {
@@ -26,6 +26,14 @@ namespace Renderer.Maths
         public static int RoundToInt(float value)
         {
             return (int)MathF.Round(value);
+        }
+        public static int FloorToInt(float value)
+        {
+            return (int)MathF.Floor(value);
+        }
+        public static int CeilToInt(float value)
+        {
+            return (int)MathF.Ceiling(value);
         }
     }
 }

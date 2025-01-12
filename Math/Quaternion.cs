@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renderer.Maths
+namespace Athena.Maths
 {
     public struct Quaternion
     {
@@ -78,6 +78,15 @@ namespace Renderer.Maths
             Quaternion qConj = this.Conjugate();
             Quaternion qRes = this * qVec * qConj;
             return new Vector3( qRes.x, qRes.y, qRes.z );
+        }
+
+        /// <summary>
+        /// (0, 0, 1)을 회전시킵니다. 쿼터니언 곱을 줄이기 위해 사용합니다.
+        /// </summary>
+        public Vector3 RotateVectorZDirection()
+        {
+            var q= new Quaternion(-z, y, -x, w) * this.Conjugate();
+            return new Vector3(q.x, q.y, q.z);
         }
 
         // 주어진 축과 각도에 따른 회전 쿼터니언 생성
