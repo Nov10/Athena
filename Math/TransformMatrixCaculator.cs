@@ -44,6 +44,63 @@ namespace Athena.Maths
                     scale.x * (-sy),     scale.y * (cy * sx),                 scale.z * (cy * cx),                 position.z,
                     0f, 0f, 0f, 1f);
         }
+        //Apply Order : rot - > position
+        public static Matrix4x4 CreateObjectRotPosMatrix(Vector3 position, Quaternion rot)
+        {
+            Vector3 rotation = rot.ToEulerAngles();
+            rotation = rotation * XMath.Deg2Rad;
+            float cx = System.MathF.Cos(rotation.x);
+            float sx = System.MathF.Sin(rotation.x);
+            float cy = System.MathF.Cos(rotation.y);
+            float sy = System.MathF.Sin(rotation.y);
+            float cz = System.MathF.Cos(rotation.z);
+            float sz = System.MathF.Sin(rotation.z);
+            return new Matrix4x4(
+                    (cz * cy), (-sz * cx + cz * sy * sx), (sz * sx + cz * sy * cx), position.x,
+                    (sz * cy), (cz * cx + sz * sy * sx), (-cz * sx + sz * sy * cx), position.y,
+                    (-sy), (cy * sx), (cy * cx), position.z,
+                    0f, 0f, 0f, 1f);
+        }
+        //Apply Order : position -> rot
+        public static Matrix4x4 CreateObjectPosRotMatrix(Vector3 position, Quaternion rot)
+        {
+            Vector3 rotation = rot.ToEulerAngles();
+            rotation = rotation * XMath.Deg2Rad;
+            float cx = System.MathF.Cos(rotation.x);
+            float sx = System.MathF.Sin(rotation.x);
+            float cy = System.MathF.Cos(rotation.y);
+            float sy = System.MathF.Sin(rotation.y);
+            float cz = System.MathF.Cos(rotation.z);
+            float sz = System.MathF.Sin(rotation.z);
+            Vector3 v1 = new Vector3((cz * cy), (-sz * cx + cz * sy * sx), (sz * sx + cz * sy * cx));
+            Vector3 v2 = new Vector3((sz * cy), (cz * cx + sz * sy * sx), (-cz * sx + sz * sy * cx));
+            Vector3 v3 = new Vector3((-sy), (cy * sx), (cy * cx));
+            return new Matrix4x4(
+                    v1.x, v1.y, v1.z, Vector3.Dot(v1, position),
+                    v2.x, v2.y, v2.z, Vector3.Dot(v2, position),
+                    v3.x, v3.y, v3.z, Vector3.Dot(v3, position),
+                    0f, 0f, 0f, 1f);
+        }
+        //Apply Order : position -> InvRot
+        public static Matrix4x4 CreateObjectPosInvRotMatrix(Vector3 position, Quaternion rot)
+        {
+            Vector3 rotation = rot.ToEulerAngles();
+            rotation = rotation * XMath.Deg2Rad;
+            float cx = System.MathF.Cos(rotation.x);
+            float sx = System.MathF.Sin(rotation.x);
+            float cy = System.MathF.Cos(rotation.y);
+            float sy = System.MathF.Sin(rotation.y);
+            float cz = System.MathF.Cos(rotation.z);
+            float sz = System.MathF.Sin(rotation.z);
+            Vector3 v1 = new Vector3((cz * cy), (sz * cy), (-sy));
+            Vector3 v2 = new Vector3((-sz * cx + cz * sy * sx), (cz * cx + sz * sy * sx), (cy * sx));
+            Vector3 v3 = new Vector3((sz * sx + cz * sy * cx),    (-cz * sx + sz * sy * cx),                  (cy * cx));
+            return new Matrix4x4(
+                    v1.x, v1.y, v1.z, Vector3.Dot(v1, position),
+                    v2.x, v2.y, v2.z, Vector3.Dot(v2, position),
+                    v3.x, v3.y, v3.z, Vector3.Dot(v3, position),
+                    0f, 0f, 0f, 1f);
+        }
         public static Matrix4x4 CreateRotationMatrix(Vector3 rotation)
         {
             rotation = rotation * XMath.Deg2Rad;

@@ -28,6 +28,8 @@ using Athena.Engine.Core.Image;
 using Athena.Engine.Core.Rendering;
 using Renderer.Engine.Core.Rendering;
 using Renderer.Engine.Core.Image;
+using Renderer.InGame.Ring;
+using Renderer.InGame;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -66,6 +68,7 @@ namespace Athena
             }
         }
         RenderBitmap Window;
+        RenderBitmap SubWindow;
         public MainWindow()
         {
             InitializeComponent();
@@ -76,6 +79,9 @@ namespace Athena
             GPUAccelator.Intialize();
             var mainRenderer = new PBRRenderer(width, height);
             WorldObjects = new List<GameObject>();
+            GameObject flowManager = new GameObject();
+            var manager = new GameFlowManager();
+            flowManager.AddComponent(manager);
 
             var renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\Aereo.fbx");
             var bodyTex = LoadTexture(@"C:\body.png");
@@ -94,6 +100,27 @@ namespace Athena
             blade.LocalPosition = new Vector3(0, 0, 2.0f);
             blade.AddComponent(bladeRenderer);
 
+            var ring1 = CircleRing.CreateRingObject(6.0f);
+            ring1.Controller.WorldPosition = new Vector3(0, 50, 16);
+            var ring2 = CircleRing.CreateRingObject(7.5f);
+            ring2.Controller.WorldPosition = new Vector3(0, 60, 50);
+            ring2.Controller.WorldRotation = Quaternion.FromEulerAngles(-40, 180, 0);
+            //var ring3 = CircleRing.CreateRingObject(1.5f);
+            //ring3.Controller.WorldPosition = new Vector3(0, 50, 32);
+
+            ring1.Controller.WorldRotation = Quaternion.FromEulerAngles(0, 180, 0);
+            // ring2.Controller.WorldRotation = Quaternion.FromEulerAngles(0, 180, 0);
+            //ring3.Controller.WorldRotation = Quaternion.FromEulerAngles(0, 180, 0);
+
+            //GameObject cube = new GameObject();
+            //var cubeData = RenderData.CreateCube1x1();
+            //renderer = new MeshRenderer();
+            //cubeData.Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            //renderer.RenderDatas.Add(cubeData);
+            //cube.AddComponent(renderer);
+            //cube.WorldPosition = new Vector3(0, 50, 16);
+
+
 
             renderer = MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\untitled.fbx");
             var planeTex = LoadTexture(@"C:\Untitled.png");
@@ -106,10 +133,12 @@ namespace Athena
             plane.LocalPosition = new Vector3(0, -5, 0);
             plane.AddComponent(planeRenderer);
 
+
+
             Camera cameraComponent = new Camera
             {
                 NearPlaneDistance = 1f,
-                FarPlaneDistance = 150.0f,
+                FarPlaneDistance = 120.0f,
                 FieldOfView = 60f,
                 AspectRatio = (float)width / height
             };
@@ -127,6 +156,26 @@ namespace Athena
             camControl.RotateSpeed = 2;
             camControl.MoveSpeed = 3;
 
+            Camera cameraComponent2 = new Camera
+            {
+                NearPlaneDistance = 1f,
+                FarPlaneDistance = 80.0f,
+                FieldOfView = 60f,
+                AspectRatio = (float)width / height
+            };
+            GameObject camera2 = new GameObject();
+            var subRenderer = new PBRRenderer((int)(width * 0.2f), (int)(height * 0.2f));
+            camera2.Parent = body;
+            camera2.LocalPosition = new Vector3(10, 0, 0);
+            camera2.LocalRotation = Quaternion.FromEulerAngles(0, -90, 0);
+            SubWindow = new RenderBitmap((int)(width * 0.2f),(int)( height * 0.2f));
+            mainRenderer.LightDirection = new Vector3(-0.5f, -1, 0).normalized * -1;
+            RenderTargetImage2.Width = (int)(width * 0.45f);
+            RenderTargetImage2.Height = (int)(height * 0.45f);
+            cameraComponent2.MainRenderer = subRenderer;
+            cameraComponent2.SetRenderTarget(SubWindow);
+            camera2.AddComponent(cameraComponent2);
+
             blade.Parent = body;
             plane.LocalRotation = Quaternion.FromEulerAngles(180, 0, 0);
 
@@ -135,6 +184,7 @@ namespace Athena
             body.WorldPosition = new Vector3(0, 50, 0);
             aircraft.InitializeAircraft(blade, 3, 10);
 
+            manager.Player = aircraft;
             camera.WorldPosition += new Vector3(0, 50, 0);
 
 
@@ -215,6 +265,7 @@ namespace Athena
                 Camera.CameraList[i].Render(Athena.Engine.Core.MeshRenderer.RendererList);
             }
             RenderTargetImage.Source = Window.ConvertToBitmap();
+            RenderTargetImage2.Source = SubWindow.ConvertToBitmap();
             Debugger.Text = t.Get();
 
             Input.Update();
