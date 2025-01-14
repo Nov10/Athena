@@ -1,4 +1,5 @@
-﻿using Athena.Maths;
+﻿using Athena.Engine.Core;
+using Athena.Maths;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,10 @@ namespace Athena.Maths
                 vector.x * matrix.e31 + vector.y * matrix.e32 + vector.z * matrix.e33 + matrix.e34)
              / (vector.x * matrix.e41 + vector.y * matrix.e42 + vector.z * matrix.e43 + matrix.e44);
         }
+        public static Matrix4x4 CreateObjectTransformMatrix(GameObject obj)
+        {
+            return CreateObjectTransformMatrix(obj.WorldPosition, obj.WorldRotation, obj.WorldScale);
+        }
         public static Matrix4x4 CreateObjectTransformMatrix(Vector3 position, Quaternion rot, Vector3 scale)
         {
             Vector3 rotation = rot.ToEulerAngles();
@@ -42,6 +47,30 @@ namespace Athena.Maths
                     scale.x * (cz * cy), scale.y * (-sz * cx + cz * sy * sx), scale.z * (sz * sx + cz * sy * cx),  position.x,
                     scale.x * (sz * cy), scale.y * (cz * cx + sz * sy * sx),  scale.z * (-cz * sx + sz * sy * cx), position.y,
                     scale.x * (-sy),     scale.y * (cy * sx),                 scale.z * (cy * cx),                 position.z,
+                    0f, 0f, 0f, 1f);
+        }
+        public static Matrix4x4 CreateObjectInvTransformMatrix(GameObject obj)
+        {
+            return CreateObjectInvTransformMatrix(obj.WorldPosition, obj.WorldRotation, obj.WorldScale);
+        }
+        public static Matrix4x4 CreateObjectInvTransformMatrix(Vector3 position, Quaternion rot, Vector3 scale)
+        {
+            Vector3 rotation = rot.ToEulerAngles();
+            rotation = rotation * XMath.Deg2Rad;
+            float cx = System.MathF.Cos(rotation.x);
+            float sx = System.MathF.Sin(rotation.x);
+            float cy = System.MathF.Cos(rotation.y);
+            float sy = System.MathF.Sin(rotation.y);
+            float cz = System.MathF.Cos(rotation.z);
+            float sz = System.MathF.Sin(rotation.z);
+            Vector3 v1 = new Vector3((cz * cy), (-sz * cx + cz * sy * sx), (sz * sx + cz * sy * cx));
+            Vector3 v2 = new Vector3((sz * cy), (cz * cx + sz * sy * sx), (-cz * sx + sz * sy * cx));
+            Vector3 v3 = new Vector3((-sy), (cy * sx), (cy * cx));
+            Vector3 k = new Vector3(1 / scale.x, 1 / scale.y, 1 / scale.z);
+            return new Matrix4x4(
+                    k.x * v1.x, k.x * v1.y, k.x * v1.z, -k.x * Vector3.Dot(v1, position),
+                    k.y * v2.x, k.y * v2.y, k.y * v2.z, -k.y * Vector3.Dot(v2, position),
+                    k.z * v3.x, k.z * v3.y, k.z * v3.z, -k.z * Vector3.Dot(v3, position),
                     0f, 0f, 0f, 1f);
         }
         //Apply Order : rot - > position

@@ -11,7 +11,7 @@ using ILGPU.Runtime.Cuda;
 using ILGPU.Runtime;
 using System.Diagnostics;
 using Athena.Engine.Core.Image;
-using Renderer.Engine.Core.Rendering;
+using Athena.Engine.Core.Rendering;
 
 namespace Athena.Engine.Core.Rendering
 {
@@ -41,6 +41,8 @@ namespace Athena.Engine.Core.Rendering
                 Matrix4x4 objectTransform = renderer.CalculateObjectTransformMatrix();
                 Matrix4x4 objectRotationTransform = renderer.CalculateObjectRotationMatrix();
 
+                Matrix4x4 objectInvTransform = TransformMatrixCaculator.CreateObjectInvTransformMatrix(renderer.Controller);
+
                 Matrix4x4 transform = cameraTransform * objectTransform;
 
                 foreach (var data in renderer.RenderDatas)
@@ -48,9 +50,10 @@ namespace Athena.Engine.Core.Rendering
                     if (data.Vertices == null || data.Vertices.Length == 0)
                         continue;
 
-                    if (FrustumCulling.Culling(data.ThisAABB, transform) == false)
+                    if (FrustumCulling.Culling(data.ThisAABB, camera.Controller.WorldPosition, renderer.Controller.WorldPosition, transform, objectInvTransform) == false)
+                    {
                         continue;
-
+                    }
                     Vertex[] transformedVertices = VertexShader.Run(data.Vertices, renderer.Controller.WorldPosition, data.Shader, objectTransform, cameraTransform, objectRotationTransform);
 
                     var rasters = Rasterizer.Run(transformedVertices, data.Triangles, Width, Height);
