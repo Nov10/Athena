@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renderer.InGame
+namespace Athena.InGame
 {
     public class GameFlowManager : Component
     {

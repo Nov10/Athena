@@ -12,6 +12,6 @@
         <Image x:Name="RenderTargetImage" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
         <Image x:Name="RenderTargetImage2" Margin="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom"></Image>
         <TextBlock x:Name="Debugger" Foreground="Black" FontWeight="Bold" FontSize="15" FontFamily="굴림체"></TextBlock>
-        <TextBlock x:Name="FPSDebugger" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="15"></TextBlock>
+        <TextBlock x:Name="FPSDebugger" TextAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontWeight="Bold" FontSize="15"></TextBlock>
     </Grid>
 </Window>

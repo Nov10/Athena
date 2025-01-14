@@ -8,7 +8,6 @@ using ILGPU.Algorithms;
 using System.Threading.Tasks;
 using Athena.Engine.Core.Image;
 using Athena.Engine.Core.Rendering;
-using Renderer.Engine.Core.Rendering;
 
 namespace Athena.Engine.Core.Rendering
 {

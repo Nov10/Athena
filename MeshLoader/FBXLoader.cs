@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Athena.Maths;
 using Athena.Engine.Core;
 using Athena.Engine.Core.Rendering;
-using Renderer.Engine.Core.Rendering;
+using Athena.Engine.Core.Rendering;
 
 namespace Athena.MeshLoader
 {
@@ -41,7 +41,7 @@ namespace Athena.MeshLoader
                 result.Vertices = new Vertex[vertexCount];
                 //result.Vertices = new Vector3[vertexCount];
                 result.Triangles = new int[triangleCount * 3];
-                result.Colors = new System.Drawing.Color[triangleCount];
+                result.Colors = new Athena.Engine.Core.Image.Color[triangleCount];
 
                 System.Diagnostics.Debug.WriteLine($"{s} : M{triangleCount} V{vertexCount}");
                 for (int i = 0; i < mesh.VertexCount; i++)

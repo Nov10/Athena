@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Renderer.Engine.Core.Rendering;
+using Athena.Engine.Core.Rendering;
 
 namespace Athena.Terrain
 {

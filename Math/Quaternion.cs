@@ -112,6 +112,109 @@ namespace Athena.Maths
             }
             return this;
         }
+        public static Quaternion LookDirection(Vector3 forward, Vector3? up = null)
+        {
+            // up 벡터가 지정되지 않았다면 기본값 (0,1,0) 사용
+            Vector3 defaultUp = up ?? new Vector3(0, 1, 0);
+
+            // forward, up 둘 다 0 벡터인 경우 예외처리
+            if (forward.sqrMagnitude < 1e-12f)
+            {
+                // forward가 거의 0벡터라면 '단위 쿼터니언'을 반환하거나,
+                // 혹은 원하는 기본값을 반환하면 됩니다.
+                return new Quaternion(1, 0, 0, 0);
+            }
+
+            // forward 정규화
+            forward = forward.normalized;
+
+            // up 정규화
+            defaultUp = defaultUp.normalized;
+
+            // forward와 up 이 거의 평행이라면(크로스가 0에 가까우면), 
+            // 적절히 보정하는 로직이 필요할 수 있음.
+            // 여기서는 단순 처리.
+            Vector3 right = Vector3.Cross(defaultUp, forward);
+            if (right.sqrMagnitude < 1e-12f)
+            {
+                // up 이 forward와 평행하다면 보정
+                // 임의의 축을 하나 잡아서 교차곱으로 축을 만든 뒤 up을 다시 구함
+                // 예: forward와 가장 덜 평행한 축을 찾아서 cross 연산
+                // 아래는 간단 예시
+                Vector3 axis = Math.Abs(forward.x) > Math.Abs(forward.z)
+                    ? new Vector3(0, 0, 1)
+                    : new Vector3(1, 0, 0);
+                right = Vector3.Cross(axis, forward).normalized;
+            }
+            else
+            {
+                // 평행하지 않다면 정규화
+                right = right.normalized;
+            }
+
+            // 재계산된 up
+            Vector3 recalculatedUp = Vector3.Cross(forward, right);
+
+            // 이제 3x3 회전 행렬( row-major )을 구성합니다.
+            //   [ right.x   right.y   right.z  ]
+            //   [ up.x      up.y      up.z     ]
+            //   [ forward.x forward.y forward.z]
+            //
+            // 유니티 관점에서 
+            //  X축 = right
+            //  Y축 = up
+            //  Z축 = forward
+            //
+            // row-major 순서로 m00 = right.x, m01 = right.y, m02 = right.z ...
+            // (주의) 행렬에서 어떤 축을 행/열 중 어디에 배치하느냐에 따라 공식이 달라집니다.
+            float m00 = right.x; float m01 = right.y; float m02 = right.z;
+            float m10 = recalculatedUp.x;
+            float m11 = recalculatedUp.y;
+            float m12 = recalculatedUp.z;
+            float m20 = forward.x; float m21 = forward.y; float m22 = forward.z;
+
+            // 행렬 -> 쿼터니언 변환
+            float trace = m00 + m11 + m22;
+            float qw, qx, qy, qz;
+
+            if (trace > 0.0f)
+            {
+                float s = (float)Math.Sqrt(trace + 1.0f) * 2f;
+                qw = 0.25f * s;
+                qx = (m12 - m21) / s;
+                qy = (m20 - m02) / s;
+                qz = (m01 - m10) / s;
+            }
+            else if ((m00 > m11) && (m00 > m22))
+            {
+                float s = (float)Math.Sqrt(1.0f + m00 - m11 - m22) * 2f;
+                qw = (m12 - m21) / s;
+                qx = 0.25f * s;
+                qy = (m10 + m01) / s;
+                qz = (m20 + m02) / s;
+            }
+            else if (m11 > m22)
+            {
+                float s = (float)Math.Sqrt(1.0f + m11 - m00 - m22) * 2f;
+                qw = (m20 - m02) / s;
+                qx = (m10 + m01) / s;
+                qy = 0.25f * s;
+                qz = (m21 + m12) / s;
+            }
+            else
+            {
+                float s = (float)Math.Sqrt(1.0f + m22 - m00 - m11) * 2f;
+                qw = (m01 - m10) / s;
+                qx = (m20 + m02) / s;
+                qy = (m21 + m12) / s;
+                qz = 0.25f * s;
+            }
+
+            var q = new Quaternion(qw, qx, qy, qz);
+
+            // 쿼터니언 정규화
+            return q.Normalize();
+        }
         public static Quaternion Lerp(Quaternion q1, Quaternion q2, float t)
         {
             if (t < 0 || t > 1)

@@ -38,6 +38,8 @@ namespace Athena.Engine.Core.Rendering
             {
                 if (renderer.Controller == null)
                     continue;
+                if (renderer.Controller.IsWorldActive == false)
+                    continue;
                 Matrix4x4 objectTransform = renderer.CalculateObjectTransformMatrix();
                 Matrix4x4 objectRotationTransform = renderer.CalculateObjectRotationMatrix();
 
@@ -61,7 +63,6 @@ namespace Athena.Engine.Core.Rendering
                     if (rasters == null)
                         continue;
                     var frameBuffer = data.Shader.Run_FragmentShader(rasters, camera.RenderTarget.GetPixels(), LightDirection, Width);
-
                     camera.RenderTarget.SetPixels(frameBuffer);
                 }
             }

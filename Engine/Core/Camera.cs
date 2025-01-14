@@ -1,8 +1,8 @@
 ﻿using Athena.Maths;
 using Athena.Engine.Core.Rendering;
 using System.Collections.Generic;
-using Renderer.Engine.Core.Image;
-using Renderer.Engine.Core.Rendering;
+using Athena.Engine.Core.Image;
+using Athena.Engine.Core.Rendering;
 
 namespace Athena.Engine.Core
 {

@@ -26,10 +26,8 @@ using Athena.Terrain;
 using Athena.Engine.Core;
 using Athena.Engine.Core.Image;
 using Athena.Engine.Core.Rendering;
-using Renderer.Engine.Core.Rendering;
-using Renderer.Engine.Core.Image;
+using Athena.InGame.Ring;
 using Renderer.InGame.Ring;
-using Renderer.InGame;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -41,8 +39,8 @@ namespace Athena
     /// </summary>
     public sealed partial class MainWindow : Window
     {
-        const int width = 960;
-        const int height = 540;
+        const int width = 800;
+        const int height = 450;
 
         DispatcherTimer ImageRefresher = new DispatcherTimer();
 
@@ -96,19 +94,19 @@ namespace Athena
             GameObject blade = new GameObject();
             Athena.Engine.Core.MeshRenderer bladeRenderer = new Athena.Engine.Core.MeshRenderer();
             bladeRenderer.RenderDatas.Add(renderer.RenderDatas[1]);
-            bladeRenderer.RenderDatas[0].Shader = new SimpleColorShader(new Color(255, 255, 255, 255));
+            bladeRenderer.RenderDatas[0].Shader = new Athena.Engine.Core.Rendering.Shaders.SimpleColorShader(new Color(255, 255, 255, 255));
             blade.LocalPosition = new Vector3(0, 0, 2.0f);
             blade.AddComponent(bladeRenderer);
 
-            var ring1 = CircleRing.CreateRingObject(6.0f);
-            ring1.Controller.WorldPosition = new Vector3(0, 50, 16);
-            var ring2 = CircleRing.CreateRingObject(7.5f);
-            ring2.Controller.WorldPosition = new Vector3(0, 60, 50);
-            ring2.Controller.WorldRotation = Quaternion.FromEulerAngles(-40, 180, 0);
-            //var ring3 = CircleRing.CreateRingObject(1.5f);
-            //ring3.Controller.WorldPosition = new Vector3(0, 50, 32);
+            //var ring1 = CircleRing.CreateRingObject(6.0f);
+            //ring1.Controller.WorldPosition = new Vector3(0, 50, 16);
+            //var ring2 = CircleRing.CreateRingObject(7.5f);
+            //ring2.Controller.WorldPosition = new Vector3(0, 60, 50);
+            //ring2.Controller.WorldRotation = Quaternion.FromEulerAngles(-40, 180, 0);
+            ////var ring3 = CircleRing.CreateRingObject(1.5f);
+            ////ring3.Controller.WorldPosition = new Vector3(0, 50, 32);
 
-            ring1.Controller.WorldRotation = Quaternion.FromEulerAngles(0, 180, 0);
+            //ring1.Controller.WorldRotation = Quaternion.FromEulerAngles(0, 180, 0);
             // ring2.Controller.WorldRotation = Quaternion.FromEulerAngles(0, 180, 0);
             //ring3.Controller.WorldRotation = Quaternion.FromEulerAngles(0, 180, 0);
 
@@ -119,6 +117,10 @@ namespace Athena
             //renderer.RenderDatas.Add(cubeData);
             //cube.AddComponent(renderer);
             //cube.WorldPosition = new Vector3(0, 50, 16);
+
+            var ringGenerator = new RingLineGenerator();
+            GameObject rg = new GameObject();
+            rg.AddComponent(ringGenerator);
 
 
 
@@ -138,7 +140,7 @@ namespace Athena
             Camera cameraComponent = new Camera
             {
                 NearPlaneDistance = 1f,
-                FarPlaneDistance = 120.0f,
+                FarPlaneDistance = 100.0f,
                 FieldOfView = 60f,
                 AspectRatio = (float)width / height
             };
@@ -156,33 +158,33 @@ namespace Athena
             camControl.RotateSpeed = 2;
             camControl.MoveSpeed = 3;
 
-            Camera cameraComponent2 = new Camera
-            {
-                NearPlaneDistance = 1f,
-                FarPlaneDistance = 80.0f,
-                FieldOfView = 60f,
-                AspectRatio = (float)width / height
-            };
-            GameObject camera2 = new GameObject();
-            var subRenderer = new PBRRenderer((int)(width * 0.2f), (int)(height * 0.2f));
-            camera2.Parent = body;
-            camera2.LocalPosition = new Vector3(10, 0, 0);
-            camera2.LocalRotation = Quaternion.FromEulerAngles(0, -90, 0);
-            SubWindow = new RenderBitmap((int)(width * 0.2f),(int)( height * 0.2f));
-            mainRenderer.LightDirection = new Vector3(-0.5f, -1, 0).normalized * -1;
-            RenderTargetImage2.Width = (int)(width * 0.45f);
-            RenderTargetImage2.Height = (int)(height * 0.45f);
-            cameraComponent2.MainRenderer = subRenderer;
-            cameraComponent2.SetRenderTarget(SubWindow);
-            camera2.AddComponent(cameraComponent2);
+            //Camera cameraComponent2 = new Camera
+            //{
+            //    NearPlaneDistance = 1f,
+            //    FarPlaneDistance = 80.0f,
+            //    FieldOfView = 60f,
+            //    AspectRatio = (float)width / height
+            //};
+            //GameObject camera2 = new GameObject();
+            //var subRenderer = new PBRRenderer((int)(width * 0.2f), (int)(height * 0.2f));
+            //camera2.Parent = body;
+            //camera2.LocalPosition = new Vector3(10, 0, 0);
+            //camera2.LocalRotation = Quaternion.FromEulerAngles(0, -90, 0);
+            //SubWindow = new RenderBitmap((int)(width * 0.2f),(int)( height * 0.2f));
+            //mainRenderer.LightDirection = new Vector3(-0.5f, -1, 0).normalized * -1;
+            //RenderTargetImage2.Width = (int)(width * 0.45f);
+            //RenderTargetImage2.Height = (int)(height * 0.45f);
+            //cameraComponent2.MainRenderer = subRenderer;
+            //cameraComponent2.SetRenderTarget(SubWindow);
+            //camera2.AddComponent(cameraComponent2);
 
             blade.Parent = body;
             plane.LocalRotation = Quaternion.FromEulerAngles(180, 0, 0);
 
             Aircraft aircraft = new Aircraft();            
             body.AddComponent(aircraft);
-            body.WorldPosition = new Vector3(0, 50, 0);
-            aircraft.InitializeAircraft(blade, 3, 10);
+            body.WorldPosition = new Vector3(0, 20, 0);
+            aircraft.InitializeAircraft(blade, 3, 5);
 
             manager.Player = aircraft;
             camera.WorldPosition += new Vector3(0, 50, 0);
@@ -225,9 +227,9 @@ namespace Athena
             terrain.Viewer = body;
             terrain.cam = cameraComponent;
             t = terrain;
-            EndlessTerrain.LODInfo info0 = new EndlessTerrain.LODInfo(2, 80);
-            EndlessTerrain.LODInfo info1 = new EndlessTerrain.LODInfo(4, 150); 
-            EndlessTerrain.LODInfo info2 = new EndlessTerrain.LODInfo(8, 300);
+            EndlessTerrain.LODInfo info0 = new EndlessTerrain.LODInfo(4, 50);
+            EndlessTerrain.LODInfo info1 = new EndlessTerrain.LODInfo(8, 100); 
+            EndlessTerrain.LODInfo info2 = new EndlessTerrain.LODInfo(12, 150);
             terrain.DetailLevels = new EndlessTerrain.LODInfo[] { info0, info1 };
 
             map.AddComponent(mapRenderer);
@@ -248,25 +250,39 @@ namespace Athena
         int counter = 0;
         public static List<GameObject> WorldObjects;
 
+        Stopwatch IntervalTimeChecker = new Stopwatch();
+        Stopwatch IntervalTotalTimeChecker = new Stopwatch();
+        string fpsLine;
         //float Time;
         private void T_Tick1(object sender, object e)
         {
+            string debugger = string.Empty;
             if (Time.IsTimeIntChanged)
-                FPSDebugger.Text = Time.FPS.ToString();
-            Athena.Engine.Core.Time.StartUpdate();
+                debugger += (fpsLine = $"FPS : {Time.FPS.ToString()}");
+            else
+                debugger += fpsLine;
 
+            Athena.Engine.Core.Time.StartUpdate();
+            IntervalTotalTimeChecker.Restart();
+            IntervalTimeChecker.Restart();
             for (int i = 0; i<WorldObjects.Count; i++)
             {
                 if(WorldObjects[i].IsWorldActive == true)
                     WorldObjects[i].Update();
             }
+            double t_update = IntervalTimeChecker.Elapsed.TotalSeconds;
+            IntervalTimeChecker.Restart();
             for (int i = 0; i < Camera.CameraList.Count; i++)
             {
                 Camera.CameraList[i].Render(Athena.Engine.Core.MeshRenderer.RendererList);
             }
             RenderTargetImage.Source = Window.ConvertToBitmap();
-            RenderTargetImage2.Source = SubWindow.ConvertToBitmap();
-            Debugger.Text = t.Get();
+            double t_Rendring = IntervalTimeChecker.Elapsed.TotalSeconds;
+
+            debugger += $"\nUpdate : {t_update}\nRending : {t_Rendring}\n-\nTotal : {IntervalTotalTimeChecker.Elapsed.TotalSeconds}";
+            FPSDebugger.Text = debugger;
+            //RenderTargetImage2.Source = SubWindow.ConvertToBitmap();
+            //Debugger.Text = t.Get();
 
             Input.Update();
             Athena.Engine.Core.Time.EndUpdate();

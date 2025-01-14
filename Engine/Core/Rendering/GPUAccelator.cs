@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ILGPU.Runtime.Cuda;
 
-namespace Renderer.Engine.Core.Rendering
+namespace Athena.Engine.Core.Rendering
 {
     public class GPUAccelator
     {

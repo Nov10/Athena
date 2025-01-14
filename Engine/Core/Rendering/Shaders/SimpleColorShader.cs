@@ -5,13 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Athena.Maths;
 using Athena.Engine.Core.Image;
+using Athena.Engine.Core.Rendering;
 
-namespace Athena.Engine.Core.Rendering
+namespace Athena.Engine.Core.Rendering.Shaders
 {
     public class SimpleColorShader : CustomShader
     {
         Color ThisColor;
         public SimpleColorShader(Color c)
+        {
+            ThisColor = c;
+        }
+        public void SetColor(Color c)
         {
             ThisColor = c;
         }

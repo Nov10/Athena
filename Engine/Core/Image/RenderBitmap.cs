@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Renderer.Engine.Core.Image
+namespace Athena.Engine.Core.Image
 {
     public class RenderBitmap
     {

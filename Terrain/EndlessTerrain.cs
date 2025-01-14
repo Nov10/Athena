@@ -9,7 +9,7 @@ using Athena.Maths;
 using Athena.Engine.Core;
 using Athena.Engine.Core.Image;
 using Athena.Engine.Core.Rendering;
-using Renderer.Engine.Core.Rendering;
+using Athena.Engine.Core.Rendering;
 
 namespace Athena.Terrain
 {
