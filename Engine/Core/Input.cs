@@ -64,9 +64,15 @@ namespace Athena.Engine.Core
     public enum KeyPreset
     {
         WASD,
-        WASDQE,
         Arrow
     }
+    public enum KeyPreset3D
+    {
+        WASDQE,
+    }
+    /// <summary>
+    /// **이 클래스는 환경에 의존합니다.**
+    /// </summary>
     public static class Input
     {
         static List<KeyCode> NowInputUpKeys;
@@ -78,6 +84,11 @@ namespace Athena.Engine.Core
             NowInputDownKeys = new List<KeyCode>();
             NowInputUpKeys = new List<KeyCode>();
         }
+        public static void Update()
+        {
+            NowInputDownKeys.Clear();
+            NowInputUpKeys.Clear();
+        }
         public static void DebugNowInputKeys()
         {
             string result = string.Empty;
@@ -87,43 +98,59 @@ namespace Athena.Engine.Core
             }
             System.Diagnostics.Debug.WriteLine(result);
         }
+
+        /// <summary>
+        /// KeyUp 이벤트.
+        /// **이 함수는 환경에 의존합니다.**
+        /// </summary>
         public static void Content_KeyUp(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
-            if (NowInputKeys.Contains(VirtualKet2KeyCode(e.Key)) == true)
-                NowInputKeys.Remove(VirtualKet2KeyCode(e.Key));
+            if (NowInputKeys.Contains(VirtualKey2KeyCode(e.Key)) == true)
+                NowInputKeys.Remove(VirtualKey2KeyCode(e.Key));
 
-
-            if (NowInputDownKeys.Contains(VirtualKet2KeyCode(e.Key)) == false)
-                NowInputDownKeys.Add(VirtualKet2KeyCode(e.Key));
+            if (NowInputDownKeys.Contains(VirtualKey2KeyCode(e.Key)) == false)
+                NowInputDownKeys.Add(VirtualKey2KeyCode(e.Key));
         }
-
+        /// <summary>
+        /// KeyDown 이벤트.
+        /// **이 함수는 환경에 의존합니다.**
+        /// </summary>
         public static void Content_KeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
-            if (NowInputKeys.Contains(VirtualKet2KeyCode(e.Key)) == false)
-                NowInputKeys.Add(VirtualKet2KeyCode(e.Key));
+            if (NowInputKeys.Contains(VirtualKey2KeyCode(e.Key)) == false)
+                NowInputKeys.Add(VirtualKey2KeyCode(e.Key));
 
-
-            if (NowInputKeys.Contains(VirtualKet2KeyCode(e.Key)) == false)
-                NowInputUpKeys.Add(VirtualKet2KeyCode(e.Key));
+            if (NowInputKeys.Contains(VirtualKey2KeyCode(e.Key)) == false)
+                NowInputUpKeys.Add(VirtualKey2KeyCode(e.Key));
         }
 
-        public static void Update()
-        {
-            NowInputDownKeys.Clear();
-            NowInputUpKeys.Clear();
-        }
+
+        #region GetKey
+        /// <summary>
+        /// 키가 현재 입력되고 있는가?
+        /// </summary>
         public static bool GetKey(KeyCode code)
         {
             return NowInputKeys.Contains(code);
         }
+        /// <summary>
+        /// 키가 이번에 입력되었는가?
+        /// </summary>
         public static bool GetKeyDown(KeyCode code)
         {
             return NowInputDownKeys.Contains(code);
         }
+        /// <summary>
+        /// 키가 이번에 입력 해제되었는가?
+        /// </summary>
         public static bool GetKeyUp(KeyCode code)
         {
             return NowInputUpKeys.Contains(code);
         }
+        /// <summary>
+        /// from ~ to의 입력을 -1 ~ 1으로 변환합니다.
+        /// <para>from이 입력되면 -1을, to가 입력되면 1을, 동시 또는 아무 키도 입력되지 않으면 0을 반환합니다.</para>
+        /// </summary>
         public static float GetNormlaizedRangeInput(KeyCode from, KeyCode to)
         {
             if (GetKey(from) && GetKey(to))
@@ -135,93 +162,59 @@ namespace Athena.Engine.Core
 
             return 0;
         }
-        public static Vector3 GetDirectionInput3D(KeyPreset preset)
+        #endregion
+
+        #region GetKey - Preset
+        /// <summary>
+        /// 프리셋에 맞는 3D(Vector3) 입력을 가져옵니다.
+        /// </summary>
+        public static Vector3 GetDirectionInput3D(KeyPreset3D preset)
         {
             Vector3 v = new Vector3(0, 0, 0);
             switch (preset)
             {
-                case KeyPreset.WASD:
-                    throw new Exception("WASD Preset is not allowed with Vector3.");
-                case KeyPreset.WASDQE:
-                    if (GetKey(KeyCode.Q))
-                        v.y = 1;
-                    else if (GetKey(KeyCode.E))
-                        v.y = -1;
-
-                    if (GetKey(KeyCode.W))
-                        v.z = 1;
-                    else if (GetKey(KeyCode.S))
-                        v.z = -1;
-
-                    if (GetKey(KeyCode.D))
-                        v.x = 1;
-                    else if (GetKey(KeyCode.A))
-                        v.x = -1;
+                case KeyPreset3D.WASDQE:
+                    v.x = GetNormlaizedRangeInput(KeyCode.A, KeyCode.D);
+                    v.y = GetNormlaizedRangeInput(KeyCode.E, KeyCode.Q);
+                    v.z = GetNormlaizedRangeInput(KeyCode.S, KeyCode.W);
                     return v;
-                case KeyPreset.Arrow:
-                    throw new Exception("Arrow Preset is not allowed with Vector3.");
             }
             return v;
         }
-        public static Vector3 GetDirectionInput3DXZY(KeyPreset preset)
+        /// <summary>
+        /// 프리셋에 맞는 3D(Vector3) 입력을 가져옵니다. 기본 함수의 Y와 Z를 바꿉니다.
+        /// </summary>
+        public static Vector3 GetDirectionInput3DXZY(KeyPreset3D preset)
         {
-            Vector3 v = new Vector3(0, 0, 0);
-            switch (preset)
-            {
-                case KeyPreset.WASD:
-                    throw new Exception("WASD Preset is not allowed with Vector3.");
-                case KeyPreset.WASDQE:
-                    if (GetKey(KeyCode.W))
-                        v.y = 1;
-                    else if (GetKey(KeyCode.S))
-                        v.y = -1;
-
-                    if (GetKey(KeyCode.Q))
-                        v.z = 1;
-                    else if (GetKey(KeyCode.E))
-                        v.z = -1;
-
-                    if (GetKey(KeyCode.D))
-                        v.x = 1;
-                    else if (GetKey(KeyCode.A))
-                        v.x = -1;
-                    return v;
-                case KeyPreset.Arrow:
-                    throw new Exception("Arrow Preset is not allowed with Vector3.");
-            }
+            Vector3 v = GetDirectionInput3D(preset);
+            (v.y, v.z) = (v.z, v.y);
             return v;
         }
+        /// <summary>
+        /// 프리셋에 맞는 2D(Vector2) 입력을 가져옵니다.
+        /// </summary>
         public static Vector2 GetDirectionInput2D(KeyPreset preset)
         {
             Vector2 v = new Vector2(0, 0);
             switch (preset)
             {
                 case KeyPreset.WASD:
-                    if (GetKey(KeyCode.W))
-                        v.y = 1;
-                    else if (GetKey(KeyCode.S))
-                        v.y = -1;
-                    if (GetKey(KeyCode.D))
-                        v.x = 1;
-                    else if (GetKey(KeyCode.A))
-                        v.x = -1;
+                    v.x = GetNormlaizedRangeInput(KeyCode.A, KeyCode.D);
+                    v.y = GetNormlaizedRangeInput(KeyCode.S, KeyCode.W);
                     return v;
-                case KeyPreset.WASDQE:
-                    throw new Exception("WASDQE Preset is not allowed with Vector2.");
                 case KeyPreset.Arrow:
-                    if (GetKey(KeyCode.ArrowUp))
-                        v.y = 1;
-                    else if (GetKey(KeyCode.ArrowDown))
-                        v.y = -1;
-                    if (GetKey(KeyCode.ArrowRight))
-                        v.x = 1;
-                    else if (GetKey(KeyCode.ArrowLeft))
-                        v.x = -1;
+                    v.x = GetNormlaizedRangeInput(KeyCode.ArrowLeft, KeyCode.ArrowRight);
+                    v.y = GetNormlaizedRangeInput(KeyCode.ArrowDown, KeyCode.ArrowUp);
                     return v;
             }
             return v;
         }
-        static KeyCode VirtualKet2KeyCode(VirtualKey key)
+        #endregion
+
+        /// <summary>
+        /// **이 함수는 환경에 의존합니다.**
+        /// </summary>
+        static KeyCode VirtualKey2KeyCode(VirtualKey key)
         {
             switch (key)
             {

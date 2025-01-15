@@ -18,6 +18,11 @@ namespace Athena.Maths
             return (value - a) / (b - a);
         }
 
+        public static float Lerp(float a, float b, float value)
+        {
+            return (1 - value) * a + value * b;
+        }
+
         public static float Clamp(float value, float min, float max)
         {
             return MathF.Max(min, MathF.Min(value, max));

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Athena.Maths;
 using Athena.Engine.Core.Image;
 using Athena.Engine.Core.Rendering.Shaders;
+using System.Reflection;
 
 namespace Athena.InGame.Ring
 {
@@ -74,7 +75,7 @@ namespace Athena.InGame.Ring
         }
         public static CircleRing CreateRingObject(float radius)
         {
-            var renderer = Athena.MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer(@"C:\ring.fbx");
+            var renderer = Athena.MeshLoader.FBXLoader.LoadFBX_SeperatedAsRenderer("ring.fbx");
             GameObject torous = new GameObject();
             Athena.Engine.Core.MeshRenderer torousRenderer = new Athena.Engine.Core.MeshRenderer();
             torousRenderer.RenderDatas.Add(renderer.RenderDatas[0]);

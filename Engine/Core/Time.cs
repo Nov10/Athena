@@ -26,9 +26,10 @@ namespace Athena.Engine.Core
         }
 
         public static int FPS { get; private set; }
-        public static bool IsTimeIntChanged;
+        public static bool IsTimeIntChanged { get; private set; }
         static int preTimeInt;
         static int FPSCounter = 0;
+
         public static void StartUpdate()
         {
             IsTimeIntChanged = false;
@@ -45,7 +46,6 @@ namespace Athena.Engine.Core
             }
             FPSCounter++;
         }
-
 
         public static void EndUpdate()
         {

@@ -14,7 +14,6 @@ namespace Athena.Engine.Core.Image
         public byte G;
         public byte B;
         public byte A;
-
         public Color(byte r, byte g, byte b, byte a)
         {
             R = r;
@@ -22,26 +21,48 @@ namespace Athena.Engine.Core.Image
             B = b;
             A = a;
         }
-        public static Color black
+
+        #region pre-defined Colors
+        public static Color zero
         {
-            get { return new Color(0, 0, 0, 255); }
+            get { return new Color(0, 0, 0, 0); }
         }
         public static Color white
         {
             get { return new Color(255, 255, 255, 255); }
         }
+        public static Color black
+        {
+            get { return new Color(0, 0, 0, 255); }
+        }
+        public static Color red
+        {
+            get { return new Color(255, 0, 0, 255); }
+        }
+        public static Color green
+        {
+            get { return new Color(0, 255, 0, 255); }
+        }
+        public static Color blue
+        {
+            get { return new Color(0, 0, 255, 255); }
+        }
+        #endregion
+
         public Vector3 GetAsVector3()
         {
             return new Vector3(R, G, B);
         }
-        public override string ToString()
+        public Vector4 GetAsVector4()
         {
-            return $"({R}, {G}, {B}, {A})";
+            return new Vector4(R, G, B, A);
         }
         public static Color Lerp(Color a, Color b, float t)
         {
             return (1 - t) * a + t * b;
         }
+
+        #region Operators
         public static Color operator +(Color left, Color right)
         {
             return new Color(
@@ -73,6 +94,11 @@ namespace Athena.Engine.Core.Image
         public static bool operator !=(Color left, Color right)
         {
             return !(left == right);
+        }
+        #endregion
+        public override string ToString()
+        {
+            return $"({R}, {G}, {B}, {A})";
         }
         public override bool Equals([NotNullWhen(true)] object obj)
         {

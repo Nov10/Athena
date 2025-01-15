@@ -51,7 +51,7 @@ namespace Athena.InGame
                 q = new Quaternion(1, 0, 0, 0);
             Controller.WorldRotation = Controller.WorldRotation * q;
             Controller.WorldPosition = Vector3.Lerp(Controller.WorldPosition, Target.WorldPosition + -Target.Forward * 15, Time.DeltaTime * MoveSpeed);
-            Controller.WorldRotation = Quaternion.Slerp(Controller.WorldRotation, Target.WorldRotation, Time.DeltaTime * RotateSpeed).Normalize();
+            Controller.WorldRotation = Quaternion.Slerp(Controller.WorldRotation, Target.WorldRotation, Time.DeltaTime * RotateSpeed).normalized;
         }
     }
 }

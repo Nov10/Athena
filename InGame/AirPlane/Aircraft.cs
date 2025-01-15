@@ -49,13 +49,12 @@ namespace Athena.InGame.AirPlane
         }
         Vector3 CalculateTargetDirection(Vector3 moveInput)
         {
-            //+ Controller.Right * moveInput.x
             return (Controller.Forward * moveInput.z ).normalized;
         }
 
         public override void Update()
         {
-            Vector3 moveInput = Input.GetDirectionInput3DXZY(KeyPreset.WASDQE);
+            Vector3 moveInput = Input.GetDirectionInput3DXZY(KeyPreset3D.WASDQE);
             moveInput.z = 1;
             moveInput.x *= 0.5f;
 

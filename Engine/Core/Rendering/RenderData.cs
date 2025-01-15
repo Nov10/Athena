@@ -1,5 +1,4 @@
 ﻿using Athena.Maths;
-using Athena.Engine.Core.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System;
 using Athena.Engine.Core.Image;
+using Athena.Engine.Core.Rendering.Shaders;
 
 namespace Athena.Engine.Core.Rendering
 {
@@ -14,10 +14,7 @@ namespace Athena.Engine.Core.Rendering
     {
         public Vertex[] Vertices;
         public int[] Triangles;
-        public Color[] Colors;
-
         public CustomShader Shader;
-
         public AABB ThisAABB;
 
         public void CalculateNormals()
@@ -54,10 +51,8 @@ namespace Athena.Engine.Core.Rendering
 
         public RenderData(RenderData data)
         {
-            //this.Vertices = (Vector3[]) data.Vertices.Clone();
             Vertices = (Vertex[])data.Vertices.Clone();
             Triangles = (int[])data.Triangles.Clone();
-            Colors = data.Colors;
             Shader = data.Shader;
             ThisAABB = data.ThisAABB;
         }
@@ -147,16 +142,6 @@ namespace Athena.Engine.Core.Rendering
             1, 4, 0
             };
 
-            // --------
-            // 3) 색상(Colors) 지정 (필요 시)
-            // --------
-            // 꼭 필요한 것은 아니지만, 원하는 단색으로 초기화할 수도 있습니다.
-            // 여기서는 일괄적으로 White 컬러를 적용합니다.
-            renderData.Colors = new Color[renderData.Vertices.Length];
-            for (int i = 0; i < renderData.Colors.Length; i++)
-            {
-                renderData.Colors[i] = Color.white;
-            }
 
             // --------
             // 4) 노말 계산 및 AABB 계산
@@ -306,7 +291,6 @@ namespace Athena.Engine.Core.Rendering
             // 아직 정점/인덱스가 없으므로, 빈 배열로 시작
             renderData.Vertices = new Vertex[0];
             renderData.Triangles = new int[0];
-            renderData.Colors = null; // (필요에 따라 세팅)
 
             // 3) 구간 별로 직육면체 추가
             for (int i = 0; i < sampleCount - 1; i++)

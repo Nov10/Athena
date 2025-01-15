@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Athena.Engine.Core.Image;
 
-namespace Renderer.InGame.Ring
+namespace Athena.InGame.Ring
 {
     public class RingLineGenerator : Component
     {
@@ -19,7 +19,7 @@ namespace Renderer.InGame.Ring
 
         Vector3 Function(float t)
         {
-            return new Vector3(t*t*0.01f + MathF.Sin(t/10f)*15, 0.5f*t + MathF.Cos(t / 10f) *10, t + MathF.Sin(t / 10f) *9);
+            return new Vector3(t*t*0.01f + MathF.Sin(t/10f)*15, MathF.Cos(t / 10f) *10 + 10, t + MathF.Sin(t / 10f) *9);
         }
         float RadiusFunction(float t)
         {

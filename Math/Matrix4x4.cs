@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Athena.Maths
 {
@@ -67,7 +68,23 @@ namespace Athena.Maths
         {
             return !(a == b);
         }
-        // 덧셈 연산자 오버로딩
+        public override bool Equals([NotNullWhen(true)] object obj)
+        {
+            return base.Equals(obj);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public static Matrix4x4 operator -(Matrix4x4 a)
+        {
+            return new Matrix4x4(
+                -a.e11, -a.e12, -a.e13, -a.e14,
+                -a.e21, -a.e22, -a.e23, -a.e24,
+                -a.e31, -a.e32, -a.e33, -a.e34,
+                -a.e41, -a.e42, -a.e43, -a.e44);
+        }
         public static Matrix4x4 operator +(Matrix4x4 a, Matrix4x4 b)
         {
             return new Matrix4x4(
@@ -76,8 +93,6 @@ namespace Athena.Maths
                 a.e31 + b.e31, a.e32 + b.e32, a.e33 + b.e33, a.e34 + b.e34,
                 a.e41 + b.e41, a.e42 + b.e42, a.e43 + b.e43, a.e44 + b.e44);
         }
-
-        // 뺄셈 연산자 오버로딩
         public static Matrix4x4 operator -(Matrix4x4 a, Matrix4x4 b)
         {
             return new Matrix4x4(
@@ -86,8 +101,6 @@ namespace Athena.Maths
                 a.e31 - b.e31, a.e32 - b.e32, a.e33 - b.e33, a.e34 - b.e34,
                 a.e41 - b.e41, a.e42 - b.e42, a.e43 - b.e43, a.e44 - b.e44);
         }
-
-        // 실수배 연산자 오버로딩
         public static Matrix4x4 operator *(Matrix4x4 m, float scalar)
         {
             return new Matrix4x4(
@@ -96,8 +109,10 @@ namespace Athena.Maths
                 m.e31 * scalar, m.e32 * scalar, m.e33 * scalar, m.e34 * scalar,
                 m.e41 * scalar, m.e42 * scalar, m.e43 * scalar, m.e44 * scalar);
         }
-
-        // 행렬곱 연산자 오버로딩
+        public static Matrix4x4 operator *(float sclar, Matrix4x4 m)
+        {
+            return m * sclar;
+        }
         public static Matrix4x4 operator *(Matrix4x4 a, Matrix4x4 b)
         {
             return new Matrix4x4(
@@ -122,7 +137,6 @@ namespace Athena.Maths
                 a.e41 * b.e14 + a.e42 * b.e24 + a.e43 * b.e34 + a.e44 * b.e44);
         }
 
-        // 전치행렬 계산 메서드
         public Matrix4x4 Transpose()
         {
             return new Matrix4x4(
@@ -131,15 +145,12 @@ namespace Athena.Maths
                 e13, e23, e33, e43,
                 e14, e24, e34, e44);
         }
-        // 역행렬 계산 메서드
         public Matrix4x4 Inverse()
         {
-            // 역행렬을 계산하기 위해 행렬식(det)을 계산해야 합니다.
             float det = Determinant();
-            if (System.Math.Abs(det) < float.Epsilon)
-                throw new InvalidOperationException("This matrix is non-invertible because its determinant is zero.");
+            if (System.MathF.Abs(det) < float.Epsilon)
+                throw new InvalidOperationException("This matrix is non-invertible.");
 
-            // 수치 해석적 방법으로 4x4 행렬의 역행렬을 계산합니다.
             float invDet = 1.0f / det;
 
             return new Matrix4x4(
@@ -223,8 +234,6 @@ namespace Athena.Maths
                     e21 * (e12 * e33 - e13 * e32) +
                     e31 * (e12 * e23 - e13 * e22)));
         }
-
-        // 행렬식 계산
         public float Determinant()
         {
             return e11 * (e22 * (e33 * e44 - e34 * e43) - e32 * (e23 * e44 - e24 * e43) + e42 * (e23 * e34 - e24 * e33)) -

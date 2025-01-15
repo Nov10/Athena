@@ -18,7 +18,34 @@ namespace Athena.Maths
             w = 1;
             x = y = z = 0;
         }
-        // 벡터를 쿼터니언으로 변환하는 함수
+        public Quaternion(float w, float x, float y, float z)
+        {
+            this.w = w;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+        public readonly float magnitude
+        {
+            get { return (float)System.MathF.Sqrt(sqrMagnitude); }
+        }
+        public readonly float sqrMagnitude
+        {
+            get { return x * x + y * y + z * z + w * w; }
+        }
+        public readonly Quaternion normalized
+        {
+            get { return Scale(this, 1/magnitude); }
+        }
+
+        public Quaternion Inverse()
+        {
+            return new Quaternion(w, -x, -y, -z).normalized;
+        }
+        public Quaternion Conjugate()
+        {
+            return new Quaternion(w, -x, -y, -z);
+        }
         public static Quaternion FromVectorToQuaternion(Vector3 fromVector, Vector3 toVector)
         {
             Vector3 from = fromVector.normalized;
@@ -47,15 +74,12 @@ namespace Athena.Maths
             float invS = 1 / s;
             return new Quaternion(s * 0.5f, cross.x * invS, cross.y * invS, cross.z * invS);
         }
-        public Quaternion(float w, float x, float y, float z)
-        {
-            this.w = w;
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
 
-        // 쿼터니언 곱셈
+
+        public static Quaternion Scale(Quaternion q, float scale)
+        {
+            return new Quaternion(q.w * scale, q.x * scale, q.y * scale, q.z * scale);
+        }
         public static Quaternion operator *(Quaternion q1, Quaternion q2)
         {
             float nw = q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z;
@@ -65,13 +89,7 @@ namespace Athena.Maths
             return new Quaternion(nw, nx, ny, nz);
         }
 
-        // 쿼터니언의 켤레
-        public Quaternion Conjugate()
-        {
-            return new Quaternion(w, -x, -y, -z);
-        }
 
-        // 벡터 회전
         public Vector3 RotateVector(Vector3 v)
         {
             Quaternion qVec = new Quaternion(0, v.x, v.y, v.z);
@@ -99,18 +117,6 @@ namespace Athena.Maths
             float cosHalfAngle = (float)System.Math.Cos(halfAngle);
 
             return new Quaternion(cosHalfAngle, axis.x * sinHalfAngle, axis.y * sinHalfAngle, axis.z * sinHalfAngle);
-        }
-        public Quaternion Normalize()
-        {
-            float magnitude = (float)Math.Sqrt(w * w + x * x + y * y + z * z);
-            if (magnitude > 0.0001f)
-            {
-                w /= magnitude;
-                x /= magnitude;
-                y /= magnitude;
-                z /= magnitude;
-            }
-            return this;
         }
         public static Quaternion LookDirection(Vector3 forward, Vector3? up = null)
         {
@@ -213,7 +219,7 @@ namespace Athena.Maths
             var q = new Quaternion(qw, qx, qy, qz);
 
             // 쿼터니언 정규화
-            return q.Normalize();
+            return q.normalized;
         }
         public static Quaternion Lerp(Quaternion q1, Quaternion q2, float t)
         {
@@ -228,9 +234,8 @@ namespace Athena.Maths
                 (1 - t) * q1.z + t * q2.z
             );
 
-            // Normalize the result to ensure it remains a valid quaternion
-            result.Normalize();
-            return result;
+            // Normalize the result to ensure it remains a valid quaternion            
+            return result.normalized;
         }
         public static Quaternion Slerp(Quaternion q1, Quaternion q2, float t)
         {
@@ -242,8 +247,8 @@ namespace Athena.Maths
             //    throw new ArgumentOutOfRangeException(nameof(t), "t must be in the range [0, 1].");
 
             // Normalize the quaternions
-            q1.Normalize();
-            q2.Normalize();
+            q1 = q1.normalized;
+            q2 = q2.normalized;
 
             // Compute the cosine of the angle between the two quaternions
             float dot = q1.w * q2.w + q1.x * q2.x + q1.y * q2.y + q1.z * q2.z;
@@ -265,8 +270,7 @@ namespace Athena.Maths
                     q1.y + t * (q2.y - q1.y),
                     q1.z + t * (q2.z - q1.z)
                 );
-                result.Normalize();
-                return result;
+                return result.normalized;
             }
 
             // Compute the angle between the quaternions

@@ -5,42 +5,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Athena.Engine.Core.Rendering;
-using Athena.Engine.Core.Rendering;
 
 namespace Athena.Engine.Core
 {
+    /// <summary>
+    /// Renderer for Common Mesh.
+    /// </summary>
     public class MeshRenderer : Component
     {
         public static List<MeshRenderer> RendererList = new List<MeshRenderer>();
 
-        public List<RenderData> RenderDatas;
-        public MeshRenderer()
-        {
-            RendererList.Add(this);
-        }
-        ~MeshRenderer()
-        {
-            RendererList.Remove(this);
-        }
+        public List<RenderData> RenderDatas { get; private set; }
+
         public override void Awake()
         {
+            RendererList.Add(this);
             RenderDatas = new List<RenderData>();
         }
         public override void Start()
         {
+
         }
 
         public override void Update()
         {
 
         }
-
-        public Matrix4x4 CalculateObjectTransformMatrix()
+        protected override void OnDestroyed()
         {
-            return TransformMatrixCaculator.CreateObjectTransformMatrix(Controller.WorldPosition, Controller.WorldRotation, Controller.WorldScale);
-            //return TransformMatrixCaculator.CreateTranslationMatrix(Controller.WorldPosition) * TransformMatrixCaculator.CreateRotationMatrix(Controller.WorldRotation.ToEulerAngles());
+            base.OnDestroyed();
+            RendererList.Remove(this);
         }
-        public Matrix4x4 CalculateObjectRotationMatrix()
+
+        public Matrix4x4 CreateObjectTransformMatrix()
+        {
+            return TransformMatrixCaculator.CreateObjectTransformMatrix(Controller);
+        }
+        public Matrix4x4 CreateObjectRotationMatrix()
         {
             return TransformMatrixCaculator.CreateRotationMatrix(Controller.WorldRotation.ToEulerAngles());
         }

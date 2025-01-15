@@ -31,12 +31,10 @@ namespace Athena.Maths
         {
             get { return System.MathF.Sqrt(sqrMagnitude); }
         }
-
         public readonly float sqrMagnitude
         {
             get { return x * x + y * y + z * z; }
         }
-
         public readonly Vector3 normalized
         {
             get { return this / magnitude; }
@@ -44,9 +42,9 @@ namespace Athena.Maths
 
         /// <summary>
         /// 벡터의 원소를 가져옵니다.
-        /// i == 0 : x,
-        /// i == 1 : y,
-        /// i == 2 : z
+        /// <para>i == 0 : x</para>
+        /// <para>i == 1 : y</para>
+        /// <para>i == 2 : z</para>
         /// </summary>
         public readonly float Get(int i)
         {
@@ -104,7 +102,6 @@ namespace Athena.Maths
             a = a.normalized;
             b = b.normalized;
 
-            // 내적 (Dot Product)을 이용한 각도 계산 (0 ~ π)
             float angle = System.MathF.Acos(Vector3.Dot(a, b));
 
             //방향 계산

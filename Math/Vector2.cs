@@ -15,9 +15,14 @@ namespace Athena.Maths
         {
             get { return new Vector2(0, 0); }
         }
-        public static float Dot(Vector2 a,  Vector2 b)
+        public static Vector2 one
         {
-            return (float)(a.x * b.x + a.y * b.y);
+            get { return new Vector2(1, 1); }
+        }
+        public Vector2()
+        {
+            x = 0;
+            y = 0;
         }
         public Vector2(float x, float y)
         {
@@ -25,16 +30,39 @@ namespace Athena.Maths
             this.y = y;
         }
 
+        public readonly float magnitude
+        {
+            get { return (float)System.MathF.Sqrt(x * x + y * y); }
+        }
+        public readonly float sqrMagnitude
+        {
+            get { return x * x + y * y; }
+        }
+        public readonly Vector2 normalized
+        {
+            get { return this / magnitude; }
+        }
+
+        /// <summary>
+        /// 벡터의 원소를 가져옵니다.
+        /// <para>i == 0 : x</para>
+        /// <para>i == 1 : y</para>
+        /// </summary>
+        public readonly float Get(int i)
+        {
+            if (i == 0) return x;
+            return y;
+        }
+
+        #region Operator
         public static Vector2 operator +(Vector2 a, Vector2 b)
         {
             return new Vector2(a.x + b.x, a.y + b.y);
         }
-
         public static Vector2 operator -(Vector2 a, Vector2 b)
         {
             return new Vector2(a.x - b.x, a.y - b.y);
         }
-
         public static Vector2 operator *(Vector2 a, float scalar)
         {
             return new Vector2(a.x * scalar, a.y * scalar);
@@ -53,26 +81,14 @@ namespace Athena.Maths
 
             return new Vector2(a.x / scalar, a.y / scalar);
         }
+        #endregion
 
-        public float magnitude
+        #region Math Functions
+        public static float Dot(Vector2 a, Vector2 b)
         {
-            get { return (float)System.Math.Sqrt(x * x + y * y); }
+            return (a.x * b.x + a.y * b.y);
         }
-        public float sqrMagnitude
-        {
-            get { return x * x + y * y; }
-        }
-        public Vector2 Normalize()
-        {
-            float mag = magnitude;
-            if (mag == 0)
-            {
-                return new Vector2(0, 0);
-                //throw new DivideByZeroException("Vector has zero magnitude");
-            }
-
-            return new Vector2(x / mag, y / mag);
-        }
+        #endregion
 
         public override string ToString()
         {

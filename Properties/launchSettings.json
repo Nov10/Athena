@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "Renderer (Package)": {
+    "Athena (Package)": {
       "commandName": "MsixPackage"
     },
-    "Renderer (Unpackaged)": {
+    "Athena (Unpackaged)": {
       "commandName": "Project"
     }
   }

@@ -29,7 +29,7 @@ namespace Athena.Engine.Core.Rendering
 
         protected override void InternelRender(Camera camera, List<MeshRenderer> targets)
         {
-            Matrix4x4 cameraTransform = camera.CalculateRenderMatrix();
+            Matrix4x4 VP = camera.CalculateVPMatrix();
             camera.RenderTarget.Clear(new Core.Image.Color(0, 255, 255, 255));
 
             //Vector3 lightInCameraSpace = TransformMatrixCaculator.Transform(light.normalized, cmaeraTransform).normalized; // 광원을 카메라 좌표계로 변환
@@ -40,30 +40,30 @@ namespace Athena.Engine.Core.Rendering
                     continue;
                 if (renderer.Controller.IsWorldActive == false)
                     continue;
-                Matrix4x4 objectTransform = renderer.CalculateObjectTransformMatrix();
-                Matrix4x4 objectRotationTransform = renderer.CalculateObjectRotationMatrix();
 
+                Matrix4x4 M = renderer.CreateObjectTransformMatrix();
+                Matrix4x4 objectRotationTransform = renderer.CreateObjectRotationMatrix();
                 Matrix4x4 objectInvTransform = TransformMatrixCaculator.CreateObjectInvTransformMatrix(renderer.Controller);
-
-                Matrix4x4 transform = cameraTransform * objectTransform;
+                Matrix4x4 MVP = VP * M;
 
                 foreach (var data in renderer.RenderDatas)
                 {
                     if (data.Vertices == null || data.Vertices.Length == 0)
                         continue;
 
-                    if (FrustumCulling.Culling(data.ThisAABB, camera.Controller.WorldPosition, renderer.Controller.WorldPosition, transform, objectInvTransform) == false)
-                    {
+                    if (FrustumCulling.Culling(data.ThisAABB, camera.Controller, renderer.Controller, MVP, objectInvTransform) == false)                    
                         continue;
-                    }
-                    Vertex[] transformedVertices = VertexShader.Run(data.Vertices, renderer.Controller.WorldPosition, data.Shader, objectTransform, cameraTransform, objectRotationTransform);
-
+                    
+                    //Object -> World -> ClipSpace
+                    Vertex[] transformedVertices = VertexShader.Run(data.Vertices, renderer.Controller.WorldPosition, data.Shader, M, VP, objectRotationTransform);
+                    //ClipSpace -> NDC -> Raster
                     var rasters = Rasterizer.Run(transformedVertices, data.Triangles, Width, Height);
 
                     if (rasters == null)
                         continue;
+
                     var frameBuffer = data.Shader.Run_FragmentShader(rasters, camera.RenderTarget.GetPixels(), LightDirection, Width);
-                    camera.RenderTarget.SetPixels(frameBuffer);
+                    camera.RenderTarget.SetPixels(frameBuffer, 0);
                 }
             }
         }
