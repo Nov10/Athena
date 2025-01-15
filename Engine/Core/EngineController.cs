@@ -11,6 +11,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
 using Athena.Engine.Core.Image;
 using System.Reflection;
+using Windows.Storage;
+using Windows.ApplicationModel;
 
 namespace Athena.Engine.Core
 {
@@ -35,7 +37,11 @@ namespace Athena.Engine.Core
         static Action AfterUpdateEvent;
         public static void Start(Action afterUpdate, UIElement inputHandler)
         {
-            _AssetPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+#if DEBUG
+            _AssetPath = Package.Current.InstalledLocation.Path + "/Assets/";
+#else
+            _AssetPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/Assets/";
+#endif
 
             Input.Start();
             GPUAccelator.Intialize();
@@ -77,19 +83,26 @@ namespace Athena.Engine.Core
 
         public static void Update()
         {
-            StartUpdate();
 
-            float time_UpdateGameObjects = Update_GameObjects();
-            float time_UpdateRenderes = Update_Renderers();
+            try
+            {
+                StartUpdate();
+                float time_UpdateGameObjects = Update_GameObjects();
+                float time_UpdateRenderes = Update_Renderers();
 
-            EndUpdate();
+                EndUpdate();
 
-            DebugText =
-                $"FPS : {Time.FPS.ToString()}\n" +
-                $"Update : {time_UpdateGameObjects}\n" +
-                $"Rending : {time_UpdateRenderes}\n" +
-                $"-\n" +
-                $"Total : {time_UpdateGameObjects + time_UpdateRenderes}";
+                DebugText =
+                    $"FPS : {Time.FPS.ToString()}\n" +
+                    $"Update : {time_UpdateGameObjects}\n" +
+                    $"Rending : {time_UpdateRenderes}\n" +
+                    $"-\n" +
+                    $"Total : {time_UpdateGameObjects + time_UpdateRenderes}";
+            }
+            catch// (Exception ex)
+            {
+                //System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
         }
 
         public static void EndUpdate()

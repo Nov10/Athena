@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ApOSNqH8+HY=",
+  "dgSpecHash": "U4VX5Xn0o6Q=",
   "success": true,
   "projectFilePath": "C:\\Users\\문종욱\\Desktop\\Athena\\Athena.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\문종욱\\.nuget\\packages\\assimpnet\\4.1.0\\assimpnet.4.1.0.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\ilgpu\\1.5.1\\ilgpu.1.5.1.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\ilgpu.algorithms\\1.5.1\\ilgpu.algorithms.1.5.1.nupkg.sha512",
+    "C:\\Users\\문종욱\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.12\\microsoft.net.illink.tasks.8.0.12.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\microsoft.web.webview2\\1.0.2651.64\\microsoft.web.webview2.1.0.2651.64.nupkg.sha512",
@@ -116,6 +117,7 @@
     "C:\\Users\\문종욱\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\8.0.12\\microsoft.netcore.app.runtime.win-x86.8.0.12.nupkg.sha512",
+    "C:\\Users\\문종욱\\.nuget\\packages\\microsoft.netcore.app.crossgen2.win-x64\\8.0.12\\microsoft.netcore.app.crossgen2.win-x64.8.0.12.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.20348.56\\microsoft.windows.sdk.net.ref.10.0.20348.56.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\8.0.12\\microsoft.aspnetcore.app.runtime.win-x86.8.0.12.nupkg.sha512",
     "C:\\Users\\문종욱\\.nuget\\packages\\microsoft.netcore.app.runtime.win-arm64\\8.0.12\\microsoft.netcore.app.runtime.win-arm64.8.0.12.nupkg.sha512",

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Athena.Maths;
 using Athena.Engine.Core;
 using Athena.Engine.Core.Rendering;
+using System.IO;
 
 namespace Athena.MeshLoader
 {
@@ -14,9 +15,16 @@ namespace Athena.MeshLoader
     {
         public static Athena.Engine.Core.MeshRenderer LoadFBX_SeperatedAsRenderer(string filePath)
         {
+            if (!File.Exists(EngineController.AssetPath + filePath))
+            {
+                System.Diagnostics.Debug.WriteLine(EngineController.AssetPath + filePath);
+                //throw new FileNotFoundException($"Texture file not found: {path}");
+                return null;
+            }
+
             Assimp.AssimpContext importer = new Assimp.AssimpContext();
             // FBX 파일을 읽어들임
-            Assimp.Scene scene = importer.ImportFile(EngineController.AssetPath + "/" + filePath, Assimp.PostProcessSteps.Triangulate | Assimp.PostProcessSteps.GenerateNormals | Assimp.PostProcessSteps.GenerateUVCoords);
+            Assimp.Scene scene = importer.ImportFile(EngineController.AssetPath + filePath, Assimp.PostProcessSteps.Triangulate | Assimp.PostProcessSteps.GenerateNormals | Assimp.PostProcessSteps.GenerateUVCoords);
 
             if (scene == null || scene.HasMeshes == false)
             {

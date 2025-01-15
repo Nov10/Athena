@@ -13,7 +13,7 @@ namespace Athena.InGame.Terrain
     {
         const float Scale = 3f;
 
-        const float ViewerMoveThresholdForChunckUpdate = 25f;
+        const float ViewerMoveThresholdForChunckUpdate = 10;
         const float sqrViewerMoveThresholdForChunckUpdate = ViewerMoveThresholdForChunckUpdate * ViewerMoveThresholdForChunckUpdate;
 
         Vector2 preViewerPosition;

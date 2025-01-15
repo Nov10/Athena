@@ -7,12 +7,76 @@
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\enginecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\enginecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\ingame\\terrain\\mapgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:ingame\\terrain\\mapgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\ingame\\terrain\\endlessterrain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:ingame\\terrain\\endlessterrain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\ingame\\terrain\\meshgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:ingame\\terrain\\meshgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\meshloader\\fbxloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:meshloader\\fbxloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\obj\\x64\\Debug\\net8.0-windows10.0.20348.0\\win-x64\\App.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:obj\\x64\\Debug\\net8.0-windows10.0.20348.0\\win-x64\\App.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\shaders\\normalshader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\shaders\\normalshader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\shaders\\customshader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\shaders\\customshader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\6f1908511557b7cd5285deee958a3e14ab65fefa7de764c33473095f83b70769\\Parallel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\d60ed6fa55ec22c2d712bdcff0724c61d1e787bb4a6ba14ea69533d7ed2d6d00\\TaskReplicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\5594699f094f357f9c20671a869273db9830ffdbbebff8f805dd2bffeff1452d\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\ExecutionContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\3c1ac9c7759ca040e2c508843af0ed834a1cfcf081a0a928f448e2f5392c4aed\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\Tasks\\Task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\6f786d20abe6bbfc9edae5d4289da485da67615f34347d32530684765af428af\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\PortableThreadPool.WorkerThread.NonBrowser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\bd35f5c3df3652836211bc6e032a10919878088dff48364093e9852983c56553\\Accelerator.Allocations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\input.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\athena.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:athena.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\ingame\\ring\\circlering.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,10 +87,6 @@
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:ingame\\terrain\\bounds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\athena.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:athena.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\package.appxmanifest||{4D47164B-07B6-4A52-A855-728D6A2E2AA3}",
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:package.appxmanifest||{4D47164B-07B6-4A52-A855-728D6A2E2AA3}"
     },
@@ -35,19 +95,11 @@
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:athena.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\.nuget\\packages\\microsoft.windowsappsdk\\1.6.250108002\\buildTransitive\\Microsoft.Build.Msix.Packaging.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\c4b4fe2fbd2a7270ed844af9baea5c7c6e786f7abc898356db7a0e8c87cccf6e\\_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -67,14 +119,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\obj\\x64\\Release\\net8.0-windows10.0.19041.0\\win-x64\\App.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:obj\\x64\\Release\\net8.0-windows10.0.19041.0\\win-x64\\App.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\ingame\\terrain\\mapgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:ingame\\terrain\\mapgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\ingame\\terrain\\meshgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:ingame\\terrain\\meshgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\ingame\\terrain\\texturegenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -101,12 +145,6 @@
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:math\\transformmatrixcaculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Personal\\Graphics\\Renderer-CS\\Core\\Object.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -121,7 +159,176 @@
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Parallel.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\6f1908511557b7cd5285deee958a3e14ab65fefa7de764c33473095f83b70769\\Parallel.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\6f1908511557b7cd5285deee958a3e14ab65fefa7de764c33473095f83b70769\\Parallel.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\6f1908511557b7cd5285deee958a3e14ab65fefa7de764c33473095f83b70769\\Parallel.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\6f1908511557b7cd5285deee958a3e14ab65fefa7de764c33473095f83b70769\\Parallel.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "ViewState": "AQIAAMkBAAAAAAAAAAAYwNUBAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:37:45.004Z",
+              "EditorCaption": " [\uC77D\uAE30 \uC804\uC6A9]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CustomShader.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Shaders\\CustomShader.cs",
+              "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\Shaders\\CustomShader.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Shaders\\CustomShader.cs",
+              "RelativeToolTip": "Engine\\Core\\Rendering\\Shaders\\CustomShader.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAYwBoAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:37:42.916Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "NormalShader.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Shaders\\NormalShader.cs",
+              "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\Shaders\\NormalShader.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Shaders\\NormalShader.cs",
+              "RelativeToolTip": "Engine\\Core\\Rendering\\Shaders\\NormalShader.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAUwB8AAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:37:41.452Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AQIAAGYAAAAAAAAAAAAEwHwAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T11:12:32.136Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FBXLoader.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MeshLoader\\FBXLoader.cs",
+              "RelativeDocumentMoniker": "MeshLoader\\FBXLoader.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MeshLoader\\FBXLoader.cs",
+              "RelativeToolTip": "MeshLoader\\FBXLoader.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAhwBcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T09:39:21.528Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EndlessTerrain.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\EndlessTerrain.cs",
+              "RelativeDocumentMoniker": "InGame\\Terrain\\EndlessTerrain.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\EndlessTerrain.cs",
+              "RelativeToolTip": "InGame\\Terrain\\EndlessTerrain.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABgAAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:23:42.945Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "MeshGenerator.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\MeshGenerator.cs",
+              "RelativeDocumentMoniker": "InGame\\Terrain\\MeshGenerator.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\MeshGenerator.cs",
+              "RelativeToolTip": "InGame\\Terrain\\MeshGenerator.cs",
+              "ViewState": "AQIAAEEAAAAAAAAAAADgv0wAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T10:39:09.515Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MapGenerator.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\MapGenerator.cs",
+              "RelativeDocumentMoniker": "InGame\\Terrain\\MapGenerator.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\MapGenerator.cs",
+              "RelativeToolTip": "InGame\\Terrain\\MapGenerator.cs",
+              "ViewState": "AQIAACsAAAAAAAAAAAAMwDYAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T10:39:14.796Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAABMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-15T11:17:54.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "TaskReplicator.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\d60ed6fa55ec22c2d712bdcff0724c61d1e787bb4a6ba14ea69533d7ed2d6d00\\TaskReplicator.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\d60ed6fa55ec22c2d712bdcff0724c61d1e787bb4a6ba14ea69533d7ed2d6d00\\TaskReplicator.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\d60ed6fa55ec22c2d712bdcff0724c61d1e787bb4a6ba14ea69533d7ed2d6d00\\TaskReplicator.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\d60ed6fa55ec22c2d712bdcff0724c61d1e787bb4a6ba14ea69533d7ed2d6d00\\TaskReplicator.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "ViewState": "AQIAACkAAAAAAAAAAAAYwDUAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:37:46.357Z",
+              "EditorCaption": " [\uC77D\uAE30 \uC804\uC6A9]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ExecutionContext.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\5594699f094f357f9c20671a869273db9830ffdbbebff8f805dd2bffeff1452d\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\ExecutionContext.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\SourceServer\\5594699f094f357f9c20671a869273db9830ffdbbebff8f805dd2bffeff1452d\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\ExecutionContext.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\5594699f094f357f9c20671a869273db9830ffdbbebff8f805dd2bffeff1452d\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\ExecutionContext.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\SourceServer\\5594699f094f357f9c20671a869273db9830ffdbbebff8f805dd2bffeff1452d\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\ExecutionContext.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "ViewState": "AQIAAPsAAAAAAAAAAAAYwAcBAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:37:49.838Z",
+              "EditorCaption": " [\uC77D\uAE30 \uC804\uC6A9]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Task.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\3c1ac9c7759ca040e2c508843af0ed834a1cfcf081a0a928f448e2f5392c4aed\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\Tasks\\Task.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\SourceServer\\3c1ac9c7759ca040e2c508843af0ed834a1cfcf081a0a928f448e2f5392c4aed\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\Tasks\\Task.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\3c1ac9c7759ca040e2c508843af0ed834a1cfcf081a0a928f448e2f5392c4aed\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\Tasks\\Task.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\SourceServer\\3c1ac9c7759ca040e2c508843af0ed834a1cfcf081a0a928f448e2f5392c4aed\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\Tasks\\Task.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "ViewState": "AQIAACAJAAAAAAAAAAAYwCwJAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:37:52.679Z",
+              "EditorCaption": " [\uC77D\uAE30 \uC804\uC6A9]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "PortableThreadPool.WorkerThread.NonBrowser.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\6f786d20abe6bbfc9edae5d4289da485da67615f34347d32530684765af428af\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\PortableThreadPool.WorkerThread.NonBrowser.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\SourceServer\\6f786d20abe6bbfc9edae5d4289da485da67615f34347d32530684765af428af\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\PortableThreadPool.WorkerThread.NonBrowser.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\6f786d20abe6bbfc9edae5d4289da485da67615f34347d32530684765af428af\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\PortableThreadPool.WorkerThread.NonBrowser.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\SourceServer\\6f786d20abe6bbfc9edae5d4289da485da67615f34347d32530684765af428af\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\PortableThreadPool.WorkerThread.NonBrowser.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "ViewState": "AQIAAFYAAAAAAAAAAAAlwGUAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:37:54.334Z",
+              "EditorCaption": " [\uC77D\uAE30 \uC804\uC6A9]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
               "Title": "Athena",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Athena.csproj",
               "RelativeDocumentMoniker": "Athena.csproj",
@@ -133,7 +340,124 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 21,
+              "Title": "CircleRing.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Ring\\CircleRing.cs",
+              "RelativeDocumentMoniker": "InGame\\Ring\\CircleRing.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Ring\\CircleRing.cs",
+              "RelativeToolTip": "InGame\\Ring\\CircleRing.cs",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAgwE0AAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T11:13:39.986Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\c4b4fe2fbd2a7270ed844af9baea5c7c6e786f7abc898356db7a0e8c87cccf6e\\_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c4b4fe2fbd2a7270ed844af9baea5c7c6e786f7abc898356db7a0e8c87cccf6e\\_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\c4b4fe2fbd2a7270ed844af9baea5c7c6e786f7abc898356db7a0e8c87cccf6e\\_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c4b4fe2fbd2a7270ed844af9baea5c7c6e786f7abc898356db7a0e8c87cccf6e\\_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAiwBUAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T12:15:07.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Bounds.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\Bounds.cs",
+              "RelativeDocumentMoniker": "InGame\\Terrain\\Bounds.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\Bounds.cs",
+              "RelativeToolTip": "InGame\\Terrain\\Bounds.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAA+wAoAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T10:38:02.444Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Noise.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\Noise.cs",
+              "RelativeDocumentMoniker": "InGame\\Terrain\\Noise.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\Noise.cs",
+              "RelativeToolTip": "InGame\\Terrain\\Noise.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAwwD8AAAA/AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T11:14:27.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Vector4.cs",
+              "DocumentMoniker": "C:\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs",
+              "ToolTip": "C:\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAUwDQAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T16:04:10.568Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAqwDAAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T12:36:32.274Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Input.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Input.cs",
+              "RelativeDocumentMoniker": "Engine\\Core\\Input.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Input.cs",
+              "RelativeToolTip": "Engine\\Core\\Input.cs",
+              "ViewState": "AQIAAPoAAAAAAAAAAAAlwAkBAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:24:48.346Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Accelerator.Allocations.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\bd35f5c3df3652836211bc6e032a10919878088dff48364093e9852983c56553\\Accelerator.Allocations.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\SourceServer\\bd35f5c3df3652836211bc6e032a10919878088dff48364093e9852983c56553\\Accelerator.Allocations.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\SourceServer\\bd35f5c3df3652836211bc6e032a10919878088dff48364093e9852983c56553\\Accelerator.Allocations.cs",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\SourceServer\\bd35f5c3df3652836211bc6e032a10919878088dff48364093e9852983c56553\\Accelerator.Allocations.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAAADcAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:29:12.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "MainWindow.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs",
+              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAAAEoAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-02T07:53:38.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
               "Title": "Athena.csproj",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Athena.csproj",
               "RelativeDocumentMoniker": "Athena.csproj",
@@ -141,102 +465,11 @@
               "RelativeToolTip": "Athena.csproj",
               "ViewState": "AQIAAD4AAAAAAAAAAAAowE0AAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-01-11T15:10:20.28Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-11T15:10:20.28Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MainWindow.xaml.cs",
-              "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAADsAAAAAAAAAAAAiwEsAAABVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T11:12:32.136Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-15T11:17:54.932Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CircleRing.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Ring\\CircleRing.cs",
-              "RelativeDocumentMoniker": "InGame\\Ring\\CircleRing.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Ring\\CircleRing.cs",
-              "RelativeToolTip": "InGame\\Ring\\CircleRing.cs",
-              "ViewState": "AQIAAD4AAAAAAAAAAAA4wE0AAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T11:13:39.986Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\c4b4fe2fbd2a7270ed844af9baea5c7c6e786f7abc898356db7a0e8c87cccf6e\\_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs",
-              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c4b4fe2fbd2a7270ed844af9baea5c7c6e786f7abc898356db7a0e8c87cccf6e\\_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\c4b4fe2fbd2a7270ed844af9baea5c7c6e786f7abc898356db7a0e8c87cccf6e\\_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs [\uC77D\uAE30 \uC804\uC6A9]",
-              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c4b4fe2fbd2a7270ed844af9baea5c7c6e786f7abc898356db7a0e8c87cccf6e\\_EventSource_global__Microsoft_UI_Xaml_UnhandledExceptionEventHandler.cs [\uC77D\uAE30 \uC804\uC6A9]",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAiwBUAAAADAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T12:15:07.737Z",
-              "EditorCaption": " [\uC77D\uAE30 \uC804\uC6A9]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Bounds.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\Bounds.cs",
-              "RelativeDocumentMoniker": "InGame\\Terrain\\Bounds.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\Bounds.cs",
-              "RelativeToolTip": "InGame\\Terrain\\Bounds.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAuwAoAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T10:38:02.444Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Noise.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\Noise.cs",
-              "RelativeDocumentMoniker": "InGame\\Terrain\\Noise.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\Noise.cs",
-              "RelativeToolTip": "InGame\\Terrain\\Noise.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAADwvz8AAAA/AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T11:14:27.018Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FBXLoader.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MeshLoader\\FBXLoader.cs",
-              "RelativeDocumentMoniker": "MeshLoader\\FBXLoader.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\MeshLoader\\FBXLoader.cs",
-              "RelativeToolTip": "MeshLoader\\FBXLoader.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAAABIAAABSAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T09:39:21.528Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 23,
               "Title": "Package.appxmanifest",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Package.appxmanifest",
               "RelativeDocumentMoniker": "Package.appxmanifest",
@@ -248,19 +481,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 33,
               "Title": "TextureGenerator.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\TextureGenerator.cs",
               "RelativeDocumentMoniker": "InGame\\Terrain\\TextureGenerator.cs",
               "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\TextureGenerator.cs",
               "RelativeToolTip": "InGame\\Terrain\\TextureGenerator.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAABIwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T11:14:34.721Z"
+              "WhenOpened": "2025-01-15T11:14:34.721Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 25,
               "Title": "Microsoft.Build.Msix.Packaging.targets",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\.nuget\\packages\\microsoft.windowsappsdk\\1.6.250108002\\buildTransitive\\Microsoft.Build.Msix.Packaging.targets",
               "RelativeDocumentMoniker": "..\\..\\.nuget\\packages\\microsoft.windowsappsdk\\1.6.250108002\\buildTransitive\\Microsoft.Build.Msix.Packaging.targets",
@@ -273,7 +507,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 26,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\App.xaml",
               "RelativeDocumentMoniker": "App.xaml",
@@ -286,94 +520,57 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\App.xaml.cs",
-              "RelativeDocumentMoniker": "App.xaml.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\App.xaml.cs",
-              "RelativeToolTip": "App.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T12:36:32.274Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 31,
               "Title": "App.g.i.cs",
               "DocumentMoniker": "C:\\Personal\\Graphics\\Renderer-CS\\obj\\x86\\Debug\\net8.0-windows10.0.19041.0\\win-x86\\App.g.i.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Personal\\Graphics\\Renderer-CS\\obj\\x86\\Debug\\net8.0-windows10.0.19041.0\\win-x86\\App.g.i.cs",
               "ToolTip": "C:\\Personal\\Graphics\\Renderer-CS\\obj\\x86\\Debug\\net8.0-windows10.0.19041.0\\win-x86\\App.g.i.cs",
               "RelativeToolTip": "..\\..\\..\\..\\Personal\\Graphics\\Renderer-CS\\obj\\x86\\Debug\\net8.0-windows10.0.19041.0\\win-x86\\App.g.i.cs",
-              "ViewState": "AQIAADcAAAAAAAAAAAAAwEEAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T12:16:45.234Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 30,
               "Title": "Application.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\0770a5c5ec3340040c3d4f3d43f693769f00c748cb7c5d6c76ce2682db9f49d3\\Application.cs",
               "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\0770a5c5ec3340040c3d4f3d43f693769f00c748cb7c5d6c76ce2682db9f49d3\\Application.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\0770a5c5ec3340040c3d4f3d43f693769f00c748cb7c5d6c76ce2682db9f49d3\\Application.cs [\uC77D\uAE30 \uC804\uC6A9]",
-              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\0770a5c5ec3340040c3d4f3d43f693769f00c748cb7c5d6c76ce2682db9f49d3\\Application.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\0770a5c5ec3340040c3d4f3d43f693769f00c748cb7c5d6c76ce2682db9f49d3\\Application.cs",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\0770a5c5ec3340040c3d4f3d43f693769f00c748cb7c5d6c76ce2682db9f49d3\\Application.cs",
               "ViewState": "AQIAAPYAAAAAAAAAAAAiwP0AAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T12:18:46.18Z",
-              "EditorCaption": " [\uC77D\uAE30 \uC804\uC6A9]"
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 29,
               "Title": "IApplicationStaticsMethods.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\c70510a394f76732670dfdf1c99c7aa4f524cc01059b5b403f002730ca460ab6\\IApplicationStaticsMethods.cs",
               "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c70510a394f76732670dfdf1c99c7aa4f524cc01059b5b403f002730ca460ab6\\IApplicationStaticsMethods.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\c70510a394f76732670dfdf1c99c7aa4f524cc01059b5b403f002730ca460ab6\\IApplicationStaticsMethods.cs [\uC77D\uAE30 \uC804\uC6A9]",
-              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c70510a394f76732670dfdf1c99c7aa4f524cc01059b5b403f002730ca460ab6\\IApplicationStaticsMethods.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\c70510a394f76732670dfdf1c99c7aa4f524cc01059b5b403f002730ca460ab6\\IApplicationStaticsMethods.cs",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c70510a394f76732670dfdf1c99c7aa4f524cc01059b5b403f002730ca460ab6\\IApplicationStaticsMethods.cs",
               "ViewState": "AQIAABkAAAAAAAAAAAAiwCAAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T12:18:47.491Z",
-              "EditorCaption": " [\uC77D\uAE30 \uC804\uC6A9]"
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 28,
               "Title": "UnhandledExceptionEventHandler.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\42f7268582967c0ca7338e3e79299c0fb434d91ca080c55ec04932c41e905a9a\\UnhandledExceptionEventHandler.cs",
               "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\42f7268582967c0ca7338e3e79299c0fb434d91ca080c55ec04932c41e905a9a\\UnhandledExceptionEventHandler.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\42f7268582967c0ca7338e3e79299c0fb434d91ca080c55ec04932c41e905a9a\\UnhandledExceptionEventHandler.cs [\uC77D\uAE30 \uC804\uC6A9]",
-              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\42f7268582967c0ca7338e3e79299c0fb434d91ca080c55ec04932c41e905a9a\\UnhandledExceptionEventHandler.cs [\uC77D\uAE30 \uC804\uC6A9]",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\42f7268582967c0ca7338e3e79299c0fb434d91ca080c55ec04932c41e905a9a\\UnhandledExceptionEventHandler.cs",
+              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\42f7268582967c0ca7338e3e79299c0fb434d91ca080c55ec04932c41e905a9a\\UnhandledExceptionEventHandler.cs",
               "ViewState": "AQIAAKkAAAAAAAAAAAAiwLAAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T12:18:48.891Z",
-              "EditorCaption": " [\uC77D\uAE30 \uC804\uC6A9]"
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "MapGenerator.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\MapGenerator.cs",
-              "RelativeDocumentMoniker": "InGame\\Terrain\\MapGenerator.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\MapGenerator.cs",
-              "RelativeToolTip": "InGame\\Terrain\\MapGenerator.cs",
-              "ViewState": "AQIAAC8AAAAAAAAAAAAgwDgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T10:39:14.796Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "MeshGenerator.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\MeshGenerator.cs",
-              "RelativeDocumentMoniker": "InGame\\Terrain\\MeshGenerator.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\Terrain\\MeshGenerator.cs",
-              "RelativeToolTip": "InGame\\Terrain\\MeshGenerator.cs",
-              "ViewState": "AQIAAEcAAAAAAAAAAAAIwEwAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T10:39:09.515Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 32,
               "Title": "App.g.i.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\obj\\x64\\Release\\net8.0-windows10.0.19041.0\\win-x64\\App.g.i.cs",
               "RelativeDocumentMoniker": "obj\\x64\\Release\\net8.0-windows10.0.19041.0\\win-x64\\App.g.i.cs",
@@ -385,7 +582,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 35,
               "Title": "CameraController.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\InGame\\CameraController.cs",
               "RelativeDocumentMoniker": "InGame\\CameraController.cs",
@@ -393,11 +590,12 @@
               "RelativeToolTip": "InGame\\CameraController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T10:37:55.051Z"
+              "WhenOpened": "2025-01-15T10:37:55.051Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 37,
               "Title": ".gitattributes",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\.gitattributes",
               "RelativeDocumentMoniker": ".gitattributes",
@@ -405,11 +603,12 @@
               "RelativeToolTip": ".gitattributes",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-01-15T10:37:48.493Z"
+              "WhenOpened": "2025-01-15T10:37:48.493Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 36,
               "Title": "XMath.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Math\\XMath.cs",
               "RelativeDocumentMoniker": "Math\\XMath.cs",
@@ -417,47 +616,25 @@
               "RelativeToolTip": "Math\\XMath.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T09:40:04.233Z"
+              "WhenOpened": "2025-01-15T09:40:04.233Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 38,
               "Title": "TransformMatrixCaculator.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Math\\TransformMatrixCaculator.cs",
               "RelativeDocumentMoniker": "Math\\TransformMatrixCaculator.cs",
               "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Math\\TransformMatrixCaculator.cs",
               "RelativeToolTip": "Math\\TransformMatrixCaculator.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAABIwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T09:38:21.597Z"
+              "WhenOpened": "2025-01-15T09:38:21.597Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Vector4.cs",
-              "DocumentMoniker": "C:\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs",
-              "ToolTip": "C:\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\Personal\\UnityProject\\Motion_Capture\\Assets\\AHRS\\Math\\Vector4.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-03T16:04:10.568Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "MainWindow.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs",
-              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs",
-              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\9e281229c8fed4cb70d71a0139e61b8fef68b097c724f191175faa4f6f578e22\\MainWindow.cs",
-              "ViewState": "AQIAAEwAAAAAAAAAAAAhwIIAAAAxAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-02T07:53:38.204Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 39,
               "Title": "Object.cs",
               "DocumentMoniker": "C:\\Personal\\Graphics\\Renderer-CS\\Core\\Object.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Personal\\Graphics\\Renderer-CS\\Core\\Object.cs",
@@ -485,17 +662,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
+              "Title": "App.g.i.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\obj\\x64\\Debug\\net8.0-windows10.0.20348.0\\win-x64\\App.g.i.cs",
+              "RelativeDocumentMoniker": "obj\\x64\\Debug\\net8.0-windows10.0.20348.0\\win-x64\\App.g.i.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\obj\\x64\\Debug\\net8.0-windows10.0.20348.0\\win-x64\\App.g.i.cs",
+              "RelativeToolTip": "obj\\x64\\Debug\\net8.0-windows10.0.20348.0\\win-x64\\App.g.i.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAMwEQAAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:23:57.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "EngineController.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\EngineController.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\EngineController.cs",
               "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\EngineController.cs",
               "RelativeToolTip": "Engine\\Core\\EngineController.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAAABsAAAAAAAAA",
+              "ViewState": "AQIAABcAAAAAAAAAAAAAACYAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T16:00:26.002Z",
               "EditorCaption": ""

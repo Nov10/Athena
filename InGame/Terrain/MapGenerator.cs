@@ -52,7 +52,7 @@ namespace Athena.InGame.Terrain
         }
 
         //MapCunckSize가 크면 클수록 드로우콜이 줄어들여 유리합니다.
-        public const int MapCunckSize = 128 + 1;
+        public const int MapCunckSize = 256 + 1;
         public Noise.eNormalizeMode NormalizeMode;
 
         float NoiseScale;

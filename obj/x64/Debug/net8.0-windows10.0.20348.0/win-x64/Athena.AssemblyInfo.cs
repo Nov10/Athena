@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Athena")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+040f885c5eb2e2b5eb433916d80bd54711833f1e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8e5346dc8411f8048288249ec4b29b2a921dd68")]
 [assembly: System.Reflection.AssemblyProductAttribute("Athena")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Athena")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -48,7 +48,9 @@ namespace Athena
             path = EngineController.AssetPath + path;
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException($"Texture file not found: {path}");
+                System.Diagnostics.Debug.WriteLine($"Texture file not found: {path}");
+                //throw new FileNotFoundException($"Texture file not found: {path}");
+                return null;
             }
 
             // 이미지 파일 로드
@@ -119,8 +121,8 @@ namespace Athena
 
             Aircraft aircraft = new Aircraft();
             body.AddComponent(aircraft);
-            body.WorldPosition = new Vector3(0, 20, -20);
-            aircraft.InitializeAircraft(blade, 3, 5);
+            body.WorldPosition = new Vector3(0, 20, -50);
+            aircraft.InitializeAircraft(blade, 3, 7);
 
             GameFlowManager.Instance.Player = aircraft;
             camera.WorldPosition += new Vector3(0, 50, 0);
@@ -146,9 +148,9 @@ namespace Athena
             terrain.Viewer = body;
             terrain.cam = cameraComponent;
             EndlessTerrain.LODInfo info0 = new EndlessTerrain.LODInfo(2, 50);
-            EndlessTerrain.LODInfo info1 = new EndlessTerrain.LODInfo(4, 100);
-            EndlessTerrain.LODInfo info2 = new EndlessTerrain.LODInfo(8, 350);
-            terrain.DetailLevels = new EndlessTerrain.LODInfo[] { info0, info1 };
+            EndlessTerrain.LODInfo info1 = new EndlessTerrain.LODInfo(8, 100);
+            EndlessTerrain.LODInfo info2 = new EndlessTerrain.LODInfo(16, 600);
+            terrain.DetailLevels = new EndlessTerrain.LODInfo[] { info0, info1, info2 };
 
             map.AddComponent(generator);
             map.AddComponent(terrain);
@@ -160,7 +162,6 @@ namespace Athena
         //float Time;
         private void Update()
         {
-            //Debugger.Text = "FUCK";
             //Debugger.Text = Assembly.GetExecutingAssembly().Location;// ApplicationDataManager.CreateForPackageFamily(Package.Current.Id.FamilyName).LocalFolder.Path;
             RenderTargetImage.Source = EngineController.Window.ConvertToBitmap();
             Debugger.Text = EngineController.DebugText;
