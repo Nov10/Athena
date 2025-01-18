@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Athena.Maths;
 using Athena.Engine.Core.Image;
+using ILGPU.Runtime;
+using ILGPU;
 
 namespace Athena.Engine.Core.Rendering.Shaders
 {
@@ -20,20 +22,23 @@ namespace Athena.Engine.Core.Rendering.Shaders
             ThisColor = c;
         }
 
-        public override Color FragmentShader(Raster raster, Vector3 light)
-        {
-            var normal = raster.Normal_WorldSpace;
-            float brightness = Vector3.Dot(normal.normalized, light);
-            brightness = (brightness + 1) * 0.5f;
+        //public override Color FragmentShader(Raster raster, Vector3 light)
+        //{
+        //    var normal = raster.Normal_WorldSpace;
+        //    float brightness = Vector3.Dot(normal.normalized, light);
+        //    brightness = (brightness + 1) * 0.5f;
 
-            var color = ThisColor * brightness;
-            color.A = 255;
-            return color;
+        //    var color = ThisColor * brightness;
+        //    color.A = 255;
+        //    return color;
+        //}
+
+        public override void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS)
+        {
         }
 
-        public override Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace)
+        public override void RunFragmentShader_GPU(MemoryBuffer1D<Raster, Stride1D.Dense> rasters, MemoryBuffer1D<Color, Stride1D.Dense> framebuffer, Vector3 lightDirection, int width)
         {
-            return vertex_position_WorldSpace;
         }
     }
 }

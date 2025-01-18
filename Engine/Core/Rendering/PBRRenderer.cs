@@ -53,17 +53,40 @@ namespace Athena.Engine.Core.Rendering
 
                     if (FrustumCulling.Culling(data.ThisAABB, camera.Controller, renderer.Controller, MVP, objectInvTransform) == false)                    
                         continue;
-                    
+                    using var devVertices = GPUAccelator.Accelerator.Allocate1D<Vertex>(data.Vertices.Length);
+                    devVertices.CopyFromCPU(data.Vertices);
+
+                    using var devTriangles = GPUAccelator.Accelerator.Allocate1D<int>(data.Triangles.Length);
+                    devTriangles.CopyFromCPU(data.Triangles);
+
                     //Object -> World -> ClipSpace
-                    Vertex[] transformedVertices = VertexShader.Run(data.Vertices, renderer.Controller.WorldPosition, data.Shader, M, VP, objectRotationTransform);
+                    VertexShader.Run(devVertices, renderer.Controller.WorldPosition, data.Shader, M, VP, objectRotationTransform);
+
+                    Vertex[] v = new Vertex[data.Vertices.Length];
+                    int[] t = new int[data.Triangles.Length];
+                    devVertices.CopyToCPU(v);
+                    devTriangles.CopyToCPU(t);
+
+                    Vertex[] v_clippped;
+                    int[] t_clippped;
+                    (v_clippped, t_clippped) = GPURasterizer.ClipTriangles(v, t);
+                    if (v_clippped.Length == 0)
+                        continue;
+
+                    using var devVertices2 = GPUAccelator.Accelerator.Allocate1D<Vertex>(v_clippped.Length);
+                    using var devTriangles2 = GPUAccelator.Accelerator.Allocate1D<int>(t_clippped.Length);
+
+                    devVertices2.CopyFromCPU(v_clippped);
+                    devTriangles2.CopyFromCPU(t_clippped);
+
                     //ClipSpace -> NDC -> Raster
-                    var rasters = Rasterizer.Run(transformedVertices, data.Triangles, Width, Height);
+                    var rasters = Rasterizer.Run(devVertices2, devTriangles2, Width, Height, data.Shader);
 
                     if (rasters == null)
                         continue;
 
-                    var frameBuffer = data.Shader.Run_FragmentShader(rasters, camera.RenderTarget.GetPixels(), LightDirection, Width);
-                    camera.RenderTarget.SetPixels(frameBuffer, 0);
+                    //var frameBuffer = data.Shader.Run_FragmentShader(rasters, camera.RenderTarget.GetPixels(), LightDirection, Width);
+                    camera.RenderTarget.SetPixels(rasters, 0);
                 }
             }
         }

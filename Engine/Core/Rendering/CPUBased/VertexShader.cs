@@ -14,22 +14,52 @@ namespace Athena.Engine.Core.Rendering
 {
     public class VertexShader
     {
-        public Vertex[] Run(Vertex[] vertices, Vector3 objectPosition, CustomShader shader, Matrix4x4 M, Matrix4x4 VP, Matrix4x4 objectRotationTransform)
+        private Action<Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4> Kernel_ConvertObjectSpace2WorldSpace;
+        private Action<Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4> Kernel_ConvertWorldSpace2ClipSpace;
+
+        public VertexShader()
         {
+            Kernel_ConvertObjectSpace2WorldSpace = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
+                <Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4>
+                (ConvertObjectSpace2WorldSpace);
+            Kernel_ConvertWorldSpace2ClipSpace = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
+                <Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4>
+                (ConvertConvertWorldSpace2ClipSpace);
+        }
+        public static void ConvertObjectSpace2WorldSpace(Index1D idx, ArrayView<Vertex> vertices, Matrix4x4 m, Matrix4x4 vp, Matrix4x4 obj)
+        {
+            Vertex vertex = vertices[idx];
+            vertex.Position_WorldSpace = TransformMatrixCaculator.Transform(vertex.Position_ObjectSpace, m);
+            vertex.Normal_WorldSpace = TransformMatrixCaculator.Transform(vertex.Normal_ObjectSpace, obj);
+            //vertex.Position_WorldSpace = shader.VertextShader(vertex.Position_WorldSpace, vertex.Normal_WorldSpace, objectPosition);
+
+            vertices[idx] = vertex;
+        }
+        public static void ConvertConvertWorldSpace2ClipSpace(Index1D idx, ArrayView<Vertex> vertices, Matrix4x4 m, Matrix4x4 vp, Matrix4x4 obj)
+        {
+            vertices[idx].ClipPoint = TransformMatrixCaculator.TransformH(vertices[idx].Position_WorldSpace, vp);
+        }
+        public void Run(MemoryBuffer1D<Vertex, Stride1D.Dense>  vertices,  Vector3 objectPosition, CustomShader shader, Matrix4x4 M, Matrix4x4 VP, Matrix4x4 objectRotationTransform)
+        {
+            Kernel_ConvertObjectSpace2WorldSpace((int)vertices.Length, vertices.View, M, VP, objectRotationTransform);
+            shader.RunVertexShader_GPU(vertices, objectPosition);
+            Kernel_ConvertWorldSpace2ClipSpace((int)vertices.Length, vertices.View, M, VP, objectRotationTransform);
+
             //TODO : VertexShader가 중간에 끼는데 어떻게 MVP를 그대로 씀? 함수를 따로 만들어야 하나...
-            Parallel.For(0, vertices.Length, (idx) =>
-            {
-                Vertex vertex = vertices[idx];
+            //Parallel.For(0, vertices.Length, (idx) =>
+            //{
+            //    Vertex vertex = vertices[idx];
 
-                vertex.Position_WorldSpace = TransformMatrixCaculator.Transform(vertex.Position_ObjectSpace, M);
-                vertex.Position_WorldSpace = shader.VertextShader(vertex.Position_WorldSpace, vertex.Normal_WorldSpace, objectPosition);
-                vertex.ClipPoint = TransformMatrixCaculator.TransformH(vertex.Position_WorldSpace, VP);
+            //    vertex.Position_WorldSpace = TransformMatrixCaculator.Transform(vertex.Position_ObjectSpace, M);
+            //    vertex.Position_WorldSpace = shader.VertextShader(vertex.Position_WorldSpace, vertex.Normal_WorldSpace, objectPosition);
+            //    vertex.ClipPoint = TransformMatrixCaculator.TransformH(vertex.Position_WorldSpace, VP);
 
-                vertex.Normal_WorldSpace = TransformMatrixCaculator.Transform(vertex.Normal_ObjectSpace, objectRotationTransform);
+            //    vertex.Normal_WorldSpace = TransformMatrixCaculator.Transform(vertex.Normal_ObjectSpace, objectRotationTransform);
 
-                vertices[idx] = vertex;
-            });
-            return vertices;
+            //    vertices[idx] = vertex;
+            //});
+            //devVertices.CopyToCPU(vertices);
+            //return vertices;
         }
         public Vertex[] Run_ObjectTransform(Vertex[] vertices, Matrix4x4 objectTransform)
         {

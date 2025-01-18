@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Athena.Maths;
 using Athena.Engine.Core.Image;
+using ILGPU;
+using Athena.Engine.Core.Rendering;
 
 namespace Athena.Engine.Helpers
 {
@@ -21,6 +23,38 @@ namespace Athena.Engine.Helpers
             int c = (int)MathF.Abs(MathF.Floor((ndl + 1) / diff_ndl));
 
             return diff * c + min;
+        }
+        public static float Mod(float x, float y)
+        {
+            return x - ILGPU.Algorithms.XMath.Floor(x / y) * y;
+        }
+        public static int CalculateFrameBufferIndexOfRaster(Raster raster, int width)
+        {
+            return raster.x + raster.y * width;
+        }
+
+        public static Color SampleTexture_GPU(Texture2D texture, Vector2 uv)
+        {
+            //ILGPU.Algorithms.XMath.Rem은 컴파일 에러 뜸. 뭐임?
+            return texture.GetPixel(
+                ILGPU.IntrinsicMath.Clamp((int)(Mod(uv.x, 1) * texture.Width), 0, texture.Width - 1), 
+                ILGPU.IntrinsicMath.Clamp((int)(Mod(uv.y, 1) * texture.Height), 0, texture.Height - 1));
+        }
+        public static Color SampleTexture(Texture2D texture, Vector2 uv)
+        {
+            uv.x = uv.x % 1.0f;
+            uv.y = uv.y % 1.0f;
+            if (uv.x < 0) uv.x += 1.0f;
+            if (uv.y < 0) uv.y += 1.0f;
+
+            int texX = (int)(uv.x * texture.Width);
+            int texY = (int)(uv.y * texture.Height);
+
+            texX = Math.Clamp(texX, 0, texture.Width - 1);
+            texY = Math.Clamp(texY, 0, texture.Height - 1);
+
+            Color texColor = texture.GetPixel(texX, texY);
+            return texColor;
         }
         public static Color SampleTexture(NBitmap texture, Vector2 uv)
         {

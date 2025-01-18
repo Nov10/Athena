@@ -202,7 +202,7 @@ namespace Athena.InGame.Terrain
                 MapData = data;
                 
                 tex = TextureGenerator.TextureFromColorMap(data.ColorMap, MapGenerator.MapCunckSize, MapGenerator.MapCunckSize);
-                (RenderComponenet.RenderDatas[0].Shader as NormalShader).MainTexture = tex;
+                Texture2DHelper.ConvertFromBitmap((RenderComponenet.RenderDatas[0].Shader as NormalShader).MainTexture, tex);
                 //RenderComponenet.RenderDatas[0] = MeshGenerator.GenerateTerrainMesh(data.HeightMap, MeshHeightMultiplier, EditorPreviewLevlOfDetail).CreateMesh();
                 //(RenderComponenet.RenderDatas[0].Shader as Shader1).MainTexture = texture;
                 UpdateTerrainChunck();
@@ -274,7 +274,8 @@ namespace Athena.InGame.Terrain
                             {
                                 previousLODIndex = lodIndex;
                                 RenderComponenet.RenderDatas[0] = lodMesh.Data;
-                                (RenderComponenet.RenderDatas[0].Shader as NormalShader).MainTexture = tex;
+                                Texture2DHelper.ConvertFromBitmap
+                                    ((RenderComponenet.RenderDatas[0].Shader as NormalShader).MainTexture, tex);
                             }
                             else if (lodMesh.HasRequestedMesh == false)
                             {

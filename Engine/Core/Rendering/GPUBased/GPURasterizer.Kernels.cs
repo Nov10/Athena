@@ -7,6 +7,8 @@ using Athena.Maths;
 using ILGPU.Algorithms;
 using System.Threading.Tasks;
 using Athena.Engine.Core.Rendering;
+using Athena.Engine.Core.Image;
+using System.Diagnostics.Metrics;
 
 /* 병렬로 레스터라이저를 구현할 때, 가장 먼저 고려해야 할 것은 '반복문을 삼각형을 기준으로 할지, 픽셀을 기준으로 할지'이다.
  * 반복문을 삼각형을 기준으로 돌린다면...
@@ -43,8 +45,6 @@ namespace Athena.Engine.Core.Rendering
         /// </summary>
         public static void InternelKernel_ConvertVertexToScreenSpace(Index1D idx, ArrayView<Vertex> vertexes, int width, int height)
         {
-            if (idx >= vertexes.Length) return;
-
             // ClipSpace -> NDC
             Vector4 clipPos = vertexes[idx].ClipPoint / vertexes[idx].ClipPoint.w;
 
@@ -248,6 +248,10 @@ namespace Athena.Engine.Core.Rendering
         {
             rasters[idx].TriangleIndex = -1;
         }
+        public static void ClearFrameBufferKernel(Index1D idx, ArrayView<Color> colors)
+        {
+            colors[idx] = new Color(0, 0, 0, 0);
+        }
         public static void ClearTriangleCacheKernel(Index1D idx, ArrayView<int> triangles)
         {
             triangles[idx] = 0;
@@ -321,16 +325,22 @@ namespace Athena.Engine.Core.Rendering
 
         public static Vector4 GetClipPlane(int index)
         {
-            return index switch
+            switch(index)
             {
-                0 => new Vector4(1, 0, 0, 1),
-                1 => new Vector4(-1, 0, 0, 1),
-                2 => new Vector4(0, 1, 0, 1),
-                3 => new Vector4(0, -1, 0, 1),
-                4 => new Vector4(0, 0, 1, 1),
-                5 => new Vector4(0, 0, -1, 1),
-                _ => throw new ArgumentException("Invalid clip plane index")
-            };
+                case 0:
+                    return new Vector4(1, 0, 0, 1);
+                case 1:
+                    return new Vector4(-1, 0, 0, 1);
+                case 2:
+                    return new Vector4(0, 1, 0, 1);
+                case 3:
+                    return new Vector4(0, -1, 0, 1);
+                case 4:
+                    return new Vector4(0, 0, 1, 1);
+                case 5:
+                    return new Vector4(0, 0, -1, 1);
+            }
+            return new Vector4(1, 0, 0, 1);
         }
 
         public static bool IsInsidePlane(Vector4 point, Vector4 plane)

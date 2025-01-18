@@ -8,6 +8,10 @@ using ILGPU.Algorithms;
 using System.Threading.Tasks;
 using Athena.Engine.Core.Image;
 using Athena.Engine.Core.Rendering;
+using Athena.Engine.Core.Rendering.Shaders;
+using Athena.Engine.Helpers;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using ILGPU.Runtime.OpenCL;
 
 namespace Athena.Engine.Core.Rendering
 {
@@ -44,9 +48,11 @@ namespace Athena.Engine.Core.Rendering
                        int> Kernel_CalculateRastersPerTile;
         private Action<Index1D, ArrayView<float>> Kernel_ClearZBuffer;
         private Action<Index1D, ArrayView<Raster>> Kernel_ClearRasters;
+        private Action<Index1D, ArrayView<Color>> Kernel_ClearFrameBuffer;
         private Action<Index1D, ArrayView<int>> Kernel_ClearTriangleCache;
 
         Raster[] Rasters;
+        Color[] FrameBuffer;
         int Width;
         int Height;
         int TileCount;
@@ -105,16 +111,20 @@ namespace Athena.Engine.Core.Rendering
             Kernel_ClearRasters = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
                 <Index1D, ArrayView<Raster>>(ClearRastersKernel);
 
+            Kernel_ClearFrameBuffer = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
+                <Index1D, ArrayView<Color>>(ClearFrameBufferKernel);
+
             Kernel_ClearTriangleCache = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
                 <Index1D, ArrayView<int>>(ClearTriangleCacheKernel);
 
 
             Rasters = new Raster[PixelCount];
+            FrameBuffer = new Color[PixelCount];
 
             devTriangleIndices_PerTile = GPUAccelator.Accelerator.Allocate1D<int>(TileCount * MaxTCount);
             devTriangleCount_PerTile = GPUAccelator.Accelerator.Allocate1D<int>(TileCount);
             devZBuffer = GPUAccelator.Accelerator.Allocate1D<float>(PixelCount);
-            devRasters = GPUAccelator.Accelerator.Allocate1D<Raster>(Rasters.Length);
+            devRasters = GPUAccelator.Accelerator.Allocate1D<Raster>(PixelCount);
             devFrameBuffer = GPUAccelator.Accelerator.Allocate1D<Color>(PixelCount);
             devRasters.CopyFromCPU(Rasters);
         }
@@ -122,6 +132,7 @@ namespace Athena.Engine.Core.Rendering
         public void Start()
         {
             Kernel_ClearZBuffer(PixelCount, devZBuffer.View);
+            Kernel_ClearFrameBuffer(PixelCount, devFrameBuffer.View);
         }
 
         private void InitializeTriangleCacheData()
@@ -130,37 +141,39 @@ namespace Athena.Engine.Core.Rendering
             Kernel_ClearRasters(Rasters.Length, devRasters.View);
         }
 
-        public Raster[] Run(Vertex[] vertices, int[] triangles, int width, int height)
+        public Color[] Run(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, MemoryBuffer1D<int, Stride1D.Dense> triangles,
+            int width, int height, CustomShader shader)
         {
             //클리핑
-            (vertices, triangles) = ClipTriangles(vertices, triangles);
-
-            if (vertices.Length == 0)
-                return null;
+            //(vertices, triangles) = ClipTriangles(vertices, triangles);// Define kernel
+            //return null;
+            //counter = (int)vertices.Length;
+            //if (counter == 0)
+            //    return null;
 
             InitializeTriangleCacheData();
 
-            using var devVertices = GPUAccelator.Accelerator.Allocate1D<Vertex>(vertices.Length);
-            devVertices.CopyFromCPU(vertices);
+            //using var devVertices = GPUAccelator.Accelerator.Allocate1D<Vertex>(vertices.Length);
+            //devVertices.CopyFromCPU(vertices);
 
-            using var devTriangles = GPUAccelator.Accelerator.Allocate1D<int>(triangles.Length);
-            devTriangles.CopyFromCPU(triangles);
+            //using var devTriangles = GPUAccelator.Accelerator.Allocate1D<int>(triangles.Length);
+            //devTriangles.CopyFromCPU(triangles);
 
 
             Kernel_ConvertVertexToScreenSpaceKernel(
-                vertices.Length,
-                devVertices.View,
+                (int)vertices.Length,
+                vertices.View,
                 width,
                 height
             );
             //accelerator.Synchronize();
 
             Kernel_CacheTrianglesPerTile(
-                triangles.Length / 3,
+                (int)triangles.Length / 3,
                 devTriangleIndices_PerTile.View,
                 devTriangleCount_PerTile.View,
-                devVertices.View,
-                devTriangles.View,
+                vertices.View,
+                triangles.View,
                 width,
                 height,
                 tileSize,
@@ -173,8 +186,8 @@ namespace Athena.Engine.Core.Rendering
             Kernel_CalculateRastersPerTile(
                 numTiles,
                 devZBuffer.View,
-                devVertices.View,
-                devTriangles.View,
+                vertices.View,
+                triangles.View,
                 devTriangleIndices_PerTile.View,
                 devTriangleCount_PerTile.View,
                 devRasters.View,
@@ -184,12 +197,15 @@ namespace Athena.Engine.Core.Rendering
                 MaxTCount
             );
 
+            shader.RunFragmentShader_GPU(devRasters, devFrameBuffer, (new Vector3(-1, -2, 0)).normalized, width);
+
 
             GPUAccelator.Accelerator.Synchronize();
 
-            devRasters.CopyToCPU(Rasters);
-
-            return Rasters;
+            //devRasters.CopyToCPU(Rasters);
+            devFrameBuffer.CopyToCPU(FrameBuffer);
+            return FrameBuffer;
+            //return Rasters;
         }
     }
 }

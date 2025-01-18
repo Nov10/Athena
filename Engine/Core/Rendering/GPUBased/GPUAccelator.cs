@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ILGPU.Runtime.Cuda;
+using ILGPU.Runtime.CPU;
 
 namespace Athena.Engine.Core.Rendering
 {

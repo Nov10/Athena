@@ -82,8 +82,9 @@ namespace Athena
             Athena.Engine.Core.MeshRenderer bodyRenderer = new Athena.Engine.Core.MeshRenderer();
             bodyRenderer.RenderDatas.Add(renderer.RenderDatas[0]);
             bodyRenderer.RenderDatas[0].Shader = new NormalShader();
-            (bodyRenderer.RenderDatas[0].Shader as NormalShader).MainTexture = bodyTex;
+            Texture2DHelper.ConvertFromBitmap((bodyRenderer.RenderDatas[0].Shader as NormalShader).MainTexture, bodyTex);
             body.AddComponent(bodyRenderer);
+            //System.Diagnostics.Debug.WriteLine((bodyRenderer.RenderDatas[0].Shader as NormalShader).MainTexture.GetPixel(0, 0));
 
             GameObject blade = new GameObject();
             Athena.Engine.Core.MeshRenderer bladeRenderer = new Athena.Engine.Core.MeshRenderer();
