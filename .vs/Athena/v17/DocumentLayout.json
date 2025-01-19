@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\gpubased\\vertexshader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\gpubased\\vertexshader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\renderdata.buffercache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\renderdata.buffercache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\culling\\frustumculling.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\culling\\frustumculling.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\renderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\renderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\objects\\meshrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\objects\\meshrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\gpubased\\gpuaccelator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\gpubased\\gpuaccelator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\gpubased\\vertexshader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\gpubased\\vertexshader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\gpubased\\gpurasterizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\gpubased\\gpurasterizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\pbrrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,32 +59,12 @@
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\shaders\\customshader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\renderdata.buffercache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\renderdata.buffercache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\culling\\frustumculling.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\culling\\frustumculling.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\gpubased\\gpurasterizer.kernels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\gpubased\\gpurasterizer.kernels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\clipper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\clipper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\gpubased\\gpurasterizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\gpubased\\gpurasterizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\objects\\meshrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\objects\\meshrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|c:\\users\\\uBB38\uC885\uC6B1\\desktop\\athena\\engine\\core\\rendering\\renderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{25784172-50D6-49AB-82B5-331DEAF44F6B}|Athena.csproj|solutionrelative:engine\\core\\rendering\\renderdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\obj\\x64\\Debug\\net8.0-windows10.0.20348.0\\win-x64\\App.g.i.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -220,11 +220,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "Clipper.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Clipper.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\Clipper.cs",
@@ -232,8 +232,7 @@
               "RelativeToolTip": "Engine\\Core\\Rendering\\Clipper.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAHUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-19T08:51:25.446Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-19T08:51:25.446Z"
             },
             {
               "$type": "Document",
@@ -257,8 +256,7 @@
               "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\439e1e95cf7b952d52ea1864d7074bc5277ef8bc84338003a33955fd6bdff1ee\\TraceInternal.cs",
               "ViewState": "AQIAANwAAAAAAAAAAADgv+cAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T01:30:40.035Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T01:30:40.035Z"
             },
             {
               "$type": "Document",
@@ -270,12 +268,11 @@
               "RelativeToolTip": "Engine\\Core\\Rendering\\Shaders\\SimpleColorShader.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAAACMAAACHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T11:14:08.711Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T11:14:08.711Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "CustomShader.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Shaders\\CustomShader.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\Shaders\\CustomShader.cs",
@@ -283,25 +280,24 @@
               "RelativeToolTip": "Engine\\Core\\Rendering\\Shaders\\CustomShader.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAuwBoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T16:37:42.916Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T16:37:42.916Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "GPUAccelator.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\GPUBased\\GPUAccelator.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\GPUBased\\GPUAccelator.cs",
               "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\GPUBased\\GPUAccelator.cs",
               "RelativeToolTip": "Engine\\Core\\Rendering\\GPUBased\\GPUAccelator.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAUwBEAAAA7AAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAUwBUAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-17T01:26:04.695Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "GPURasterizer.Kernels.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\GPUBased\\GPURasterizer.Kernels.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\GPUBased\\GPURasterizer.Kernels.cs",
@@ -309,18 +305,17 @@
               "RelativeToolTip": "Engine\\Core\\Rendering\\GPUBased\\GPURasterizer.Kernels.cs",
               "ViewState": "AQIAAIMAAAAAAAAAAAAiwAkBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T06:12:40.308Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T06:12:40.308Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 0,
               "Title": "RenderData.BufferCache.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\RenderData.BufferCache.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\RenderData.BufferCache.cs",
               "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\RenderData.BufferCache.cs",
               "RelativeToolTip": "Engine\\Core\\Rendering\\RenderData.BufferCache.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAC4AAAAjAAAA",
+              "ViewState": "AQIAABsAAAAAAAAAAAAIwC0AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-19T04:54:24.307Z",
               "EditorCaption": ""
@@ -335,8 +330,7 @@
               "RelativeToolTip": "Engine\\Core\\Rendering\\Shaders\\Shader.cs",
               "ViewState": "AQIAABgAAAAAAAAAAAAcwCYAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T14:33:52.863Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-18T14:33:52.863Z"
             },
             {
               "$type": "Document",
@@ -455,8 +449,7 @@
               "RelativeToolTip": "MainWindow.xaml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAABMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-15T11:17:54.932Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T11:17:54.932Z"
             },
             {
               "$type": "Document",
@@ -636,8 +629,7 @@
               "RelativeToolTip": "App.xaml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-15T12:36:29.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T12:36:29.901Z"
             },
             {
               "$type": "Document",
@@ -753,79 +745,6 @@
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "FloatingWindowState": {
-        "Id": "617c4d29-ab08-47b7-a7c1-04899d42e6cf",
-        "Display": 1,
-        "X": 585,
-        "Y": 459,
-        "Width": 1360,
-        "Height": 730,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 3,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "MeshRenderer.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Objects\\MeshRenderer.cs",
-              "RelativeDocumentMoniker": "Engine\\Core\\Objects\\MeshRenderer.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Objects\\MeshRenderer.cs",
-              "RelativeToolTip": "Engine\\Core\\Objects\\MeshRenderer.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAACEAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-19T08:43:35.554Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "RenderData.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\RenderData.cs",
-              "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\RenderData.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\RenderData.cs",
-              "RelativeToolTip": "Engine\\Core\\Rendering\\RenderData.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAwAAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-19T04:53:51.807Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "FrustumCulling.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Culling\\FrustumCulling.cs",
-              "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\Culling\\FrustumCulling.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Culling\\FrustumCulling.cs",
-              "RelativeToolTip": "Engine\\Core\\Rendering\\Culling\\FrustumCulling.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAawCIAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-19T02:43:39.307Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PBRRenderer.cs",
-              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\PBRRenderer.cs",
-              "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\PBRRenderer.cs",
-              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\PBRRenderer.cs",
-              "RelativeToolTip": "Engine\\Core\\Rendering\\PBRRenderer.cs",
-              "ViewState": "AQIAACgAAAAAAAAAAAAvwDcAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T06:10:23.797Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
         "Id": "83f4ad40-4c12-4d5f-af78-6583b53fb9a7",
         "Display": 1,
         "X": 280,
@@ -841,7 +760,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "NormalShader.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Shaders\\NormalShader.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\Shaders\\NormalShader.cs",
@@ -849,25 +768,24 @@
               "RelativeToolTip": "Engine\\Core\\Rendering\\Shaders\\NormalShader.cs",
               "ViewState": "AQIAACIAAAAAAAAAAAAuwDgAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T16:37:41.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T16:37:41.452Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "VertexShader.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\GPUBased\\VertexShader.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\GPUBased\\VertexShader.cs",
               "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\GPUBased\\VertexShader.cs",
               "RelativeToolTip": "Engine\\Core\\Rendering\\GPUBased\\VertexShader.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABsAAAAJAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABsAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-17T06:11:01.459Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "ShaderKernel.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Shaders\\ShaderKernel.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\Shaders\\ShaderKernel.cs",
@@ -875,12 +793,11 @@
               "RelativeToolTip": "Engine\\Core\\Rendering\\Shaders\\ShaderKernel.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAASwBEAAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T04:33:37.082Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T04:33:37.082Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "ShaderHelper.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Helpers\\ShaderHelper.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Helpers\\ShaderHelper.cs",
@@ -888,12 +805,11 @@
               "RelativeToolTip": "Engine\\Core\\Helpers\\ShaderHelper.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAAqwB4AAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T01:36:47.632Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T01:36:47.632Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "UnlitColorShader.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Shaders\\UnlitColorShader.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\Shaders\\UnlitColorShader.cs",
@@ -901,8 +817,7 @@
               "RelativeToolTip": "Engine\\Core\\Rendering\\Shaders\\UnlitColorShader.cs",
               "ViewState": "AQIAABcAAAAAAAAAAAAnwCoAAACDAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T04:18:46.738Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T04:18:46.738Z"
             },
             {
               "$type": "Document",
@@ -926,12 +841,11 @@
               "RelativeToolTip": "obj\\x64\\Debug\\net8.0-windows10.0.20348.0\\win-x64\\App.g.i.cs",
               "ViewState": "AQIAAAEAAAAAAAAAAAAewBcAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T16:23:57.489Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-15T16:23:57.489Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "EngineController.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\EngineController.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\EngineController.cs",
@@ -939,7 +853,79 @@
               "RelativeToolTip": "Engine\\Core\\EngineController.cs",
               "ViewState": "AQIAAGwAAAAAAAAAAAAgwCYAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-15T16:00:26.002Z",
+              "WhenOpened": "2025-01-15T16:00:26.002Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "617c4d29-ab08-47b7-a7c1-04899d42e6cf",
+        "Display": 1,
+        "X": 585,
+        "Y": 459,
+        "Width": 1360,
+        "Height": 730,
+        "WindowState": 2
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MeshRenderer.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Objects\\MeshRenderer.cs",
+              "RelativeDocumentMoniker": "Engine\\Core\\Objects\\MeshRenderer.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Objects\\MeshRenderer.cs",
+              "RelativeToolTip": "Engine\\Core\\Objects\\MeshRenderer.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAACEAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-19T08:43:35.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RenderData.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\RenderData.cs",
+              "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\RenderData.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\RenderData.cs",
+              "RelativeToolTip": "Engine\\Core\\Rendering\\RenderData.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAwAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-19T04:53:51.807Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FrustumCulling.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Culling\\FrustumCulling.cs",
+              "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\Culling\\FrustumCulling.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\Culling\\FrustumCulling.cs",
+              "RelativeToolTip": "Engine\\Core\\Rendering\\Culling\\FrustumCulling.cs",
+              "ViewState": "AQIAAJUAAAAAAAAAAAAhwJQAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-19T02:43:39.307Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PBRRenderer.cs",
+              "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\PBRRenderer.cs",
+              "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\PBRRenderer.cs",
+              "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\PBRRenderer.cs",
+              "RelativeToolTip": "Engine\\Core\\Rendering\\PBRRenderer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-17T06:10:23.797Z",
               "EditorCaption": ""
             }
           ]
@@ -954,7 +940,7 @@
         "Display": 1,
         "X": 933,
         "Y": -49,
-        "Width": 1355,
+        "Width": 1354,
         "Height": 792,
         "WindowState": 2
       },
@@ -965,13 +951,13 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 6,
               "Title": "GPURasterizer.cs",
               "DocumentMoniker": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\GPUBased\\GPURasterizer.cs",
               "RelativeDocumentMoniker": "Engine\\Core\\Rendering\\GPUBased\\GPURasterizer.cs",
               "ToolTip": "C:\\Users\\\uBB38\uC885\uC6B1\\Desktop\\Athena\\Engine\\Core\\Rendering\\GPUBased\\GPURasterizer.cs",
               "RelativeToolTip": "Engine\\Core\\Rendering\\GPUBased\\GPURasterizer.cs",
-              "ViewState": "AQIAAIIAAAAAAAAAAAAhwI0AAAAAAAAA",
+              "ViewState": "AQIAAGIAAAAAAAAAAAAewI0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-17T01:26:02.656Z",
               "EditorCaption": ""

@@ -48,8 +48,8 @@ namespace Athena.Engine.Core.Rendering
             }
 
             //정확하게 컬링
-            //if(Culling_6Faced(aabb, transformedCorners))
-            //    return true;
+            if (Culling_6Faced(aabb, transformedCorners))
+                return true;
             return false;
         }
         /// <summary>
@@ -169,7 +169,7 @@ namespace Athena.Engine.Core.Rendering
                         int pz = z == 0 ? 1 : 0;
                         p = transformedCorners[GetAABBCorner(px, py, pz)];
 
-                        if (IsInsidePlane(p, GetClipPlane(plane)) == false)
+                        if (IsInsidePlane(p, GetClipPlane(plane)) == true)
                             return true;
                     }
                 }
