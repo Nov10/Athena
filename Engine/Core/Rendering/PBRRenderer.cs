@@ -20,7 +20,6 @@ namespace Athena.Engine.Core.Rendering
         public Vector3 LightDirection;
         GPURasterizer Rasterizer;
         VertexShader VertexShader;
-
         public PBRRenderer(int w, int h) : base(w, h)
         {
             VertexShader = new VertexShader();
@@ -51,42 +50,34 @@ namespace Athena.Engine.Core.Rendering
                     if (data.Vertices == null || data.Vertices.Length == 0)
                         continue;
 
-                    if (FrustumCulling.Culling(data.ThisAABB, camera.Controller, renderer.Controller, MVP, objectInvTransform) == false)                    
+                    if (FrustumCulling.Culling(data.ThisAABB, camera.Controller, renderer.Controller, MVP, objectInvTransform) == false)
+                    {
                         continue;
-                    using var devVertices = GPUAccelator.Accelerator.Allocate1D<Vertex>(data.Vertices.Length);
-                    devVertices.CopyFromCPU(data.Vertices);
+                    }
 
-                    using var devTriangles = GPUAccelator.Accelerator.Allocate1D<int>(data.Triangles.Length);
-                    devTriangles.CopyFromCPU(data.Triangles);
+                    var originVertices = data.GetVerticesBuffer();
+                    VertexShader.Run(originVertices, renderer.Controller.WorldPosition, data.Shader, M, VP, objectRotationTransform, data.Vertices.Length);
+                    originVertices.CopyToCPU(data.Vertices);
 
-                    //Object -> World -> ClipSpace
-                    VertexShader.Run(devVertices, renderer.Controller.WorldPosition, data.Shader, M, VP, objectRotationTransform);
+                    Vertex[] clippedVerticies;
+                    int[] clipppedTriangles;
+                    (clippedVerticies, clipppedTriangles) = Clipper.ClipTriangles(data.Vertices, data.Triangles);
 
-                    Vertex[] v = new Vertex[data.Vertices.Length];
-                    int[] t = new int[data.Triangles.Length];
-                    devVertices.CopyToCPU(v);
-                    devTriangles.CopyToCPU(t);
-
-                    Vertex[] v_clippped;
-                    int[] t_clippped;
-                    (v_clippped, t_clippped) = GPURasterizer.ClipTriangles(v, t);
-                    if (v_clippped.Length == 0)
+                    if (clippedVerticies.Length == 0 || clipppedTriangles.Length == 0)
                         continue;
 
-                    using var devVertices2 = GPUAccelator.Accelerator.Allocate1D<Vertex>(v_clippped.Length);
-                    using var devTriangles2 = GPUAccelator.Accelerator.Allocate1D<int>(t_clippped.Length);
-
-                    devVertices2.CopyFromCPU(v_clippped);
-                    devTriangles2.CopyFromCPU(t_clippped);
+                    using var clipppedVerticiesBuffer = GPUAccelator.Accelerator.Allocate1D<Vertex>(clippedVerticies.Length);
+                    clipppedVerticiesBuffer.CopyFromCPU(clippedVerticies);
+                    using var clipppedTrianglesBuffer = GPUAccelator.Accelerator.Allocate1D<int>(clipppedTriangles.Length);
+                    clipppedTrianglesBuffer.CopyFromCPU(clipppedTriangles);
 
                     //ClipSpace -> NDC -> Raster
-                    var rasters = Rasterizer.Run(devVertices2, devTriangles2, Width, Height, data.Shader);
+                    Image.Color[] framebuff = Rasterizer.Run(clipppedVerticiesBuffer, clipppedTrianglesBuffer, (int)clipppedVerticiesBuffer.Length, (int)clipppedTrianglesBuffer.Length, Width, Height, data.Shader);
 
-                    if (rasters == null)
+                    if (framebuff == null)
                         continue;
 
-                    //var frameBuffer = data.Shader.Run_FragmentShader(rasters, camera.RenderTarget.GetPixels(), LightDirection, Width);
-                    camera.RenderTarget.SetPixels(rasters, 0);
+                    camera.RenderTarget.SetPixels(framebuff, 0);
                 }
             }
         }

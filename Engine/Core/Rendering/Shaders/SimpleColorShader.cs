@@ -33,7 +33,7 @@ namespace Athena.Engine.Core.Rendering.Shaders
         //    return color;
         //}
 
-        public override void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS)
+        public override void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS, int length)
         {
         }
 

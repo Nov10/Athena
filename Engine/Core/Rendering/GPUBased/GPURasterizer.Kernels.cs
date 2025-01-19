@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Athena.Engine.Core.Rendering;
 using Athena.Engine.Core.Image;
 using System.Diagnostics.Metrics;
+using System.Threading;
+using Athena.Engine.Helpers;
 
 /* 병렬로 레스터라이저를 구현할 때, 가장 먼저 고려해야 할 것은 '반복문을 삼각형을 기준으로 할지, 픽셀을 기준으로 할지'이다.
  * 반복문을 삼각형을 기준으로 돌린다면...
@@ -262,109 +264,5 @@ namespace Athena.Engine.Core.Rendering
             return (c.x - a.x) * (b.y - a.y) - (c.y - a.y) * (b.x - a.x);
         }
 
-
-        public static (Vertex[], int[]) ClipTriangles(Vertex[] vertices, int[] indices)
-        {
-            List<Vertex> outputVertices = new List<Vertex>();
-            List<int> outputIndices = new List<int>();
-
-            for (int i = 0; i < indices.Length; i += 3)
-            {
-                Vertex v1 = vertices[indices[i + 0]];
-                Vertex v2 = vertices[indices[i + 1]];
-                Vertex v3 = vertices[indices[i + 2]];
-
-                List<Vertex> clippedVertices = ClipTriangleToFrustum(v1, v2, v3);
-
-                if (clippedVertices.Count >= 3)
-                {
-                    int baseIndex = outputVertices.Count;
-                    outputVertices.AddRange(clippedVertices);
-
-                    for (int j = 1; j < clippedVertices.Count - 1; j++)
-                    {
-                        outputIndices.Add(baseIndex);
-                        outputIndices.Add(baseIndex + j);
-                        outputIndices.Add(baseIndex + j + 1);
-                    }
-                }
-            }
-
-            return (outputVertices.ToArray(), outputIndices.ToArray());
-        }
-
-        public static List<Vertex> ClipTriangleToFrustum(Vertex v1, Vertex v2, Vertex v3)
-        {
-            List<Vertex> verts = new List<Vertex> { v1, v2, v3 };
-            for (int i = 0; i < 6; i++)
-            {
-                List<Vertex> input = verts;
-                verts = new List<Vertex>();
-                Vector4 plane = GetClipPlane(i);
-
-                for (int j = 0; j < input.Count; j++)
-                {
-                    Vertex curr = input[j];
-                    Vertex nxt = input[(j + 1) % input.Count];
-
-                    bool currInside = IsInsidePlane(curr.ClipPoint, plane);
-                    bool nxtInside = IsInsidePlane(nxt.ClipPoint, plane);
-
-                    if (currInside)
-                        verts.Add(curr);
-
-                    if (currInside != nxtInside)
-                    {
-                        Vertex inter = IntersectPlane(plane, curr, nxt);
-                        verts.Add(inter);
-                    }
-                }
-            }
-            return verts;
-        }
-
-        public static Vector4 GetClipPlane(int index)
-        {
-            switch(index)
-            {
-                case 0:
-                    return new Vector4(1, 0, 0, 1);
-                case 1:
-                    return new Vector4(-1, 0, 0, 1);
-                case 2:
-                    return new Vector4(0, 1, 0, 1);
-                case 3:
-                    return new Vector4(0, -1, 0, 1);
-                case 4:
-                    return new Vector4(0, 0, 1, 1);
-                case 5:
-                    return new Vector4(0, 0, -1, 1);
-            }
-            return new Vector4(1, 0, 0, 1);
-        }
-
-        public static bool IsInsidePlane(Vector4 point, Vector4 plane)
-        {
-            return point.x * plane.x + point.y * plane.y + point.z * plane.z + point.w * plane.w >= 0;
-        }
-
-        public static Vertex IntersectPlane(Vector4 plane, Vertex v1, Vertex v2)
-        {
-            float t = -(v1.ClipPoint.x * plane.x
-                      + v1.ClipPoint.y * plane.y
-                      + v1.ClipPoint.z * plane.z
-                      + v1.ClipPoint.w * plane.w)
-                    / ((v2.ClipPoint.x - v1.ClipPoint.x) * plane.x
-                      + (v2.ClipPoint.y - v1.ClipPoint.y) * plane.y
-                      + (v2.ClipPoint.z - v1.ClipPoint.z) * plane.z
-                      + (v2.ClipPoint.w - v1.ClipPoint.w) * plane.w);
-
-            Vertex res = v1;
-            res.ClipPoint = v1.ClipPoint + t * (v2.ClipPoint - v1.ClipPoint);
-            res.Position_WorldSpace = v1.Position_WorldSpace + t * (v2.Position_WorldSpace - v1.Position_WorldSpace);
-            res.Normal_WorldSpace = v1.Normal_WorldSpace + t * (v2.Normal_WorldSpace - v1.Normal_WorldSpace);
-            res.UV = v1.UV + t * (v2.UV - v1.UV);
-            return res;
-        }
     }
 }

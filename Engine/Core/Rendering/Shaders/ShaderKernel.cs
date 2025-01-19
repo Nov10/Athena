@@ -32,9 +32,9 @@ namespace Athena.Engine.Core.Rendering.Shaders
             Kernel_FragmentShader((int)rasters.Length, rasters.View, framebuffer.View, t, width);
         }
 
-        public void Run_VertexKernel(MemoryBuffer1D<Vertex, Stride1D.Dense> vertex, TVertexShader t)
+        public void Run_VertexKernel(MemoryBuffer1D<Vertex, Stride1D.Dense> vertex, TVertexShader t, int length)
         {
-            Kernel_VertexShader((int)vertex.Length, vertex.View, t);
+            Kernel_VertexShader(length, vertex.View, t);
         }
     }
 }

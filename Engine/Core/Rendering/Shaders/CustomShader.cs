@@ -22,7 +22,7 @@ namespace Athena.Engine.Core.Rendering.Shaders
         //    return frameBuffer;
         //}
 
-        public abstract void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS);
+        public abstract void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS, int length);
         public abstract void RunFragmentShader_GPU(MemoryBuffer1D<Raster, Stride1D.Dense> rasters, MemoryBuffer1D<Color, Stride1D.Dense> framebuffer, Vector3 lightDirection, int width);
 
         //public abstract Color FragmentShader(Raster raster, Vector3 light);

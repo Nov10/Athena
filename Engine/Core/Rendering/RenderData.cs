@@ -10,7 +10,7 @@ using Athena.Engine.Core.Rendering.Shaders;
 
 namespace Athena.Engine.Core.Rendering
 {
-    public class RenderData
+    public partial class RenderData
     {
         public Vertex[] Vertices;
         public int[] Triangles;

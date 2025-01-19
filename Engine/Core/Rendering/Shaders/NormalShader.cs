@@ -43,10 +43,10 @@ namespace Athena.Engine.Core.Rendering.Shaders
             this.VertexShaderData = new VertexData();
         }
 
-        public override void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS)
+        public override void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS, int length)
         {
             this.VertexShaderData.objectPosition_WS = objectPosition_WS;
-            Kernels.Run_VertexKernel(vertices, this.VertexShaderData);
+            Kernels.Run_VertexKernel(vertices, this.VertexShaderData, length);
         }
 
         static void GPUFragment(Index1D idx, ArrayView<Raster> rasters, ArrayView<Color> framebuffer, NormalShaderData data, int width)

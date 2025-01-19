@@ -29,7 +29,10 @@ namespace Athena.Engine.Core
 
         public override void Update()
         {
-
+            for(int i = 0; i < RenderDatas.Count; i++)
+            {
+                RenderDatas[i].UpdateCache();
+            }
         }
         protected override void OnDestroyed()
         {

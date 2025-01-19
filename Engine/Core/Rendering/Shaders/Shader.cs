@@ -36,10 +36,10 @@ namespace Athena.Engine.Core.Rendering.Shaders
             this.Data_FRG.LightDirection = lightDirection;
             Kernels.Run_FragmentKernel(rasters, framebuffer, width, this.Data_FRG);
         }
-        public override void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS)
+        public override void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS, int length)
         {
             this.Data_VTX.ObjectPosition_WS = objectPosition_WS;
-            Kernels.Run_VertexKernel(vertices, this.Data_VTX);
+            Kernels.Run_VertexKernel(vertices, this.Data_VTX, length);
         }
 
         static void Kernel_FragmentShader(Index1D idx, ArrayView<Raster> rasters, ArrayView<Color> framebuffer, FragmentShaderData data, int width)

@@ -48,8 +48,8 @@ namespace Athena.Engine.Core.Rendering
             }
 
             //정확하게 컬링
-            if(Culling_6Faced(aabb, transformedCorners))
-                return true;
+            //if(Culling_6Faced(aabb, transformedCorners))
+            //    return true;
             return false;
         }
         /// <summary>

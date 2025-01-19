@@ -64,7 +64,6 @@ namespace Athena.Engine.Core.Rendering
         MemoryBuffer1D<Raster, Stride1D.Dense> devRasters;
         MemoryBuffer1D<Color, Stride1D.Dense> devFrameBuffer;
 
-
         public GPURasterizer(int width, int height)
         {
             Width = width;
@@ -141,7 +140,7 @@ namespace Athena.Engine.Core.Rendering
             Kernel_ClearRasters(Rasters.Length, devRasters.View);
         }
 
-        public Color[] Run(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, MemoryBuffer1D<int, Stride1D.Dense> triangles,
+        public Color[] Run(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, MemoryBuffer1D<int, Stride1D.Dense> triangles, int vCount, int tCount,
             int width, int height, CustomShader shader)
         {
             //클리핑
@@ -161,7 +160,7 @@ namespace Athena.Engine.Core.Rendering
 
 
             Kernel_ConvertVertexToScreenSpaceKernel(
-                (int)vertices.Length,
+                (int)vCount,
                 vertices.View,
                 width,
                 height
@@ -169,7 +168,7 @@ namespace Athena.Engine.Core.Rendering
             //accelerator.Synchronize();
 
             Kernel_CacheTrianglesPerTile(
-                (int)triangles.Length / 3,
+                (int)tCount / 3,
                 devTriangleIndices_PerTile.View,
                 devTriangleCount_PerTile.View,
                 vertices.View,
