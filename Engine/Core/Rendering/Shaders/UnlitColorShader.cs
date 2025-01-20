@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Athena.Engine.Core.Image;
+using Athena.Engine.Core.Rendering.Lights;
 using Athena.Maths;
 using ILGPU;
 using ILGPU.Runtime;
@@ -44,7 +45,7 @@ namespace Athena.Engine.Core.Rendering.Shaders
         {
         }
 
-        public override void RunFragmentShader_GPU(MemoryBuffer1D<Raster, Stride1D.Dense> rasters, MemoryBuffer1D<Color, Stride1D.Dense> framebuffer, Vector3 lightDirection, int width)
+        public override void RunFragmentShader_GPU(MemoryBuffer1D<Raster, Stride1D.Dense> rasters, MemoryBuffer1D<Color, Stride1D.Dense> framebuffer, Light[] datas, int width)
         {
             Kernel_FragmentShader((int)rasters.Length, rasters.View, framebuffer.View, this.Data, width);
         }

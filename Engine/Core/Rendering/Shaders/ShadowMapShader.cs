@@ -9,7 +9,7 @@ using ILGPU.Runtime;
 
 namespace Athena.Engine.Core.Rendering.Shaders
 {
-    public class Shader : CustomShader
+    public class ShadowMapShader : CustomShader
     {
         FragmentShaderData Data_FRG;
         VertexShaderData Data_VTX;
@@ -17,22 +17,20 @@ namespace Athena.Engine.Core.Rendering.Shaders
 
         struct FragmentShaderData
         {
-            public Texture2D MainTexture;
-            public Vector3 LightDirection;
         }
         struct VertexShaderData
         {
              public Vector3 ObjectPosition_WS;
         }
 
-        public Shader()
+        public ShadowMapShader()
         {
             Kernels = new ShaderKernel<VertexShaderData, FragmentShaderData>(Kernel_VertexShader, Kernel_FragmentShader);
             this.Data_FRG = new FragmentShaderData();
             this.Data_VTX = new VertexShaderData();
         }
 
-        public override void RunFragmentShader_GPU(MemoryBuffer1D<Raster, Stride1D.Dense> rasters, MemoryBuffer1D<Color, Stride1D.Dense> framebuffer, Light[] datas, int width)
+        public override void RunFragmentShader_GPU(MemoryBuffer1D<Raster, Stride1D.Dense> rasters, MemoryBuffer1D<Color, Stride1D.Dense> framebuffer, Light[] lights, int width)
         {
             Kernels.Run_FragmentKernel(rasters, framebuffer, width, this.Data_FRG);
         }
@@ -46,9 +44,7 @@ namespace Athena.Engine.Core.Rendering.Shaders
         {
             if (rasters[idx].TriangleIndex != -1)
             {
-                float brightness = Vector3.Dot(rasters[idx].Normal_WorldSpace, -data.LightDirection) * 0.5f + 0.5f;
-                framebuffer[ShaderHelper.CalculateFrameBufferIndexOfRaster(rasters[idx], width)] 
-                    = ShaderHelper.SampleTexture_UVMod_GPU(data.MainTexture, rasters[idx].UV)  * brightness;
+                //framebuffer[ShaderHelper.CalculateFrameBufferIndexOfRaster(rasters[idx], width)] = rasters[idx].Depth;
             }
         }
 

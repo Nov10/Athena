@@ -33,6 +33,7 @@ using Windows.Storage;
 using Microsoft.UI.Xaml.Shapes;
 using Windows.Management.Core;
 using System.Reflection;
+using Athena.Engine.Core.Rendering.Lights;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -120,9 +121,9 @@ namespace Athena
             blade.Parent = body;
             //plane.LocalRotation = Quaternion.FromEulerAngles(180, 0, 0);
 
-            Aircraft aircraft = new Aircraft();
+            aircraft = new Aircraft();
             body.AddComponent(aircraft);
-            body.WorldPosition = new Vector3(0, 20, -50);
+            body.WorldPosition = new Vector3(0, 30, -50);
             aircraft.InitializeAircraft(blade, 3, 7);
 
             GameFlowManager.Instance.Player = aircraft;
@@ -156,15 +157,27 @@ namespace Athena
             map.AddComponent(generator);
             map.AddComponent(terrain);
 
+            GameObject g = new GameObject();
+            light = new DirectionalLight();
+            g.AddComponent(light);
+
+            g.WorldPosition = new Vector3(0, 150, 0);
+            g.WorldRotation = Quaternion.FromEulerAngles(-90, 0, 0);
+            light.Controller.WorldRotation = Quaternion.FromEulerAngles(30, 0, 0);
+            light.Controller.WorldPosition = light.Controller.WorldRotation.RotateVectorZDirection() * -50;
 
             RenderTargetImage.Width = 1920; RenderTargetImage.Height = 1080;
+            RenderTargetImage2.Width = 256; RenderTargetImage2.Height = 256;
+            EngineController.DLight = light;
         }
-
+        DirectionalLight light;
+        Aircraft aircraft;
         //float Time;
         private void Update()
         {
-            //Debugger.Text = Assembly.GetExecutingAssembly().Location;// ApplicationDataManager.CreateForPackageFamily(Package.Current.Id.FamilyName).LocalFolder.Path;
             RenderTargetImage.Source = EngineController.Window.ConvertToBitmap();
+
+            RenderTargetImage2.Source = light.ShadowMap.ConvertToBitmap();
             Debugger.Text = EngineController.DebugText;
         }
     }

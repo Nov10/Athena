@@ -12,6 +12,7 @@ using Athena.Engine.Core.Rendering.Shaders;
 using Athena.Engine.Helpers;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using ILGPU.Runtime.OpenCL;
+using Athena.Engine.Core.Rendering.Lights;
 
 namespace Athena.Engine.Core.Rendering
 {
@@ -23,6 +24,12 @@ namespace Athena.Engine.Core.Rendering
         // 기존 상수
         const int tileSize = 4;
         const int MaxTCount = 64;
+
+        public enum Mode
+        {
+            Normal = 0,
+            ShadowMap=1
+        }
 
         // GPU로 돌릴 커널(함수 포인터)
         private Action<Index1D, ArrayView<Vertex>, int, int> Kernel_ConvertVertexToScreenSpaceKernel;
@@ -64,19 +71,12 @@ namespace Athena.Engine.Core.Rendering
         MemoryBuffer1D<Raster, Stride1D.Dense> devRasters;
         MemoryBuffer1D<Color, Stride1D.Dense> devFrameBuffer;
 
-        public GPURasterizer(int width, int height)
+
+        void CreateNormalKernels()
         {
-            Width = width;
-            Height = height;
-            PixelCount = width * height;
-
-            int widthInTiles = width / tileSize;
-            int heightInTiles = height / tileSize;
-            TileCount = widthInTiles * heightInTiles;
-
             Kernel_ConvertVertexToScreenSpaceKernel = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
-                <Index1D, ArrayView<Vertex>, int, int>
-                (InternelKernel_ConvertVertexToScreenSpace);
+    <Index1D, ArrayView<Vertex>, int, int>
+    (InternelKernel_ConvertVertexToScreenSpace);
 
             Kernel_CacheTrianglesPerTile = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
                 <Index1D,
@@ -103,6 +103,58 @@ namespace Athena.Engine.Core.Rendering
                  int,
                  int>
                 (InternalKernel_CalculateRastersPerTile);
+        }
+        void CreateShadowMapKernels()
+        {
+            Kernel_ConvertVertexToScreenSpaceKernel = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
+    <Index1D, ArrayView<Vertex>, int, int>
+    (InternelKernel_ConvertVertexToScreenSpace);
+
+            Kernel_CacheTrianglesPerTile = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
+                <Index1D,
+                 ArrayView<int>,
+                 ArrayView<int>,
+                 ArrayView<Vertex>,
+                 ArrayView<int>,
+                 int,
+                 int,
+                 int,
+                 int>
+                (InternalKernel_CalculateCacheTrianglesPerTile_ShadowMap);
+
+            Kernel_CalculateRastersPerTile = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
+                <Index1D,
+                 ArrayView<float>,
+                 ArrayView<Vertex>,
+                 ArrayView<int>,
+                 ArrayView<int>,
+                 ArrayView<int>,
+                 ArrayView<Raster>,
+                 int,
+                 int,
+                 int,
+                 int>
+                (InternalKernel_CalculateRastersPerTile_ShadowMap);
+        }
+        public GPURasterizer(int width, int height, Mode mode = Mode.Normal)
+        {
+            Width = width;
+            Height = height;
+            PixelCount = width * height;
+
+            int widthInTiles = width / tileSize;
+            int heightInTiles = height / tileSize;
+            TileCount = widthInTiles * heightInTiles;
+
+            switch (mode)
+            {
+                case Mode.Normal:
+                    CreateNormalKernels();
+                    break;
+                case Mode.ShadowMap:
+                    CreateShadowMapKernels();
+                    break;
+            }
 
             Kernel_ClearZBuffer = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
                 <Index1D, ArrayView<float>>(ClearZBufferKernel);
@@ -141,23 +193,9 @@ namespace Athena.Engine.Core.Rendering
         }
 
         public Color[] Run(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, MemoryBuffer1D<int, Stride1D.Dense> triangles, int vCount, int tCount,
-            int width, int height, CustomShader shader)
+            int width, int height, CustomShader shader, Light[] lightDatas, bool getFrameBuffer = true)
         {
-            //클리핑
-            //(vertices, triangles) = ClipTriangles(vertices, triangles);// Define kernel
-            //return null;
-            //counter = (int)vertices.Length;
-            //if (counter == 0)
-            //    return null;
-
             InitializeTriangleCacheData();
-
-            //using var devVertices = GPUAccelator.Accelerator.Allocate1D<Vertex>(vertices.Length);
-            //devVertices.CopyFromCPU(vertices);
-
-            //using var devTriangles = GPUAccelator.Accelerator.Allocate1D<int>(triangles.Length);
-            //devTriangles.CopyFromCPU(triangles);
-
 
             Kernel_ConvertVertexToScreenSpaceKernel(
                 (int)vCount,
@@ -196,15 +234,23 @@ namespace Athena.Engine.Core.Rendering
                 MaxTCount
             );
 
-            shader.RunFragmentShader_GPU(devRasters, devFrameBuffer, (new Vector3(-1, -2, 0)).normalized, width);
+            shader.RunFragmentShader_GPU(devRasters, devFrameBuffer, lightDatas, width);
 
 
             GPUAccelator.Accelerator.Synchronize();
+            if(getFrameBuffer == true)
+            {
+                devFrameBuffer.CopyToCPU(FrameBuffer);
+                return FrameBuffer;
+            }
+            return null;
+        }
 
-            //devRasters.CopyToCPU(Rasters);
-            devFrameBuffer.CopyToCPU(FrameBuffer);
-            return FrameBuffer;
-            //return Rasters;
+        public float[] GetZBuffer()
+        {
+            float[] Z = new float[PixelCount];
+            devZBuffer.CopyToCPU(Z);
+            return Z;
         }
     }
 }

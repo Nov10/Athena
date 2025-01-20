@@ -28,17 +28,39 @@ namespace Athena.Engine.Helpers
         {
             return x - ILGPU.Algorithms.XMath.Floor(x / y) * y;
         }
+        public static float ModOne(float x)
+        {
+            return x - ILGPU.Algorithms.XMath.Floor(x);
+        }
+        public static float Clamp01(float x)
+        {
+            return ILGPU.IntrinsicMath.Clamp(x, 0, 1);
+        }
         public static int CalculateFrameBufferIndexOfRaster(Raster raster, int width)
         {
             return raster.x + raster.y * width;
         }
 
-        public static Color SampleTexture_GPU(Texture2D texture, Vector2 uv)
+        public static Color SampleTexture_UVMod_GPU(Texture2D texture, Vector2 uv)
         {
             //ILGPU.Algorithms.XMath.Rem은 컴파일 에러 뜸. 뭐임?
             return texture.GetPixel(
-                ILGPU.IntrinsicMath.Clamp((int)(Mod(uv.x, 1) * texture.Width), 0, texture.Width - 1), 
-                ILGPU.IntrinsicMath.Clamp((int)(Mod(uv.y, 1) * texture.Height), 0, texture.Height - 1));
+                ILGPU.IntrinsicMath.Clamp((int)(ModOne(uv.x) * texture.Width), 0, texture.Width - 1), 
+                ILGPU.IntrinsicMath.Clamp((int)(ModOne(uv.y) * texture.Height), 0, texture.Height - 1));
+        }
+        public static float SampleTexture_UVMod_GPU(Texture2DFloat texture, Vector2 uv)
+        {
+            //ILGPU.Algorithms.XMath.Rem은 컴파일 에러 뜸. 뭐임?
+            return texture.GetPixel(
+                ILGPU.IntrinsicMath.Clamp((int)(ModOne(uv.x) * texture.Width), 0, texture.Width - 1),
+                ILGPU.IntrinsicMath.Clamp((int)(ModOne(uv.y) * texture.Height), 0, texture.Height - 1));
+        }
+        public static float SampleTexture_UVClamp_GPU(Texture2DFloat texture, Vector2 uv)
+        {
+            //ILGPU.Algorithms.XMath.Rem은 컴파일 에러 뜸. 뭐임?
+            return texture.GetPixel(
+                ILGPU.IntrinsicMath.Clamp((int)(Clamp01(uv.x) * texture.Width), 0, texture.Width - 1),
+                ILGPU.IntrinsicMath.Clamp((int)(Clamp01(uv.y) * texture.Height), 0, texture.Height - 1));
         }
         public static Color SampleTexture(Texture2D texture, Vector2 uv)
         {

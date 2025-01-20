@@ -14,22 +14,23 @@ namespace Athena.Engine.Core.Rendering
 {
     public class VertexShader
     {
-        private Action<Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4> Kernel_ConvertObjectSpace2WorldSpace;
+        private Action<Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4, Matrix4x4> Kernel_ConvertObjectSpace2WorldSpace;
         private Action<Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4> Kernel_ConvertWorldSpace2ClipSpace;
 
         public VertexShader()
         {
             Kernel_ConvertObjectSpace2WorldSpace = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
-                <Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4>
+                <Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4, Matrix4x4>
                 (ConvertObjectSpace2WorldSpace);
             Kernel_ConvertWorldSpace2ClipSpace = GPUAccelator.Accelerator.LoadAutoGroupedStreamKernel
                 <Index1D, ArrayView<Vertex>, Matrix4x4, Matrix4x4, Matrix4x4>
                 (ConvertConvertWorldSpace2ClipSpace);
         }
-        public static void ConvertObjectSpace2WorldSpace(Index1D idx, ArrayView<Vertex> vertices, Matrix4x4 m, Matrix4x4 vp, Matrix4x4 obj)
+        public static void ConvertObjectSpace2WorldSpace(Index1D idx, ArrayView<Vertex> vertices, Matrix4x4 m, Matrix4x4 vp, Matrix4x4 obj, Matrix4x4 lightView)
         {
             Vertex vertex = vertices[idx];
             vertex.Position_WorldSpace = TransformMatrixCaculator.Transform(vertex.Position_ObjectSpace, m);
+            vertex.LightViewPosition = TransformMatrixCaculator.Transform(vertex.Position_WorldSpace, lightView);
             vertex.Normal_WorldSpace = TransformMatrixCaculator.Transform(vertex.Normal_ObjectSpace, obj);
 
             vertices[idx] = vertex;
@@ -38,9 +39,9 @@ namespace Athena.Engine.Core.Rendering
         {
             vertices[idx].ClipPoint = TransformMatrixCaculator.TransformH(vertices[idx].Position_WorldSpace, vp);
         }
-        public void Run(MemoryBuffer1D<Vertex, Stride1D.Dense>  vertices,  Vector3 objectPosition, CustomShader shader, Matrix4x4 M, Matrix4x4 VP, Matrix4x4 objectRotationTransform, int length)
+        public void Run(MemoryBuffer1D<Vertex, Stride1D.Dense>  vertices,  Vector3 objectPosition, CustomShader shader, Matrix4x4 M, Matrix4x4 VP, Matrix4x4 objectRotationTransform, Matrix4x4 lightView, int length)
         {
-            Kernel_ConvertObjectSpace2WorldSpace((int)length, vertices.View, M, VP, objectRotationTransform);
+            Kernel_ConvertObjectSpace2WorldSpace((int)length, vertices.View, M, VP, objectRotationTransform, lightView);
             shader.RunVertexShader_GPU(vertices, objectPosition, length);
             Kernel_ConvertWorldSpace2ClipSpace((int)length, vertices.View, M, VP, objectRotationTransform);
         }

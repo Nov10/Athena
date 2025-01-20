@@ -14,6 +14,7 @@ namespace Athena.Engine.Core.Rendering
         public Vector3 Position_ScreenVolumeSpace;
         public Vector3 Normal_ObjectSpace;
         public Vector3 Normal_WorldSpace;
+        public Vector3 LightViewPosition;
         public Vector2 UV;
 
         public Vector4 ClipPoint;

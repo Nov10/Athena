@@ -12,6 +12,7 @@ using ILGPU.Runtime;
 using System.Diagnostics;
 using Athena.Engine.Core.Image;
 using Athena.Engine.Core.Rendering;
+using Athena.Engine.Core.Rendering.Lights;
 
 namespace Athena.Engine.Core.Rendering
 {
@@ -26,13 +27,15 @@ namespace Athena.Engine.Core.Rendering
             Rasterizer = new GPURasterizer(Width, Height);
         }
 
-        protected override void InternelRender(Camera camera, List<MeshRenderer> targets)
+        protected override void InternelRender(Camera camera, List<MeshRenderer> targets, List<Light> lights)
         {
             Matrix4x4 VP = camera.CalculateVPMatrix();
             camera.RenderTarget.Clear(new Core.Image.Color(0, 255, 255, 255));
 
             //Vector3 lightInCameraSpace = TransformMatrixCaculator.Transform(light.normalized, cmaeraTransform).normalized; // 광원을 카메라 좌표계로 변환
             Rasterizer.Start();
+
+            var lightView = EngineController.DLight.Or();
             foreach (var renderer in targets)
             {
                 if (renderer.Controller == null)
@@ -56,7 +59,7 @@ namespace Athena.Engine.Core.Rendering
                     }
 
                     var originVertices = data.GetVerticesBuffer();
-                    VertexShader.Run(originVertices, renderer.Controller.WorldPosition, data.Shader, M, VP, objectRotationTransform, data.Vertices.Length);
+                    VertexShader.Run(originVertices, renderer.Controller.WorldPosition, data.Shader, M, VP, objectRotationTransform, lightView, data.Vertices.Length);
                     originVertices.CopyToCPU(data.Vertices);
 
                     Vertex[] clippedVerticies;
@@ -65,14 +68,13 @@ namespace Athena.Engine.Core.Rendering
 
                     if (clippedVerticies.Length == 0 || clipppedTriangles.Length == 0)
                         continue;
-
                     using var clipppedVerticiesBuffer = GPUAccelator.Accelerator.Allocate1D<Vertex>(clippedVerticies.Length);
                     clipppedVerticiesBuffer.CopyFromCPU(clippedVerticies);
                     using var clipppedTrianglesBuffer = GPUAccelator.Accelerator.Allocate1D<int>(clipppedTriangles.Length);
                     clipppedTrianglesBuffer.CopyFromCPU(clipppedTriangles);
 
                     //ClipSpace -> NDC -> Raster
-                    Image.Color[] framebuff = Rasterizer.Run(clipppedVerticiesBuffer, clipppedTrianglesBuffer, (int)clipppedVerticiesBuffer.Length, (int)clipppedTrianglesBuffer.Length, Width, Height, data.Shader);
+                    Image.Color[] framebuff = Rasterizer.Run(clipppedVerticiesBuffer, clipppedTrianglesBuffer, (int)clipppedVerticiesBuffer.Length, (int)clipppedTrianglesBuffer.Length, Width, Height, data.Shader, lights.ToArray());
 
                     if (framebuff == null)
                         continue;

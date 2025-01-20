@@ -21,7 +21,7 @@ namespace Athena.Engine.Core.Rendering
 
         public static void Intialize()
         {
-            Context = Context.Create(builder => builder.Math(MathMode.Fast32BitOnly).Cuda());
+            Context = Context.Create(builder => builder.Math(MathMode.Fast32BitOnly).Cuda().IOOperations());
             Accelerator = Context.CreateCudaAccelerator(0);
         }
     }

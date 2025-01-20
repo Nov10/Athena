@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Athena.Engine.Core.Image;
 using ILGPU;
 using ILGPU.Runtime;
+using Athena.Engine.Core.Rendering.Lights;
 
 namespace Athena.Engine.Core.Rendering.Shaders
 {
@@ -23,8 +24,8 @@ namespace Athena.Engine.Core.Rendering.Shaders
         //}
 
         public abstract void RunVertexShader_GPU(MemoryBuffer1D<Vertex, Stride1D.Dense> vertices, Vector3 objectPosition_WS, int length);
-        public abstract void RunFragmentShader_GPU(MemoryBuffer1D<Raster, Stride1D.Dense> rasters, MemoryBuffer1D<Color, Stride1D.Dense> framebuffer, Vector3 lightDirection, int width);
-
+        public abstract void RunFragmentShader_GPU(MemoryBuffer1D<Raster, Stride1D.Dense> rasters, MemoryBuffer1D<Color, Stride1D.Dense> framebuffer, Light[] lightDatas, int width);
+        
         //public abstract Color FragmentShader(Raster raster, Vector3 light);
         //public abstract Vector3 VertextShader(Vector3 vertex_position_WorldSpace, Vector3 vertex_normal_WorldSpace, Vector3 objectposition_WorldSpace);
     }

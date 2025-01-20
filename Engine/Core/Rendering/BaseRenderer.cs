@@ -1,5 +1,7 @@
-﻿using Athena.Engine.Core;
+﻿using Assimp;
+using Athena.Engine.Core;
 using Athena.Engine.Core.Image;
+using Athena.Engine.Core.Rendering.Lights;
 using Athena.Maths;
 using System;
 using System.Collections.Generic;
@@ -48,7 +50,7 @@ namespace Athena.Engine.Core.Rendering
         }
 
 
-        public void Render(List<MeshRenderer> targets)
+        public void Render(List<MeshRenderer> targets, List<Lights.Light> lights)
         {
             for(int i = 0; i < Cameras.Count; i++)
             {
@@ -56,10 +58,12 @@ namespace Athena.Engine.Core.Rendering
                 {
                     throw new System.Exception($"Width and Height mismatch with Renderer and RenderTarget. Renderer({Width}, {Height}) / RenderTarget({Cameras[i].RenderTarget.Width}, {Cameras[i].RenderTarget.Height})");
                 }
-                InternelRender(Cameras[i], targets);
+                EngineController.DLight.Controller.WorldPosition = Cameras[i].Controller.WorldPosition + -EngineController.DLight.Controller.WorldRotation.RotateVectorZDirection() * 50;
+                EngineController.DLight.RenderShadowMap(Athena.Engine.Core.MeshRenderer.RendererList);
+                InternelRender(Cameras[i], targets, lights);
             }
         }
 
-        protected abstract void InternelRender(Camera camera, List<MeshRenderer> targets);
+        protected abstract void InternelRender(Camera camera, List<MeshRenderer> targets, List<Lights.Light> lights);
     }
 }

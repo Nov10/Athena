@@ -13,6 +13,7 @@ using Athena.Engine.Core.Image;
 using System.Reflection;
 using Windows.Storage;
 using Windows.ApplicationModel;
+using Athena.Engine.Core.Rendering.Lights;
 
 namespace Athena.Engine.Core
 {
@@ -64,6 +65,7 @@ namespace Athena.Engine.Core
             Updater.Start();
         }
 
+        public static DirectionalLight DLight;
         private static void T_Elapsed(object sender, ElapsedEventArgs e)
         {
             Update();
@@ -125,9 +127,13 @@ namespace Athena.Engine.Core
         static float Update_Renderers()
         {
             IntervalTimeChecker.Restart();
+            for(int i = 0; i < Light.Lights.Count; i++)
+            {
+                Light.Lights[i].UpdateLightData();
+            }
             for (int i = 0; i < Renderers.Count; i++)
             {
-                Renderers[i].Render(Athena.Engine.Core.MeshRenderer.RendererList);
+                Renderers[i].Render(Athena.Engine.Core.MeshRenderer.RendererList, Light.Lights);
             }
             return (float)IntervalTimeChecker.Elapsed.TotalSeconds;
         }

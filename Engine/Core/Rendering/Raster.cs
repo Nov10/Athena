@@ -11,8 +11,11 @@ namespace Athena.Engine.Core.Rendering
     {
         public int x;
         public int y;
+        public float Depth;
         public int TriangleIndex;
         public Vector3 Normal_WorldSpace;
+        public Vector3 WorldPosition;
+        public Vector3 LightViewPosition;
         public Vector2 UV;
         public Vector3 Tangent;
         public Vector3 BitTangent;

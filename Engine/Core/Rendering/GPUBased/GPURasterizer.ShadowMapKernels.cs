@@ -42,31 +42,7 @@ namespace Athena.Engine.Core.Rendering
     /// </summary>
     public partial class GPURasterizer/*.Kernels*/
     {
-        /// <summary>
-        /// 정점을 Clip Space -> Screen Space로 변환
-        /// </summary>
-        public static void InternelKernel_ConvertVertexToScreenSpace(Index1D idx, ArrayView<Vertex> vertexes, int width, int height)
-        {
-            // ClipSpace -> NDC
-            Vector4 clipPos = vertexes[idx].ClipPoint / vertexes[idx].ClipPoint.w;
-
-            // NDC -> Screen
-            vertexes[idx].Position_ScreenVolumeSpace.x = (-clipPos.x + 1) * (width * 0.5f);
-            vertexes[idx].Position_ScreenVolumeSpace.y = (-clipPos.y + 1) * (height * 0.5f);
-            vertexes[idx].Position_ScreenVolumeSpace.z = clipPos.z;
-
-            vertexes[idx].LightViewPosition.x = (-vertexes[idx].LightViewPosition.x + 1) * 0.5f;
-            vertexes[idx].LightViewPosition.y = (-vertexes[idx].LightViewPosition.y + 1) * 0.5f;
-        }
-
-
-        /// <summary>
-        /// 타일에 삼각형을 캐싱
-        /// </summary>
-        /// <param name="triangleIdx"></param>
-        /// <param name="triangleIndicesPerTile">각 타일별 삼각형 인덱스 배열</param>
-        /// <param name="triangleCountPerTile">각 타일에 보여지는 삼각형 개수의 배열</param>
-        public static void InternalKernel_CalculateCacheTrianglesPerTile(
+        public static void InternalKernel_CalculateCacheTrianglesPerTile_ShadowMap(
             Index1D triangleIdx,                  // 삼각형 인덱스 (0 ~ triangles.Length/3-1)
             ArrayView<int> triangleIndicesPerTile,// tile마다 기록하는 삼각형 인덱스
             ArrayView<int> triangleCountPerTile,  // tile마다 삼각형 개수 카운트
@@ -81,7 +57,7 @@ namespace Athena.Engine.Core.Rendering
             Vertex p2 = vertices[triangles[triangleIdx * 3 + 1]];
             Vertex p3 = vertices[triangles[triangleIdx * 3 + 2]];
 
-            if (0 < Vector3.Cross_Z(p2.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace))
+            if (0 > Vector3.Cross_Z(p2.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace - p1.Position_ScreenVolumeSpace))
             {
                 return;
             }
@@ -126,23 +102,19 @@ namespace Athena.Engine.Core.Rendering
         }
 
 
-        /// <summary>
-        /// 각 레스터에 대해 삼각형을 계산
-        /// </summary>
-        /// <param name="triangleIndicesPerTile">각 타일별 삼각형 인덱스 배열</param>
-        /// <param name="triangleCountPerTile">각 타일에 보여지는 삼각형 개수의 배열</param>
-        public static void InternalKernel_CalculateRastersPerTile(
-            Index1D idx,                    // tile index
-            ArrayView<float> zBuffer,
-            ArrayView<Vertex> vertices,
-            ArrayView<int> triangles,
-            ArrayView<int> triangleIndicesPerTile,
-            ArrayView<int> triangleCountPerTile,
-            ArrayView<Raster> rasters,
-            int width,
-            int height,
-            int tileSize,
-            int MaxTCount)
+       
+        public static void InternalKernel_CalculateRastersPerTile_ShadowMap(
+    Index1D idx,                    // tile index
+    ArrayView<float> zBuffer,
+    ArrayView<Vertex> vertices,
+    ArrayView<int> triangles,
+    ArrayView<int> triangleIndicesPerTile,
+    ArrayView<int> triangleCountPerTile,
+    ArrayView<Raster> rasters,
+    int width,
+    int height,
+    int tileSize,
+    int MaxTCount)
         {
 
             int tilesX = width / tileSize;   // 타일의 가로 개수
@@ -171,7 +143,7 @@ namespace Athena.Engine.Core.Rendering
                         int record = triangleIndicesPerTile[idx * MaxTCount + i];
                         if (record < 0 || record * 3 + 2 >= triangles.Length)
                             return;
-                        SetRasterWithZBuffer(
+                        SetRasterWithZBuffer_BackFace(
                             x, y,
                             record,  // triangleIndex
                             vertices[triangles[record * 3 + 0]], vertices[triangles[record * 3 + 1]], vertices[triangles[record * 3 + 2]],
@@ -185,32 +157,27 @@ namespace Athena.Engine.Core.Rendering
             }
         }
 
-
-        /// <summary>
-        /// SetRasterWithZBuffer 로직을 GPU에서 호출할 수 있도록 static 함수화
-        /// (Rasters 배열에 직접 쓰려면, Rasters도 ArrayView<Raster>로 넘겨줘야 함.)
-        /// </summary>
-        public static void SetRasterWithZBuffer(
-            int x, int y,
-            int triangleIndex,
-            Vertex p1, Vertex p2, Vertex p3,
-            ArrayView<float> ZBuffer,
-            ArrayView<Raster> Rasters,
-            int width,
-            int height)
+        public static void SetRasterWithZBuffer_BackFace(
+    int x, int y,
+    int triangleIndex,
+    Vertex p1, Vertex p2, Vertex p3,
+    ArrayView<float> ZBuffer,
+    ArrayView<Raster> Rasters,
+    int width,
+    int height)
         {
             int idx = x + y * width;
             // EdgeFunction
             Vector3 P = new Vector3(x, y, 0);
 
             float lambda1 = EdgeFunction(p2.Position_ScreenVolumeSpace, p3.Position_ScreenVolumeSpace, P);
-            if (lambda1 < 0) return;
+            if (lambda1 > 0) return;
 
             float lambda2 = EdgeFunction(p3.Position_ScreenVolumeSpace, p1.Position_ScreenVolumeSpace, P);
-            if (lambda2 < 0) return;
+            if (lambda2 > 0) return;
 
             float lambda3 = EdgeFunction(p1.Position_ScreenVolumeSpace, p2.Position_ScreenVolumeSpace, P);
-            if (lambda3 < 0) return;
+            if (lambda3 > 0) return;
 
             float areaABC = 1.0f / (lambda1 + lambda2 + lambda3);
             lambda1 *= areaABC;
@@ -225,50 +192,7 @@ namespace Athena.Engine.Core.Rendering
             if (zInterpolated < ZBuffer[idx] && 0 <= zInterpolated && zInterpolated <= 1f)
             {
                 ZBuffer[idx] = zInterpolated;
-                Rasters[idx].x = x;
-                Rasters[idx].y = y;
-                Rasters[idx].WorldPosition = lambda1 * p1.Position_WorldSpace
-                    + lambda2 * p2.Position_WorldSpace + lambda3 * p3.Position_WorldSpace;
-                Rasters[idx].LightViewPosition = lambda1 * p1.LightViewPosition
-                    + lambda2 * p2.LightViewPosition + lambda3 * p3.LightViewPosition;
-                Rasters[idx].TriangleIndex = triangleIndex;
-                Rasters[idx].Normal_WorldSpace = (lambda1 * p1.Normal_WorldSpace + lambda2 * p2.Normal_WorldSpace + lambda3 * p3.Normal_WorldSpace);
-                //Rasters[idx].Tangent = lambda1 * p1.Tangent + lambda2 * p2.Tangent + lambda3 * p3.Tangent;
-                //Rasters[idx].BitTangent = lambda1 * p1.Bitangent + lambda2 * p2.Bitangent + lambda3 * p3.Bitangent;
-
-                //UV 보정
-                float z = 1.0f / zInterpolated;
-                float invW1 = 1 / p1.ClipPoint.w;
-                float invW2 = 1 / p2.ClipPoint.w;
-                float invW3 = 1 / p3.ClipPoint.w;
-                lambda1 = lambda1 * invW1 * z;
-                lambda2 = lambda2 * invW2 * z;
-                lambda3 = lambda3 * invW3 * z;
-                areaABC = lambda1 + lambda2 + lambda3;
-                Rasters[idx].UV = (lambda1 * p1.UV + lambda2 * p2.UV + lambda3 * p3.UV) / areaABC;
             }
-        }
-
-        public static void ClearZBufferKernel(Index1D idx, ArrayView<float> zBuffer)
-        {
-            zBuffer[idx] = float.MaxValue;
-        }
-        public static void ClearRastersKernel(Index1D idx, ArrayView<Raster> rasters)
-        {
-            rasters[idx].TriangleIndex = -1;
-        }
-        public static void ClearFrameBufferKernel(Index1D idx, ArrayView<Color> colors)
-        {
-            colors[idx] = new Color(0, 0, 0, 0);
-        }
-        public static void ClearTriangleCacheKernel(Index1D idx, ArrayView<int> triangles)
-        {
-            triangles[idx] = 0;
-        }
-
-        public static float EdgeFunction(Vector3 a, Vector3 b, Vector3 c)
-        {
-            return (c.x - a.x) * (b.y - a.y) - (c.y - a.y) * (b.x - a.x);
         }
 
     }

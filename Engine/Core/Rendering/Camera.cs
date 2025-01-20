@@ -2,6 +2,7 @@
 using Athena.Engine.Core.Rendering;
 using System.Collections.Generic;
 using Athena.Engine.Core.Image;
+using Microsoft.UI.Xaml.Controls;
 
 namespace Athena.Engine.Core
 {
@@ -83,7 +84,28 @@ namespace Athena.Engine.Core
             f3 * zAxis.x, f3 * zAxis.y, f3 * zAxis.z, f3 * Vector3.Dot(zAxis, t) + f4,
             zAxis.x, zAxis.y, zAxis.z, Vector3.Dot(zAxis, t));
         }
-
+        public Matrix4x4 CalculateVPMatrix_Orthographic()
+        {
+            Vector3 zAxis, yAxis, xAxis;
+            (zAxis, xAxis, yAxis) = Controller.GetDirections();
+            Vector3 t = -Controller.WorldPosition;
+            NearPlaneDistance = 0;
+            // 2. 직교 투영 행렬(Projection) 계산
+            float invRL = 1.0f / 256;
+            float invTB = 1.0f / 256;
+            float invFN = 1.0f / (FarPlaneDistance - NearPlaneDistance);
+            Matrix4x4 ortho = new Matrix4x4(
+            2f * invRL, 0f, 0f, 0,
+                0f, 2f * invTB, 0f, 0,
+                0f, 0f, invFN, -(NearPlaneDistance) * invFN,
+                0f, 0f, 0f, 1f
+            );
+            return ortho * new Matrix4x4(
+            xAxis.x, xAxis.y, xAxis.z, Vector3.Dot(xAxis, t),
+            yAxis.x, yAxis.y, yAxis.z, Vector3.Dot(yAxis, t),
+            zAxis.x, zAxis.y, zAxis.z, Vector3.Dot(zAxis, t),
+            0, 0, 0, 1);
+        }
         public override void Start()
         {
             CalculateVPMatrixValues();

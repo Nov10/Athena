@@ -31,6 +31,22 @@ namespace Athena.Engine.Core.Image
             texture.Texture.Pixels = texture.Buffer.View;
             texture.Apply();
         }
+        public static void ConvertFromBitmap(Texture2DFloatWrapper texture, NBitmapFloat map)
+        {
+            texture.Texture = new Texture2DFloat(map.Width, map.Height);
+            float[] c = new float[texture.Texture.Width * texture.Texture.Height];
+            texture.Buffer = GPUAccelator.Accelerator.Allocate1D<float>(map.Width * map.Height);
+            for (int x = 0; x < map.Width; x++)
+            {
+                for (int y = 0; y < map.Height; y++)
+                {
+                    c[x + (map.Height - y - 1) * map.Width] = map.GetPixel(x, y);
+                }
+            }
+            texture.Buffer.CopyFromCPU(c);
+            texture.Texture.Pixels = texture.Buffer.View;
+            texture.Apply();
+        }
         public static void ConvertFromBitmap(ref Texture2D texture, NBitmap map)
         {
             texture = new Texture2D(map.Width, map.Height);
@@ -68,6 +84,30 @@ namespace Athena.Engine.Core.Image
         public Color GetPixel(int x, int y)
         {
             return Pixels[x + (Height - y - 1) * Width];
+        }
+    }
+
+    public class Texture2DFloatWrapper
+    {
+        public Texture2DFloat Texture;
+        public MemoryBuffer1D<float, Stride1D.Dense> Buffer;
+        public System.Action Apply;
+    }
+    public struct Texture2DFloat
+    {
+        public ArrayView<float> Pixels;
+        public int Width;
+        public int Height;
+        public Texture2DFloat(int width, int height)
+        {
+            Width = width;
+            Height = height;
+            Pixels = new ArrayView<float>();
+        }
+
+        public float GetPixel(int x, int y)
+        {
+            return Pixels[x + y * Width];
         }
     }
 }

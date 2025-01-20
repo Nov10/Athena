@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Athena.Engine.Core.Rendering
 {
-    public partial class RenderData
+    public partial class RenderData/*.BufferCache*/
     {
         MemoryBuffer1D<Vertex, Stride1D.Dense> CachedBuffer;
         bool IsCached;
